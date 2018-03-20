@@ -1,0 +1,7 @@
+.category {
+    display: flex;
+}
+
+.category p {
+    padding: 33px 4px;
+}

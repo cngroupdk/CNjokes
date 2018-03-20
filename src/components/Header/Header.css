@@ -1,0 +1,15 @@
+.head {
+    background: #DB374D;
+    display: flex;
+    height: 99px;
+    align-items: center;
+
+}
+
+.head h1 {
+    color: white;
+    font-family: "Nimbus Sans D OT", sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 88px;
+}
