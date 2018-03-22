@@ -1,0 +1,21 @@
+.head {
+    background: #DB374D;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 99px;
+    color: white;
+    font-family: "Nimbus Sans D OT", sans-serif;
+}
+
+.head h1 {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 29.5px;
+    margin-left: 35px;
+}
+
+.head p {
+    margin-left: 35px;
+    margin-top: -12px;
+}

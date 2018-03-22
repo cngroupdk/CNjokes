@@ -1,0 +1,32 @@
+.button-area {
+    display: flex;
+    align-items: center;
+    margin: 50px 36px;
+}
+
+.get-jokes-button {
+    padding: 20px 49px;
+    background: #DB374D;
+    color: white;
+    font-family: "Nimbus D OT", sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    width: 240px;
+}
+
+.button-area p:hover {
+    cursor: pointer;
+}
+
+.adjustment-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.adjustment-button {
+    text-decoration: none;
+    color: white;
+    background: #DB374D;
+    height: 29.5px;
+    cursor: pointer;
+}
