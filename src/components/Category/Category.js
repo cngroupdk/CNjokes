@@ -1,10 +1,14 @@
-import React from 'react';
+import React from "react";
+import "./Category.css";
 
 const Category = props => (
-    <div classname="category">
-        <input type="checkbox"/>
-        <p>Cat Name</p>
-    </div>
+  <div>
+    <label className="container">
+      {props.name}
+      <input type="checkbox" />
+      <span className="checkmark" />
+    </label>
+  </div>
 );
 
 export default Category;
