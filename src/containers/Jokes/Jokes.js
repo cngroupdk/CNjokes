@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Joke from "../../components/Joke/Joke";
-import "./Jokes.css";
+import "./jokes.css";
 
 class Jokes extends Component {
   state = {
