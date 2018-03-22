@@ -3,11 +3,8 @@ import React, { Component } from "react";
 import "./Layout.css";
 
 import Header from "../../components/Header/Header";
-import Button from "../../components/Button/Button";
-import Category from "../../components/Category/Category";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Jokes from "../Jokes/Jokes";
-import Joke from "../../components/Joke/Joke";
 
 class Layout extends Component {
   render() {
