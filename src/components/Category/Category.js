@@ -1,10 +1,10 @@
 import React from "react";
 import "./category.css";
 
-const Category = props => (
+const Category = ({ name }) => (
   <div>
     <label className="container">
-      {props.name}
+      {name}
       <input type="checkbox" />
       <span className="checkmark" />
     </label>
