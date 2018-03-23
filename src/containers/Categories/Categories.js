@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Category from "../../components/Category/Category";
 
-import "./Categories.css";
+import "./categories.css";
 
 import MockCategories from  "../../mockdata/categories.json";
 
