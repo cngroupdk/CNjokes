@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 
-import "./Sidebar.css";
+import "./sidebar.css";
 
 import Categories from "../../containers/Categories/Categories";
 import Button from "../Button/Button";

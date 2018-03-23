@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Category from "../../components/Category/Category";
 import PropTypes from 'prop-types';
 
-import "./Categories.css";
+import "./categories.css";
 
 class Categories extends Component {
   constructor(props) {

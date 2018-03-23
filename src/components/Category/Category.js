@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 
-import "./../Button/Button.css";
-import "./Category.css";
+import "./../Button/button.css";
+import "./category.css";
 
 class Category extends Component {
   render(){
