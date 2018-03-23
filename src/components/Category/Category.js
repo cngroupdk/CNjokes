@@ -1,5 +1,5 @@
 import React from "react";
-import "./category.css";
+import "./Category.css";
 
 const Category = ({ name }) => (
   <div>

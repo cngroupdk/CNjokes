@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import "./layout.css";
+import "./Layout.css";
 
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar/Sidebar";
