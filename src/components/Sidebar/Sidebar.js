@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./Sidebar.css";
+import "./sidebar.css";
 
 import Categories from "../../containers/Categories/Categories";
 import Button from "../Button/Button";
