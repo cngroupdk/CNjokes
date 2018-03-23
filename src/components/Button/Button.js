@@ -9,14 +9,12 @@ class Button extends Component {
   incrementHandler = () => {
     let counterIncrement = this.state.counterValue;
     counterIncrement++;
-    console.log("Spustil som incrementHandler!");
     this.setState({ counterValue: counterIncrement });
   };
 
   decrementHandler = () => {
     let counterDecrement = this.state.counterValue;
     counterDecrement--;
-    console.log("Spustil som decrementHandler!");
     this.setState({ counterValue: counterDecrement });
   };
 
