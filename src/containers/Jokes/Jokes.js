@@ -3,10 +3,10 @@ import Joke from "../../components/Joke/Joke";
 
 import "./Jokes.css";
 
-import Jokes from  "../../mockdata/jokes.json";
+import jokes from  "../../mockdata/jokes.json";
 
 class Jokes extends Component {
-  state = Jokes;
+  state = jokes;
 
   render() {
     let jokes = (
