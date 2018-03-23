@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Joke from "../../components/Joke/Joke";
 
-import "./jokes.css";
+import "./Jokes.css";
 
 import Jokes from  "../../mockdata/jokes.json";
 

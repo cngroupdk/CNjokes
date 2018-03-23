@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Category from "../../components/Category/Category";
-import "./categories.css";
+
+import "./Categories.css";
+
 import MockCategories from  "../../mockdata/categories.json";
 
 class Categories extends Component {

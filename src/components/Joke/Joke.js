@@ -1,5 +1,5 @@
 import React from "react";
-import './joke.css';
+import './Joke.css';
 
 const Joke = props => {
   return (
