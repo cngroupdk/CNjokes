@@ -30,7 +30,6 @@ class Button extends Component {
           </button>
           <button className="adjustment-button" onClick={this.decrementHandler}>-</button>
         </div>
-
       </div>
     );
   }
