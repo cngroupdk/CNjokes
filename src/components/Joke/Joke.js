@@ -5,7 +5,7 @@ const Joke = props => {
   return (
     <div className="joke-background">
       <p className="joke">
-        Chuck Norris once went to the Virgin Islands. Now they are just called
+      Chuck Norris once went to the Virgin Islands. Now they are just called
         The Islands
       </p>
     </div>

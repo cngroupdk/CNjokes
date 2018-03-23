@@ -7,6 +7,15 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import Jokes from "../Jokes/Jokes";
 
 class Layout extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      numberOfJokes: 1,
+      randomJokeList: [],
+    }
+  }
+
   render() {
     return (
       <div>
