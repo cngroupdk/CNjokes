@@ -1,27 +1,44 @@
 import React, { Component } from "react";
 import Category from "../../components/Category/Category";
+import PropTypes from 'prop-types';
 
 import "./Categories.css";
 
-import MockCategories from  "../../mockdata/categories.json";
-
 class Categories extends Component {
-  state = MockCategories;
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      jokesCategories: [],
+    }
+  }
+
+  componentWillMount() {
+    fetch( 'https://api.chucknorris.io/jokes/categories' )
+      .then( response => response.json() )
+      .then( data => this.setState({jokesCategories: data}) )
+  }
 
   render() {
+    const { jokesCategories } = this.state;
     let categories = null;
+
     categories = (
       <div>
-        {this.state.categories.map((category, index) => {
-          return <Category name={category.name} key={category.id} />;
+        {jokesCategories.map((category, index) => {
+          return <Category name={category} key={index} handleClick={this.props.handleClick}/>;
         })}
       </div>
     );
 
-    console.log(categories);
+    //console.log(categories);
 
-    return <div className="categories">{categories}</div>;
+    return <div className="categories">{categories ? categories : "Loading..."}</div>;
   }
 }
+
+Categories.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+};
 
 export default Categories;
