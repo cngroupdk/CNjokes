@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-import './Joke.css';
+import './joke.css';
 
 export function Joke({ text }) {
   return (
