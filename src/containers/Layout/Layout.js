@@ -37,8 +37,7 @@ class Layout extends Component {
     };
 
     deleteLastJoke() {
-      let reducedJokeList = this.state.jokesList;
-      reducedJokeList.splice(0, 1);
+      let reducedJokeList = this.state.jokesList.slice(1);
       this.setState({jokesList: reducedJokeList})
     }
 
