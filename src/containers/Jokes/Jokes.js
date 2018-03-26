@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Joke from "../../components/Joke/Joke";
 
-import "./Jokes.css";
+import "./jokes.css";
 
 import jokes from  "../../mockdata/jokes.json";
 import Button from "../../components/Button/Button"
