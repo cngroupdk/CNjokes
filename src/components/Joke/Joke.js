@@ -1,15 +1,18 @@
 import React from "react";
+import PropTypes from 'prop-types';
+
 import './joke.css';
 
-const Joke = props => {
-  return (
+const Joke=({ text })=>(
     <div className="joke-background">
       <p className="joke">
-        Chuck Norris once went to the Virgin Islands. Now they are just called
-        The Islands
+        {text}
       </p>
     </div>
-  );
+);
+
+Joke.propTypes = {
+  text: PropTypes.string.isRequired,
 };
 
 export default Joke;

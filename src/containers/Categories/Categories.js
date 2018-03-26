@@ -15,9 +15,9 @@ class Categories extends Component {
   }
 
   componentWillMount() {
-    fetch( apiBaseURL + '/categories' )
-      .then( response => response.json() )
-      .then( data => this.setState({jokesCategories: data}) )
+    fetch(`${apiBaseURL}/categories`)
+      .then(response => response.json())
+      .then(data => this.setState({jokesCategories: data}))
   }
 
   render() {
@@ -30,8 +30,9 @@ class Categories extends Component {
         })}
       </div>
     );
+return <div className="categories">{categories ? categories : "Loading..."}</div>;
 
-    return <div className="categories">{categories ? categories : "Loading..."}</div>;
+    
   }
 }
 

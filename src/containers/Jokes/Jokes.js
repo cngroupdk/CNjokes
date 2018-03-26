@@ -1,18 +1,20 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
+
 import Joke from "../../components/Joke/Joke";
 
 import "./jokes.css";
 
 import jokes from  "../../mockdata/jokes.json";
+import Button from "../../components/Button/Button"
 
 class Jokes extends Component {
-  state = jokes;
-
   render() {
+    const { jokeList } = this.props;
     let jokes = (
       <div className="jokes-area">
-        {this.state.jokes.map(joke => {
-          return <Joke key={joke.id} text={joke.text} />;
+        {jokeList.map(joke => {
+          return <Joke key={joke.id} text={joke.value} />;
         })}
       </div>
     );
@@ -20,5 +22,9 @@ class Jokes extends Component {
     return <div className="jokes-background">{jokes}</div>;
   }
 }
+
+Jokes.propTypes = {
+  jokeList: PropTypes.array,
+};
 
 export default Jokes;

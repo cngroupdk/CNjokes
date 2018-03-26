@@ -7,18 +7,26 @@ import Categories from "../../containers/Categories/Categories";
 import Button from "../Button/Button";
 
 class Sidebar extends Component {
-  render(){
+  render() {
+    const {counterValue,incrementCounter, decrementCounter} = this.props;
     return (
       <div className="sidebar">
         <Categories handleClick={this.props.handleClick}/>
-        <Button />
+        <Button 
+          counterValue={counterValue}
+          incrementCounter={incrementCounter}
+          decrementCounter={decrementCounter}
+        />
       </div>
     );
-  }
-};
+  };
+}
 
 Sidebar.propTypes = {
   handleClick: PropTypes.func.isRequired,
+  counterValue: PropTypes.number,
+  incrementCounter: PropTypes.any,
+  decrementCounter: PropTypes.any,
 };
 
 export default Sidebar;
