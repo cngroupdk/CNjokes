@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import "./layout.css";
 
+import apiBaseURL from '../../components/apiBaseURL'
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Jokes from "../Jokes/Jokes";
@@ -18,10 +19,9 @@ class Layout extends Component {
   }
 
   handleClick(event) {
-    const target = event.target;
-    const name = target.name;
+    const { name } = event.target;
 
-    fetch( 'https://api.chucknorris.io/jokes/random?category=' + name )
+    fetch( apiBaseURL + '/random?category=' + name )
       .then( response => response.json() )
       .then( data => this.setState({jokesList: [data, ...this.state.jokesList]}) );
   }

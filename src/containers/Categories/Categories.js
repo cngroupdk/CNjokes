@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Category from "../../components/Category/Category";
 import PropTypes from 'prop-types';
 
+import apiBaseURL from '../../components/apiBaseURL'
 import "./categories.css";
 
 class Categories extends Component {
@@ -14,7 +15,7 @@ class Categories extends Component {
   }
 
   componentWillMount() {
-    fetch( 'https://api.chucknorris.io/jokes/categories' )
+    fetch( apiBaseURL + '/categories' )
       .then( response => response.json() )
       .then( data => this.setState({jokesCategories: data}) )
   }
