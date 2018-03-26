@@ -31,8 +31,6 @@ class Categories extends Component {
       </div>
     );
 
-    //console.log(categories);
-
     return <div className="categories">{categories ? categories : "Loading..."}</div>;
   }
 }

@@ -27,7 +27,6 @@ class Layout extends Component {
   }
 
   render() {
-    console.log(this.state.jokesList);
     return (
       <div>
         <Header />
