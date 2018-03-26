@@ -9,7 +9,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin-left: 400px;
-    margin-right: 50.5px;
+    margin: 1px 175px;
     margin-top: 110px;
-}
+ }

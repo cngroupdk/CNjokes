@@ -27,16 +27,12 @@ class Layout extends Component {
     }
   
     incrementHandler() {
-      let incrementCounter = this.state.numberOfJokes;
-      incrementCounter++;
-      this.setState({numberOfJokes: incrementCounter})
+      this.setState(prevState => ({numberOfJokes: ++prevState.numberOfJokes}))
       this.fetchRandomJoke();
     };
   
     decrementHandler() {
-      let decrementCounter = this.state.numberOfJokes;
-      decrementCounter--,
-      this.setState({numberOfJokes: decrementCounter})
+      this.setState(prevState => ({numberOfJokes: --prevState.numberOfJokes}))
       this.deleteLastJoke();
     };
 
@@ -47,22 +43,22 @@ class Layout extends Component {
     }
 
     fetchRandomJoke() {
-      this.setState({
-        jokesList: this.state.jokesList
-      })
+      const { jokesList } = this.state;
+      this.setState({ jokesList });
 
-      fetch( apiBaseURL + '/random')
-        .then( response => response.json() )
-        .then( data => this.setState(
-          {jokesList: [data, ...this.state.jokesList]}) )
+      fetch(`${apiBaseURL}/random`)
+        .then(response => response.json())
+        .then(data => this.setState({
+          jokesList: [data, ...jokesList]
+        }));
     }
 
     handleClick(event) {
       const { name } = event.target;
   
-      fetch( apiBaseURL + '/random?category=' + name )
-        .then( response => response.json() )
-        .then( data => this.setState({jokesList: [data, ...this.state.jokesList]}) );
+      fetch(`${apiBaseURL}/random?category=${name}`)
+        .then(response => response.json())
+        .then(data => this.setState({jokesList: [data]}));
     }
 
   render() {
