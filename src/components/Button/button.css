@@ -14,6 +14,16 @@
     width: 240px;
 }
 
+.category-button {
+  padding: 10px 30px;
+  background: #DB374D;
+  color: white;
+  font-family: "Nimbus D OT", sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  width: 120px;
+}
+
 .button-area p:hover {
     cursor: pointer;
 }

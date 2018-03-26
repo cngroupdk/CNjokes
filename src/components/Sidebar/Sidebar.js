@@ -1,6 +1,5 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import PropTypes from 'prop-types';
-
 
 import "./sidebar.css";
 
@@ -12,7 +11,7 @@ class Sidebar extends Component {
     const {counterValue,incrementCounter, decrementCounter} = this.props;
     return (
       <div className="sidebar">
-        <Categories />
+        <Categories handleClick={this.props.handleClick}/>
         <Button 
           counterValue={counterValue}
           incrementCounter={incrementCounter}
@@ -24,6 +23,7 @@ class Sidebar extends Component {
 }
 
 Sidebar.propTypes = {
+  handleClick: PropTypes.func.isRequired,
   counterValue: PropTypes.number,
   incrementCounter: PropTypes.any,
   decrementCounter: PropTypes.any,

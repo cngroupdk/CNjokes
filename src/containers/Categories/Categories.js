@@ -1,25 +1,43 @@
 import React, { Component } from "react";
 import Category from "../../components/Category/Category";
+import PropTypes from 'prop-types';
 
+import apiBaseURL from '../../components/apiBaseURL'
 import "./categories.css";
 
-import MockCategories from  "../../mockdata/categories.json";
-
 class Categories extends Component {
-  state = MockCategories;
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      jokesCategories: [],
+    }
+  }
+
+  componentWillMount() {
+    fetch( apiBaseURL + '/categories' )
+      .then( response => response.json() )
+      .then( data => this.setState({jokesCategories: data}) )
+  }
 
   render() {
-    let categories = null;
-    categories = (
+    const { jokesCategories } = this.state;
+
+    const categories = (
       <div>
-        {this.state.categories.map((category, index) => {
-          return <Category name={category.name} key={category.id} />;
+        {jokesCategories.map((category, index) => {
+          return <Category name={category} key={index} handleClick={this.props.handleClick}/>;
         })}
       </div>
     );
+return <div className="categories">{categories ? categories : "Loading..."}</div>;
 
-    return <div className="categories">{categories}</div>;
+    
   }
 }
+
+Categories.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+};
 
 export default Categories;
