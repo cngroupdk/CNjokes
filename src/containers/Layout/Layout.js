@@ -31,7 +31,6 @@ class Layout extends Component {
       incrementCounter++;
       this.setState({numberOfJokes: incrementCounter})
       this.fetchRandomJoke();
-      console.log(this.state.randomJokeList)
     };
   
     decrementHandler() {
@@ -39,7 +38,6 @@ class Layout extends Component {
       decrementCounter--,
       this.setState({numberOfJokes: decrementCounter})
       this.deleteLastJoke();
-      console.log(this.state.randomJokeList)
     };
 
     deleteLastJoke() {
@@ -56,8 +54,7 @@ class Layout extends Component {
       fetch( basePoint + '/random')
         .then( response => response.json() )
         .then( data => this.setState(
-          {randomJokeList: [data, ...this.state.randomJokeList]},
-          console.log(this.state.randomJokeList)) )
+          {randomJokeList: [data, ...this.state.randomJokeList]}) )
     }
 
   render() {
