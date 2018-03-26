@@ -21,9 +21,8 @@ class Categories extends Component {
 
   render() {
     const { jokesCategories } = this.state;
-    let categories = null;
 
-    categories = (
+    const categories = (
       <div>
         {jokesCategories.map((category, index) => {
           return <Category name={category} key={index} handleClick={this.props.handleClick}/>;
