@@ -23,7 +23,7 @@ class Sidebar extends Component {
   };
 }
 
-Button.propTypes = {
+Sidebar.propTypes = {
   counterValue: PropTypes.number,
   incrementCounter: PropTypes.any,
   decrementCounter: PropTypes.any,

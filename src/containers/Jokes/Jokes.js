@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
+
 import Joke from "../../components/Joke/Joke";
 
 import "./Jokes.css";
@@ -7,21 +9,12 @@ import jokes from  "../../mockdata/jokes.json";
 import Button from "../../components/Button/Button"
 
 class Jokes extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      jokeList: [3],
-      numberOfJokes: 1
-    }
-  }
-
-
   render() {
+    const { jokeList } = this.props;
     let jokes = (
       <div className="jokes-area">
-        {this.state.jokeList.map(joke => {
-          return <Joke key={joke.id} text={joke.text} />;
+        {jokeList.map(joke => {
+          return <Joke key={joke.id} text={joke.value} />;
         })}
       </div>
     );
@@ -29,5 +22,9 @@ class Jokes extends Component {
     return <div className="jokes-background">{jokes}</div>;
   }
 }
+
+Jokes.propTypes = {
+  jokeList: PropTypes.array,
+};
 
 export default Jokes;

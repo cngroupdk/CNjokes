@@ -19,14 +19,18 @@ class Layout extends Component {
     
     this.incrementHandler = this.incrementHandler.bind(this);
     this.decrementHandler = this.decrementHandler.bind(this);
-    this.fetchRandomJokes = this.fetchRandomJokes.bind(this);
+    this.fetchRandomJoke = this.fetchRandomJoke.bind(this);
+    }
+
+    componentDidMount() {
+      this.fetchRandomJoke();
     }
   
     incrementHandler() {
       let incrementCounter = this.state.numberOfJokes;
       incrementCounter++;
       this.setState({numberOfJokes: incrementCounter})
-      this.fetchRandomJokes();
+      this.fetchRandomJoke();
       console.log(this.state.randomJokeList)
     };
   
@@ -34,19 +38,30 @@ class Layout extends Component {
       let decrementCounter = this.state.numberOfJokes;
       decrementCounter--,
       this.setState({numberOfJokes: decrementCounter})
-      this.fetchRandomJokes();
+      this.deleteLastJoke();
       console.log(this.state.randomJokeList)
     };
 
-    fetchRandomJokes() {
-        fetch( basePoint + '/random')
-          .then( response => response.json() )
-          .then( data => this.setState({randomJokeList: [data, ...this.state.randomJokeList]}) )
+    deleteLastJoke() {
+      let reducedJokeList = this.state.randomJokeList;
+      reducedJokeList.splice(0, 1);
+      this.setState({randomJokeList: reducedJokeList})
+    }
 
+    fetchRandomJoke() {
+      this.setState({
+        randomJokeList: this.state.randomJokeList
+      })
+
+      fetch( basePoint + '/random')
+        .then( response => response.json() )
+        .then( data => this.setState(
+          {randomJokeList: [data, ...this.state.randomJokeList]},
+          console.log(this.state.randomJokeList)) )
     }
 
   render() {
-    const {numberOfJokes} = this.state;
+    const {numberOfJokes, randomJokeList} = this.state;
     return (
       <div>
         <Header />
@@ -55,7 +70,8 @@ class Layout extends Component {
           counterValue={numberOfJokes}
           incrementCounter={this.incrementHandler}
           decrementCounter={this.decrementHandler}/>
-          <Jokes />
+          <Jokes 
+          jokeList={randomJokeList}/>
         </div>
       </div>
     );
