@@ -14,7 +14,7 @@ class Category extends Component {
             name={name}
             className="category-button" 
             onClick={handleClick}>
-            {name}+
+            {name}
           </button>
         </label>
       </div>
