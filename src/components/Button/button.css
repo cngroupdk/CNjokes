@@ -1,11 +1,11 @@
 .button-area {
     display: flex;
     align-items: center;
-    margin: 50px 36px;
+    margin: 25px 15px;
 }
 
 .get-jokes-button {
-    padding: 20px 49px;
+    padding: 19px 15px;
     background: #DB374D;
     color: white;
     font-family: "Nimbus D OT", sans-serif;
