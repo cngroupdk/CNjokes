@@ -10,7 +10,8 @@ class Category extends Component {
     return(
       <div>
         <label className="container">
-          <button type="button"
+          <button
+            type="button"
             name={name}
             className="category-button" 
             onClick={handleClick}>

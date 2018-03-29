@@ -8,15 +8,16 @@ import Button from "../Button/Button";
 
 class Sidebar extends Component {
   render() {
-    const {counterValue,incrementCounter, decrementCounter} = this.props;
+    const { counterValue, incrementCounter, decrementCounter, handleClick, fetchRandomJoke } = this.props;
     return (
       <div className="sidebar">
-        <Categories handleClick={this.props.handleClick}/>
         <Button 
           counterValue={counterValue}
           incrementCounter={incrementCounter}
           decrementCounter={decrementCounter}
+          fetchRandomJoke={fetchRandomJoke}
         />
+        <Categories handleClick={handleClick}/>
       </div>
     );
   };
@@ -24,9 +25,10 @@ class Sidebar extends Component {
 
 Sidebar.propTypes = {
   handleClick: PropTypes.func.isRequired,
-  counterValue: PropTypes.number,
-  incrementCounter: PropTypes.any,
-  decrementCounter: PropTypes.any,
+  counterValue: PropTypes.number.isRequired,
+  incrementCounter: PropTypes.func.isRequired,
+  decrementCounter: PropTypes.func.isRequired,
+  fetchRandomJoke: PropTypes.func.isRequired,
 };
 
 export default Sidebar;
