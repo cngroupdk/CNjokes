@@ -1,7 +1,8 @@
 .categories {
-    margin-top: 55px;
+    margin-top: 152px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    flex-direction: row;
 }
