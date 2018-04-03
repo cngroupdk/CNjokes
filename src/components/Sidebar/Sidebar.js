@@ -11,13 +11,13 @@ class Sidebar extends Component {
     const { counterValue, incrementCounter, decrementCounter, handleClick, fetchRandomJoke } = this.props;
     return (
       <div className="sidebar">
+        <Categories handleClick={handleClick}/>
         <Button 
           counterValue={counterValue}
           incrementCounter={incrementCounter}
           decrementCounter={decrementCounter}
           fetchRandomJoke={fetchRandomJoke}
         />
-        <Categories handleClick={handleClick}/>
       </div>
     );
   };
