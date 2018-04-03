@@ -1,37 +1,17 @@
 .joke-background {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    background: white;
-    border: solid 1px gray;
-    width: 350px;
-    margin-bottom: 29px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background: white;
+  border: solid 1px gray;
+  width: 222px;
+  height: 243px;
+  margin-bottom: 29px;
 }
 
 .joke {
-    font-family: "Nimbus Sans D OT", sans-serif;
-    color: black;
-    margin: 15px;
-}
-
-.search-input {
-  position: relative;
-  top: 75px;
-  left: 30px;
-}
-
-input {
-  width: 85%;
-  padding: 12px 20px;
-  margin: 8px 0;
-}
-
-.button {
-  padding: 12px 20px;
-  margin: 8px 30px 0 0;
-  background-color: rgb(205, 224, 35);
-  color: rgb(109, 105, 82);
-  font-weight: 700;
-  font-family: 'Lucida Grande', Verdana, sans-serif;
+  font-family: "Nimbus Sans D OT", sans-serif;
+  color: black;
+  font-weight: bold;
 }
