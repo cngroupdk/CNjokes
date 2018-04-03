@@ -1,10 +1,9 @@
 .container {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   cursor: pointer;
   font-size: 18px;
   font-family: "Nimbus Sans D OT", sans-serif;
 }
-
 
 .category-button {
   padding: 10px 30px;
