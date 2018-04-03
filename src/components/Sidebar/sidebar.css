@@ -1,9 +1,7 @@
 .sidebar {
-  width: 430px;
-  background: white;
+  width: 350px;
   height: 100%;
-  position: sticky;
+  background: white;
+  position: fixed;
   top: 0;
-  height: 1085px;
-  overflow: auto;
 }
