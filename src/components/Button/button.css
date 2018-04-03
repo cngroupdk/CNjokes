@@ -1,7 +1,8 @@
 .button-area {
   display: flex;
   align-items: center;
-  margin: 50px 36px;
+  justify-content: center;
+  margin-top: 30px;
 }
 
 .get-jokes-button {
