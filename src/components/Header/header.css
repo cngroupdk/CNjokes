@@ -6,6 +6,7 @@
   height: 99px;
   color: white;
   font-family: "Nimbus Sans D OT", sans-serif;
+  overflow: hidden;
 }
 
 .head h1 {
