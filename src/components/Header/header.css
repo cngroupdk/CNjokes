@@ -6,7 +6,10 @@
   height: 99px;
   color: white;
   font-family: "Nimbus Sans D OT", sans-serif;
-  overflow: hidden;
+  position: sticky;
+  width: 100%;
+  top: 0;
+  z-index: 2;
 }
 
 .head h1 {
