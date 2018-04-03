@@ -18,7 +18,7 @@ class Jokes extends Component {
     
     return (
       <div className="jokes-background">
-        <span className="search-input">
+        {/* <span className="search-input">
           <button 
             className="button"
             onClick={handleClearSCR}>
@@ -30,7 +30,7 @@ class Jokes extends Component {
             value={searchInput} 
             onChange={handleSearch}
             onKeyPress={handleKeyPress}/>
-        </span>
+        </span> */}
         {jokeList.length ? jokes : <div className="jokes-area"><Joke text="You thought this would clear the screen... And it almost did."/></div>}
       </div>
     );
