@@ -48,29 +48,33 @@ class Layout extends Component {
             this.setState(updateState(data));
           }
           else {
-            console.log("You hit me");
             this.fetchRandomJoke();
           }
       });
     }
   }
 
-  handleClick = (event) => {
-    const { name } = event.target;
-    const { numberOfJokes, jokesList } = this.state;
-    
-    for(let i=0; i<numberOfJokes; i++) {
-      fetch(`${apiBaseURL}/random?category=${name}`)
+  fetchCategory = (name) => {
+    const { jokesList } = this.state;
+
+    fetch(`${apiBaseURL}/random?category=${name}`)
         .then(response => response.json())
         .then(data => {
           if(jokesList.find(joke => {return joke.id === data.id;}) === undefined) {
             this.setState(updateState(data));
           }
           else {
-            console.log("You hit me");
-            this.fetchRandomJoke();
+            this.fetchCategory(name);
           }
       });
+  }
+
+  handleClick = (event) => {
+    const { name } = event.target;
+    const { numberOfJokes } = this.state;
+    
+    for(let i=0; i<numberOfJokes; i++) {
+      this.fetchCategory(name);
     }
   }
 
@@ -113,7 +117,6 @@ class Layout extends Component {
 
   render() {
     const { numberOfJokes, jokesList, searchInput } = this.state;
-    //console.log(jokesList.map(joke => joke.id));
     return (
       <div>
         <Header />

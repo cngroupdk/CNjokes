@@ -1,13 +1,30 @@
 .jokes-background {
-  margin-top: -55px;
-  margin-left: 400px;
-  margin-right: 50px;
+  margin: 25px 0 0 380px;
+  width: 100%;
 }
 
 .jokes-area {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  width: 100%;
-  margin-top: 110px;
+  justify-content: space-evenly;
+}
+
+.button {
+  padding: 10px 30px;
+  background: #db374d;
+  color: white;
+  font-family: "Nimbus D OT", sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  width: 140px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+}
+
+.input-field {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 50%;
+  font-size: 15px;
+  padding: 10px 30px;
+  margin-bottom: 30px;
 }

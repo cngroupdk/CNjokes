@@ -7,7 +7,8 @@ import "./jokes.css";
 
 class Jokes extends Component {
   render() {
-    const { jokeList /*, handleSearch, searchInput, handleKeyPress, handleClearSCR*/ } = this.props;
+    const { jokeList, handleSearch, searchInput, handleKeyPress, handleClearSCR } = this.props;
+    
     let jokes = (
       <div className="jokes-area">
         {jokeList.map(joke => {
@@ -18,19 +19,20 @@ class Jokes extends Component {
     
     return (
       <div className="jokes-background">
-        {/* <span className="search-input">
+        <span className="search-input">
           <button 
             className="button"
             onClick={handleClearSCR}>
             Clear SRC
           </button>
           <input 
+            className="input-field"
             type="text" 
             placeholder="search for the first 25 jokes that match your input"
             value={searchInput} 
             onChange={handleSearch}
             onKeyPress={handleKeyPress}/>
-        </span> */}
+        </span>
         {jokeList.length ? jokes : <div className="jokes-area"><Joke text="You thought this would clear the screen... And it almost did."/></div>}
       </div>
     );
