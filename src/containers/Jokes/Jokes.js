@@ -7,7 +7,7 @@ import "./jokes.css";
 
 class Jokes extends Component {
   render() {
-    const { jokeList, handleSearch, searchInput, handleKeyPress, handleClearSCR } = this.props;
+    const { jokeList /*, handleSearch, searchInput, handleKeyPress, handleClearSCR*/ } = this.props;
     let jokes = (
       <div className="jokes-area">
         {jokeList.map(joke => {
