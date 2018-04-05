@@ -6,7 +6,7 @@
   background: white;
   border: solid 1px gray;
   width: 222px;
-  height: 243px;
+  height: auto;
   margin: 0 10px;
   margin-bottom: 20px;
 }
@@ -15,4 +15,5 @@
   font-family: "Nimbus Sans D OT", sans-serif;
   color: black;
   font-weight: bold;
+  margin: 15px;
 }
