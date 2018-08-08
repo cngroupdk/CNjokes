@@ -1,4 +1,8 @@
 .categories {
-    margin-left: 36px;
-    margin-top: 55px;
+    margin-top: 126px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    flex-direction: row;
 }

@@ -7,23 +7,28 @@ import './button.css';
 
 class Button extends Component {
   render() {
-    const { counterValue, incrementCounter, decrementCounter } = this.props;
+    const { counterValue, incrementCounter, decrementCounter, fetchRandomJoke } = this.props;
 
     return (
       <div className="button-area">
-        <button className="get-jokes-button">
+        <button 
+          className="get-jokes-button"
+          onClick={fetchRandomJoke}>
           Give Me Another: {counterValue}
         </button>
         <div className="adjustment-buttons">
-          <button className="adjustment-button" 
+          <button 
+            className="adjustment-button" 
             onClick={incrementCounter}
-            disabled={counterValue === 25}
-            >+
+            disabled={counterValue === 25}>
+            +
           </button>
-          <button className="adjustment-button" 
+          <button 
+            className="adjustment-button" 
             onClick={decrementCounter}
-            disabled={counterValue === 0}
-          >-</button>
+            disabled={counterValue === 1}>
+            -
+          </button>
         </div>
       </div>
     );
@@ -32,8 +37,9 @@ class Button extends Component {
 
 Button.propTypes = {
   counterValue: PropTypes.number,
-  incrementCounter: PropTypes.any,
-  decrementCounter: PropTypes.any,
+  incrementCounter: PropTypes.func.isRequired,
+  decrementCounter: PropTypes.func.isRequired,
+  fetchRandomJoke: PropTypes.func.isRequired,
 };
 
 export default Button;

@@ -1,16 +1,19 @@
 .joke-background {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    background: white;
-    border: solid 1px gray;
-    width: 222px;
-    height: 243px;
-    margin-bottom: 29px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background: white;
+  border: solid 1px gray;
+  width: 222px;
+  height: auto;
+  margin-right: 20px;
+  margin-bottom: 20px;
 }
 
 .joke {
-    font-family: "Nimbus Sans D OT", sans-serif;
-    color: black;
+  font-family: "Nimbus Sans D OT", sans-serif;
+  color: black;
+  font-weight: bold;
+  margin: 15px;
 }

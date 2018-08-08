@@ -1,51 +1,16 @@
 .container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 18px;
-    font-family: "Nimbus Sans D OT", sans-serif;
-  }
-  
-  .container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
-  
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-  }
-  
-  .container input:checked ~ .checkmark {
-    background-color: #143450;
-  }
-  
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  
-  .container input:checked ~ .checkmark:after {
-    display: block;
-  }
-  
-  .container .checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-  
+  margin-bottom: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-family: "Nimbus Sans D OT", sans-serif;
+}
+
+.category-button {
+  padding: 10px 30px;
+  background: #143450;
+  color: white;
+  font-family: "Nimbus D OT", sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  width: 120px;
+}
