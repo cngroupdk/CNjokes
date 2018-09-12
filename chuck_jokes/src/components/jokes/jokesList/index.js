@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import List from "./List";
-import "./jokeList.css";
+import "./jokesList.css";
 
 class JokeList extends Component {
   render() {
@@ -12,7 +12,7 @@ class JokeList extends Component {
           {/* This div is added to align header with joke list */}
           <h2>RandomJoke / Category name</h2>
         </div>
-        <List />
+        <List data={data}/>
       </div>
     );
   }

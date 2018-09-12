@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { fetchRandomJoke } from "../../actions";
 
 import Categories from "./categories";
-import JokeList from "./JokesList";
+import JokesList from "./jokesList";
 
 class Jokes extends Component {
   componentDidMount() {
@@ -18,7 +18,7 @@ class Jokes extends Component {
         <div className="columnCategory">
           <Categories data={categories} />
         </div>
-        <div className="columnJoke">{jokes && <JokeList data={jokes} />}</div>
+        <div className="columnJoke">{jokes && <JokesList data={jokes} />}</div>
       </div>
     );
   }
