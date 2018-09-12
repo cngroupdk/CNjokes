@@ -3,14 +3,17 @@ import CategoryList from './CategoryList';
 import './categories.css';
 
 import { connect } from 'react-redux';
-import { fetchRandomJoke } from '../../../actions';
+import { fetchRandomJoke, selectCategory } from '../../../actions';
 
 class Categories extends Component {
   render() {
     return (
       <div className="column">
         <button
-          onClick={() => this.props.fetchRandomJoke()}
+          onClick={() => {
+            this.props.fetchRandomJoke();
+            this.props.selectCategory(null);
+          }}
           className="random-joke-button"
         >
           Get Random JOKE
@@ -24,5 +27,5 @@ class Categories extends Component {
 
 export default connect(
   null,
-  { fetchRandomJoke },
+  { fetchRandomJoke, selectCategory },
 )(Categories);
