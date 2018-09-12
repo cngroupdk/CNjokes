@@ -6,7 +6,7 @@ class HeaderDisplay extends Component {
       <div className="column justify-center">
         <div className="row">
           <span className="column justify-center text-right">Display</span>
-          <input className="column justify-center" type="number" />
+          <input className="justify-center headerDisplay" type="number" />
         </div>
       </div>
     );
