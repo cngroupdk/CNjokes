@@ -1,0 +1,15 @@
+.headerInput {
+    width: 100%;
+    height: 2.5rem;
+    padding: 1px 2px;
+    font-size: 1rem;
+    border: 1px solid #dbdbdb;
+}
+.headerInput:focus {
+    box-shadow: 0 0 1px 1px #8cbfff;
+    border: 1px solid #8cbfff;
+}
+
+input:focus {
+    outline: none;
+}
