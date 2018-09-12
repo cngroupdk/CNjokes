@@ -7,10 +7,10 @@ class Jokes extends Component {
   render() {
     return (
       <div className="row">
-        <div className="columnCategory box">
+        <div className="columnCategory">
           <Categories />
         </div>
-        <div className="columnJoke box">
+        <div className="columnJoke">
           <JokeDisplay />
         </div>
       </div>
