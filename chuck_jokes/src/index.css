@@ -50,3 +50,13 @@ body {
 .columnJoke {
   flex-basis: 80%;
 }
+
+.justify-center {
+  justify-content: center;
+}
+.justify-evenly {
+  justify-content: space-evenly;
+}
+.text-right {
+  text-align: right;
+}
