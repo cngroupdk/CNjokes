@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchRandomJoke } from '../../../actions';
+import { fetchRandomJoke, selectCategory } from '../../../actions';
 
 class CategoryListItem extends Component {
   render() {
-    const { categoryName } = this.props;
+    const { categoryName, category } = this.props;
     return (
       <div
-        onClick={() => this.props.fetchRandomJoke(categoryName)}
-        className="row category-item"
+        onClick={() => {
+          this.props.fetchRandomJoke(categoryName);
+          this.props.selectCategory(categoryName);
+        }}
+        className={`row category-item ${
+          categoryName === category ? 'active' : ''
+        }`}
       >
         {categoryName}
       </div>
@@ -16,7 +21,11 @@ class CategoryListItem extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return { category: state.selectedCategory };
+};
+
 export default connect(
-  null,
-  { fetchRandomJoke },
+  mapStateToProps,
+  { fetchRandomJoke, selectCategory },
 )(CategoryListItem);
