@@ -3,16 +3,13 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Header from './components/header';
-
+import Jokes from './components/jokes';
 class App extends Component {
   render() {
     return (
       <div className="container">
         <Header />
-        <div className="row">
-          <div className="columnCategory">blok2.1</div>
-          <div className="columnJoke">blok2.2</div>
-        </div>
+        <Jokes />
       </div>
     );
   }
