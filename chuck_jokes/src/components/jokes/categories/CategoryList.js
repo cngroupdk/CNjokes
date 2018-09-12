@@ -22,7 +22,7 @@ class CategoryList extends Component {
 }
 
 const mapStateToProps = state => {
-  return { categories: state.categories.data };
+  return { categories: state.categories };
 };
 
 export default connect(
