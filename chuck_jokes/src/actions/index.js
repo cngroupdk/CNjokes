@@ -7,10 +7,13 @@ import {
 } from "./actionTypes";
 
 const BASE_URL = "https://api.chucknorris.io/jokes";
+const headers = {
+  headers: { "accept": "application/json|text/plain)" }
+};
 
 export const fetchCategories = () => async dispatch => {
   try {
-    const res = await axios.get(`${BASE_URL}/categories`);
+    const res = await axios.get(`${BASE_URL}/categories`, headers);
     dispatch({ type: FETCH_CATEGORIES, payload: res.data });
   } catch (error) {
     console.error(error);
@@ -24,7 +27,7 @@ export const selectCategory = category => {
 export const fetchRandomJoke = (category = null) => async dispatch => {
   try {
     const categoryParam = category ? `?category=${category}` : "";
-    const res = await axios.get(`${BASE_URL}/random${categoryParam}`);
+    const res = await axios.get(`${BASE_URL}/random${categoryParam}`, headers);
     dispatch({ type: FETCH_RANDOM_JOKE, payload: res.data });
   } catch (error) {
     console.error(error);
@@ -33,7 +36,7 @@ export const fetchRandomJoke = (category = null) => async dispatch => {
 
 export const searchJoke = query => async dispatch => {
   try {
-    const res = await axios.get(`${BASE_URL}/search?query=${query}`);
+    const res = await axios.get(`${BASE_URL}/search?query=${query}`, headers);
     dispatch({ type: SEARCH_JOKE, payload: res.data });
   } catch (error) {
     console.error(error);
