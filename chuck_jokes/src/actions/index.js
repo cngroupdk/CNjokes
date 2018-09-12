@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   FETCH_CATEGORIES,
+  SELECT_CATEGORY,
   FETCH_RANDOM_JOKE,
   SEARCH_JOKE
 } from "./actionTypes";
@@ -14,6 +15,10 @@ export const fetchCategories = () => async dispatch => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const selectCategory = category => {
+  return { type: SELECT_CATEGORY, payload: category };
 };
 
 export const fetchRandomJoke = (category = null) => async dispatch => {
