@@ -12,9 +12,12 @@ body {
   font-family: sans-serif;
 }
 
+.box {
+  border: 1px solid gray;
+}
+
 .container {
   width: 100%;
-  max-width: 960px;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
@@ -34,6 +37,10 @@ body {
   position : relative;
   padding-right: 15px;
   padding-left : 15px;
+}
+
+.column {
+  flex-grow: 1;
 }
 
 .columnCategory {

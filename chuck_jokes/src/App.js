@@ -5,9 +5,16 @@ import './App.css';
 class App extends Component {
   render() {
     return (
-      <div className="container">
-        <div className="row">blok1</div>
-        <div className="row">blok2</div>
+      <div className="container box">
+        <div className="row box">
+          <div className="column box">blok1.1</div>
+          <div className="column box">blok1.2</div>
+          <div className="column box">blok1.3</div>
+        </div>
+        <div className="row box">
+          <div className="columnCategory box">blok2.1</div>
+          <div className="columnJoke box">blok2.2</div>
+        </div>
       </div>
     );
   }
