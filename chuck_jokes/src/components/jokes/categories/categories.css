@@ -15,6 +15,7 @@
 
 .category-item {
     font-size: 1rem;
+    padding-top: 5px;
 }
 .category-item:hover {
     font-size: 1.5rem;
