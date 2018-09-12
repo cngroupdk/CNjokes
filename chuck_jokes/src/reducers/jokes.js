@@ -5,7 +5,8 @@ const jokes = (state = [], action) => {
     case FETCH_RANDOM_JOKE:
       return [action.payload];
     case SEARCH_JOKE:
-      return [action.payload];
+      console.log(action.payload.result);
+      return [...action.payload.result];
     default:
       return state;
   }
