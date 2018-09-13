@@ -15,6 +15,7 @@ class HeaderDisplay extends Component {
             onChange={e => {
               setNumber(e.target.value);
             }}
+            min="1"
           />
         </div>
       </div>
