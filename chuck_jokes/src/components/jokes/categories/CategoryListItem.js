@@ -1,13 +1,13 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class CategoryListItem extends Component {
   render() {
-    const { categoryName, category, selectCategory } = this.props;
+    const { categoryName, selectedCategory, selectCategory } = this.props;
     return (
       <div
         onClick={() => selectCategory(categoryName)}
         className={`row category-item ${
-          categoryName === category ? "active" : ""
+          categoryName === selectedCategory ? 'active' : ''
         }`}
       >
         {categoryName}
