@@ -3,12 +3,13 @@ import {
   FETCH_CATEGORIES,
   SELECT_CATEGORY,
   FETCH_RANDOM_JOKE,
+  FETCH_ALL_JOKES,
   SEARCH_JOKE
 } from "./actionTypes";
 
 const BASE_URL = "https://api.chucknorris.io/jokes";
 const headers = {
-  headers: { "accept": "application/json|text/plain)" }
+  headers: { accept: "application/json|text/plain)" }
 };
 
 export const fetchCategories = () => async dispatch => {
@@ -22,6 +23,26 @@ export const fetchCategories = () => async dispatch => {
 
 export const selectCategory = category => {
   return { type: SELECT_CATEGORY, payload: category };
+};
+
+export const fetchAllJokes = () => async dispatch => {
+  try {
+    const jokes = localStorage.getItem("jokes");
+
+    if (jokes) {
+      console.log("jokes loaded from local storage");
+      
+      dispatch({ type: FETCH_ALL_JOKES, payload: JSON.parse(jokes) });
+    } else {
+      console.log("fetching jokes");
+
+      const res = await axios.get(`${BASE_URL}/search?query=chuck`, headers);
+      localStorage.setItem("jokes", JSON.stringify([...res.data.result]));
+      dispatch({ type: FETCH_ALL_JOKES, payload: res.data.result });
+    }
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const fetchRandomJoke = (category = null) => async dispatch => {

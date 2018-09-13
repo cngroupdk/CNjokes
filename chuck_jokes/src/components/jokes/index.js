@@ -1,38 +1,43 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchRandomJoke } from "../../actions";
+import { fetchAllJokes } from "../../actions";
 
 import Categories from "./categories";
 import JokesList from "./jokesList";
 
 class Jokes extends Component {
   componentDidMount() {
-    this.props.fetchRandomJoke();
+    this.props.fetchAllJokes();
   }
 
   render() {
-    const { categories, jokes } = this.props;
+    const { categories, jokes, selectedCategory } = this.props;
 
     return (
       <div className="row">
         <div className="columnCategory">
-          <Categories data={categories} />
+          {categories && <Categories data={categories} />}
         </div>
-        <div className="columnJoke">{jokes && <JokesList data={jokes} />}</div>
+        <div className="columnJoke">
+          {jokes && (
+            <JokesList data={jokes} selectedCategory={selectedCategory} />
+          )}
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  const { categories, jokes } = state;
+  const { categories, jokes, selectedCategory } = state;
   return {
     categories,
-    jokes
+    jokes,
+    selectedCategory
   };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchRandomJoke }
+  { fetchAllJokes }
 )(Jokes);
