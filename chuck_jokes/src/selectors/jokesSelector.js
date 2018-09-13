@@ -7,15 +7,20 @@ const getNumbers = state => state.jokesFilter.number;
 const getJokesFromCategory = createSelector(
   [getJokes, getCategories, getNumbers],
   (jokes, category, number) => {
-    console.log(number);
+    const filteredJokes = filterByCategory(jokes, category);
+    if (number <= 0) return filteredJokes;
 
-    if (!category) return jokes;
-    return jokes.filter(joke => {
-      if (!joke.category) return false;
-
-      return joke.category.includes(category);
-    });
+    return filteredJokes.slice(0, number);
   }
 );
+
+const filterByCategory = (jokes, category) => {
+  if (!category) return jokes;
+  return jokes.filter(joke => {
+    if (!joke.category) return false;
+
+    return joke.category.includes(category);
+  });
+};
 
 export default getJokesFromCategory;
