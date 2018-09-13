@@ -1,16 +1,16 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   FETCH_CATEGORIES,
   SELECT_CATEGORY,
   SET_NUMBER,
   FETCH_RANDOM_JOKE,
   FETCH_ALL_JOKES,
-  SEARCH_JOKE
-} from "./actionTypes";
+  SEARCH_JOKE,
+} from './actionTypes';
 
-const BASE_URL = "https://api.chucknorris.io/jokes";
+const BASE_URL = 'https://api.chucknorris.io/jokes';
 const headers = {
-  headers: { accept: "application/json|text/plain)" }
+  headers: { accept: 'application/json|text/plain)' },
 };
 
 export const fetchCategories = () => async dispatch => {
@@ -31,18 +31,23 @@ export const setNumber = number => {
 };
 
 export const fetchAllJokes = () => async dispatch => {
+  console.log('fetch all jokes');
   try {
-    const jokes = localStorage.getItem("jokes");
+    const jokes = localStorage.getItem('jokes');
 
     if (jokes) {
+<<<<<<< HEAD
       console.log("jokes loaded from local storage");
+=======
+      console.log('jokes loaded from local storage');
+>>>>>>> f48d44e2854b31f2b097a7fc5408a8bee34b694f
 
       dispatch({ type: FETCH_ALL_JOKES, payload: JSON.parse(jokes) });
     } else {
-      console.log("fetching jokes");
+      console.log('fetching jokes');
 
       const res = await axios.get(`${BASE_URL}/search?query=chuck`, headers);
-      localStorage.setItem("jokes", JSON.stringify([...res.data.result]));
+      localStorage.setItem('jokes', JSON.stringify([...res.data.result]));
       dispatch({ type: FETCH_ALL_JOKES, payload: res.data.result });
     }
   } catch (error) {
@@ -52,7 +57,7 @@ export const fetchAllJokes = () => async dispatch => {
 
 export const fetchRandomJoke = (category = null) => async dispatch => {
   try {
-    const categoryParam = category ? `?category=${category}` : "";
+    const categoryParam = category ? `?category=${category}` : '';
     const res = await axios.get(`${BASE_URL}/random${categoryParam}`, headers);
     dispatch({ type: FETCH_RANDOM_JOKE, payload: res.data });
   } catch (error) {
