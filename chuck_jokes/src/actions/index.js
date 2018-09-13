@@ -13,6 +13,8 @@ const headers = {
   headers: { accept: "application/json|text/plain)" }
 };
 
+
+
 export const fetchCategories = () => async dispatch => {
   try {
     const res = await axios.get(`${BASE_URL}/categories`, headers);
