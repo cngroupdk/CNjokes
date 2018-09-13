@@ -1,12 +1,13 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { fetchAllJokes } from "../../actions";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchAllJokes } from '../../actions';
 
-import Categories from "./categories";
-import JokesList from "./jokesList";
+import Categories from './categories';
+import JokesList from './jokesList';
 
 class Jokes extends Component {
   componentDidMount() {
+    console.log('jokes loaded fetching...');
     this.props.fetchAllJokes();
   }
 
@@ -33,11 +34,11 @@ const mapStateToProps = state => {
   return {
     categories,
     jokes,
-    selectedCategory
+    selectedCategory,
   };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchAllJokes }
+  { fetchAllJokes },
 )(Jokes);

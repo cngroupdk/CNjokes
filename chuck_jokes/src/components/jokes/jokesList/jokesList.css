@@ -3,3 +3,26 @@
     margin-bottom: 1rem;
     padding : 15px;
 }
+.pagination {
+    text-align: center;
+}
+
+.pagination li {
+    display: inline;
+    padding: 10px;
+    border: 0.1px solid #bababa;
+}
+.pagination li:hover {
+    background-color: #bababa;
+    cursor: pointer;
+}
+.pagination .active  {
+    background-color : #1c7aff;
+}
+.pagination .active a {
+    color : white;
+}
+.pagination li a {
+    text-decoration: none;
+    color : #1c7aff;
+}
