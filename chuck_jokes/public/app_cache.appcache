@@ -1,0 +1,11 @@
+CACHE MANIFEST
+
+CACHE:
+index.html
+chuck-norris.png
+favicon.ico
+manifest.json
+static/js/bundle.js
+
+NETWORK:
+*
