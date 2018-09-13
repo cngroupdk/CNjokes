@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { debounce } from "lodash";
-import { searchJoke } from "../../actions";
-import "./header.css";
-import HeaderLogo from "./headerLogo";
-import HeaderInput from "./headerInput";
-import HeaderDisplay from "./headerDisplay";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { debounce } from 'lodash';
+import { searchJoke } from '../../actions';
+import './header.css';
+import HeaderLogo from './headerLogo';
+import HeaderInput from './headerInput';
+import HeaderDisplay from './headerDisplay';
 
 class Header extends Component {
   searchJokes(query) {
@@ -30,5 +30,5 @@ class Header extends Component {
 
 export default connect(
   null,
-  { searchJoke }
+  { searchJoke },
 )(Header);

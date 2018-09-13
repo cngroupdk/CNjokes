@@ -29,7 +29,6 @@ class List extends Component {
   render() {
     return (
       <div className="column">
-        {this.renderJokes()}
         <Pagination
           activePage={this.state.activePage}
           itemsCountPerPage={10}
@@ -37,6 +36,7 @@ class List extends Component {
           pageRangeDisplayed={5}
           onChange={this.handlePageChange}
         />
+        {this.renderJokes()}
       </div>
     );
   }

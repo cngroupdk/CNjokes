@@ -8,14 +8,21 @@ class CategoryList extends Component {
   componentDidMount() {
     this.props.fetchCategories();
   }
-  
+
   render() {
-    const { categories } = this.props;
+    const { categories, selectedCategory, selectCategory } = this.props;
     return (
       <div>
         {categories &&
           categories.map((category, index) => {
-            return <CategoryListItem categoryName={category} key={index} selectCategory={this.props.selectCategory} />;
+            return (
+              <CategoryListItem
+                categoryName={category}
+                key={index}
+                selectCategory={selectCategory}
+                selectedCategory={selectedCategory}
+              />
+            );
           })}
       </div>
     );
@@ -23,7 +30,10 @@ class CategoryList extends Component {
 }
 
 const mapStateToProps = state => {
-  return { categories: state.categories };
+  return {
+    categories: state.categories,
+    selectedCategory: state.jokesFilter.category,
+  };
 };
 
 export default connect(
