@@ -18,7 +18,6 @@ class List extends Component {
   }
   renderJokes() {
     const { data } = this.props;
-    console.log(data);
 
     if (data.length === 0) return <div>Loading...</div>;
 
