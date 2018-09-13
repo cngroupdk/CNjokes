@@ -36,11 +36,7 @@ export const fetchAllJokes = () => async dispatch => {
     const jokes = localStorage.getItem('jokes');
 
     if (jokes) {
-<<<<<<< HEAD
       console.log("jokes loaded from local storage");
-=======
-      console.log('jokes loaded from local storage');
->>>>>>> f48d44e2854b31f2b097a7fc5408a8bee34b694f
 
       dispatch({ type: FETCH_ALL_JOKES, payload: JSON.parse(jokes) });
     } else {

@@ -1,13 +1,7 @@
-<<<<<<< HEAD
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchAllJokes } from "../../actions";
 import getJokesFromCategory from "../../selectors/jokesSelector";
-=======
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchAllJokes } from '../../actions';
->>>>>>> f48d44e2854b31f2b097a7fc5408a8bee34b694f
 
 import Categories from './categories';
 import JokesList from './jokesList';
@@ -38,15 +32,9 @@ class Jokes extends Component {
 
 const mapStateToProps = state => {
   return {
-<<<<<<< HEAD
     categories: state.categories,
     jokes: getJokesFromCategory(state),
     selectedCategory: state.jokesFilter.category
-=======
-    categories,
-    jokes,
-    selectedCategory,
->>>>>>> f48d44e2854b31f2b097a7fc5408a8bee34b694f
   };
 };
 
