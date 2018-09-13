@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   FETCH_CATEGORIES,
   SELECT_CATEGORY,
+  SET_NUMBER,
   FETCH_RANDOM_JOKE,
   FETCH_ALL_JOKES,
   SEARCH_JOKE
@@ -25,13 +26,17 @@ export const selectCategory = category => {
   return { type: SELECT_CATEGORY, payload: category };
 };
 
+export const setNumber = number => {
+  return { type: SET_NUMBER, payload: number };
+};
+
 export const fetchAllJokes = () => async dispatch => {
   try {
     const jokes = localStorage.getItem("jokes");
 
     if (jokes) {
       console.log("jokes loaded from local storage");
-      
+
       dispatch({ type: FETCH_ALL_JOKES, payload: JSON.parse(jokes) });
     } else {
       console.log("fetching jokes");

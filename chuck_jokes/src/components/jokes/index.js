@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchAllJokes } from "../../actions";
+import getJokesFromCategory from "../../selectors/jokesSelector";
 
 import Categories from "./categories";
 import JokesList from "./jokesList";
@@ -29,11 +30,10 @@ class Jokes extends Component {
 }
 
 const mapStateToProps = state => {
-  const { categories, jokes, selectedCategory } = state;
   return {
-    categories,
-    jokes,
-    selectedCategory
+    categories: state.categories,
+    jokes: getJokesFromCategory(state),
+    selectedCategory: state.jokesFilter.category
   };
 };
 
