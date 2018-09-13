@@ -31,7 +31,6 @@ export const setNumber = number => {
 };
 
 export const fetchAllJokes = () => async dispatch => {
-  console.log('fetch all jokes');
   try {
     const jokes = localStorage.getItem('jokes');
 
@@ -43,6 +42,8 @@ export const fetchAllJokes = () => async dispatch => {
       console.log('fetching jokes');
 
       const res = await axios.get(`${BASE_URL}/search?query=chuck`, headers);
+      // TODO
+      // dispatch action type LOADING
       localStorage.setItem('jokes', JSON.stringify([...res.data.result]));
       dispatch({ type: FETCH_ALL_JOKES, payload: res.data.result });
     }
