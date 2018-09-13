@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import CategoryListItem from './CategoryListItem';
-import { fetchCategories, selectCategory } from '../../../actions';
+import {
+  fetchCategories,
+  selectCategory,
+  fetchAllJokes,
+} from '../../../actions';
 
 class CategoryList extends Component {
   componentDidMount() {
@@ -10,7 +14,12 @@ class CategoryList extends Component {
   }
 
   render() {
-    const { categories, selectedCategory, selectCategory } = this.props;
+    const {
+      categories,
+      selectedCategory,
+      selectCategory,
+      fetchAllJokes,
+    } = this.props;
     return (
       <div>
         {categories &&
@@ -21,6 +30,7 @@ class CategoryList extends Component {
                 key={index}
                 selectCategory={selectCategory}
                 selectedCategory={selectedCategory}
+                fetchAllJokes={fetchAllJokes}
               />
             );
           })}
@@ -38,5 +48,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchCategories, selectCategory },
+  { fetchCategories, selectCategory, fetchAllJokes },
 )(CategoryList);
