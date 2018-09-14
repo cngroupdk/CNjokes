@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import List from "./List";
-import "./jokesList.css";
+import React, { Component } from 'react';
+import List from './List';
+import './jokesList.css';
 
 class JokeList extends Component {
   render() {
@@ -10,7 +10,7 @@ class JokeList extends Component {
       <div className="column">
         <div className="column">
           {/* This div is added to align header with joke list */}
-          <h2>RandomJoke {selectedCategory ? ` / ${selectedCategory}` : ""}</h2>
+          <h2>RandomJoke {selectedCategory ? ` / ${selectedCategory}` : ''}</h2>
         </div>
         <List data={data} />
       </div>

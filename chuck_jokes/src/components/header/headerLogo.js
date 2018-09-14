@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { selectCategory, fetchAllJokes } from '../../actions';
+import { selectCategory, fetchAllJokes, setNumber } from '../../actions';
 
 class HeaderLogo extends Component {
   fetchAllJokesHeader = () => {
     this.props.selectCategory(null);
+    this.props.setNumber(null);
     this.props.fetchAllJokes();
   };
   render() {
@@ -23,5 +24,5 @@ class HeaderLogo extends Component {
 
 export default connect(
   null,
-  { selectCategory, fetchAllJokes },
+  { selectCategory, setNumber, fetchAllJokes },
 )(HeaderLogo);
