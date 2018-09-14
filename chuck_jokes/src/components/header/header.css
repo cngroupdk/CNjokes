@@ -1,7 +1,38 @@
 .header {
     padding: 15px;
-    background-color: red; 
+    background-color: #ff3030; 
 }
+
+.header-container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 45px;
+    padding-left: 45px;
+    width : 100%;
+    display: flex;
+    flex-direction: row;
+    max-width : 1350px;
+}
+
+.rowLogo, .rowInputs {
+    padding-left : 15px;
+    padding-right: 15px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.rowLogo {
+    flex-basis: 20%;
+}
+.rowInputs {
+    flex-basis: 80%;
+}
+
+.flex-75 {
+    flex-basis: 75%;
+}
+
 
 .headerInput, .headerDisplay {
     height: 2.5rem;
@@ -27,11 +58,15 @@ input:focus {
     outline: none;
 }
 
-.headerLogo {
+.logo {
     margin-left: auto;
     margin-right: auto;
 }
 
-.headerLogo:hover {
+.logo:hover {
     cursor: pointer;
+}
+
+.text-display {
+    flex-grow : 0;
 }

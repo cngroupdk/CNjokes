@@ -1,29 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { selectCategory } from '../../actions';
+import { selectCategory, fetchAllJokes } from '../../actions';
 
 class HeaderLogo extends Component {
+  fetchAllJokesHeader = () => {
+    this.props.selectCategory(null);
+    this.props.fetchAllJokes();
+  };
   render() {
     return (
       <div className="column">
         <img
-          className="headerLogo"
+          className="logo"
           src="chuck-norris.png"
           alt="Chuck Norris logo"
-          onClick={() => {
-            this.props.selectCategory(null);
-          }}
+          onClick={this.fetchAllJokesHeader.bind(this)}
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return { allJokesCount: state.j };
-};
-
 export default connect(
-  mapStateToProps,
-  { selectCategory },
+  null,
+  { selectCategory, fetchAllJokes },
 )(HeaderLogo);

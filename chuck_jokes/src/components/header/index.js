@@ -20,9 +20,15 @@ class Header extends Component {
 
     return (
       <div className="row header">
-        <HeaderLogo />
-        <HeaderInput onQueryChange={searchJokes} />
-        <HeaderDisplay />
+        <div className="header-container">
+          <div className="rowLogo">
+            <HeaderLogo />
+          </div>
+          <div className="rowInputs">
+            <HeaderInput onQueryChange={searchJokes} />
+            <HeaderDisplay />
+          </div>
+        </div>
       </div>
     );
   }
