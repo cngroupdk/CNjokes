@@ -7,11 +7,20 @@
     "yarn": "1.9.4"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "yarn --cwd client start",
+    "dev": "yarn server & yarn client",
+    "heroku-postbuild": "YARN_PRODUCTION=false cd client && yarn && yarn run build"
   },
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.3"
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.14",
+    "mongoose-paginate": "^5.0.3",
+    "node-cron": "^2.0.1"
   },
   "devDependencies": {
     "prettier": "1.14.2"
