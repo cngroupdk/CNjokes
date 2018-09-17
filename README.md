@@ -1,6 +1,10 @@
 # CNjokes
 Implementation of react app that consumes public API (CNU training)
 
+## Solution
+
+* https://sleepy-garden-25472.herokuapp.com/
+
 [API to consume](https://api.chucknorris.io/)
 
 ## Target
