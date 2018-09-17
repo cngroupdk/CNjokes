@@ -1,0 +1,23 @@
+.random-joke-button {
+    margin-top : 1rem;
+    background: none;
+    border : 2px solid #ff3030;
+    border-radius: 3px;
+    height: 2rem;
+    font-size: 1rem;
+}
+
+.random-joke-button:hover {
+    cursor: pointer;
+    background-color: #ff3030;
+    color : white;
+}
+
+.category-item {
+    font-size: 1rem;
+    padding-top: 5px;
+}
+.category-item:hover, .category-item.active {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
