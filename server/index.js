@@ -21,7 +21,7 @@ require("./services/categoriesCron")();
 
 if (process.env.NODE_ENV === "production") {
   // Express will serve up production assets
-  // like moin.js and main.css files
+  // like main.js and main.css files
   app.use(express.static("client/build"));
 
   // Express will server up the index.html file

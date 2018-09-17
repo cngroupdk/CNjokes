@@ -59,6 +59,7 @@ class JokeList extends Component {
     }
     return (
       <div>
+        <h2>Jokes</h2>
         <ul className="jokes">
           {jokes.map(joke => (
             <li key={joke.id}>

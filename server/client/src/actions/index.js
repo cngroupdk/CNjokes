@@ -1,5 +1,19 @@
 import axios from "axios";
-import { FETCH_JOKES, SEARCH_JOKES } from "./actionTypes";
+import {
+  FETCH_RANDOM_JOKE,
+  FETCH_JOKES,
+  SEARCH_JOKES,
+  FETCH_CATEGORIES,
+  SELECT_CATEGORY,
+  SET_NUMBER
+} from "./actionTypes";
+
+export const fetchRandomJoke = category => async dispatch => {
+  const param = category ? `?category=${category}` : "";
+  const url = `/api/jokes/random${param}`;
+  const res = await axios.get(url);
+  dispatch({ type: FETCH_RANDOM_JOKE, payload: res.data });
+};
 
 export const fetchJokes = (
   limit = 100,
@@ -17,4 +31,18 @@ export const searchJokes = query => async dispatch => {
   const url = `/api/jokes/search?query=${query}`;
   const res = await axios.get(url);
   dispatch({ type: SEARCH_JOKES, payload: res.data });
+};
+
+export const fetchCategories = () => async dispatch => {
+  const url = "/api/categories";
+  const res = await axios.get(url);
+  dispatch({ type: FETCH_CATEGORIES, payload: res.data });
+};
+
+export const selectCategory = category => {
+  return { type: SELECT_CATEGORY, payload: category };
+};
+
+export const setNumber = number => {
+  return { type: SET_NUMBER, payload: number };
 };

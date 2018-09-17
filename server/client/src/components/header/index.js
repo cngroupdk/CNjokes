@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { searchJokes } from "../../actions";
 
-class SearchBar extends Component {
+class Header extends Component {
   constructor(props) {
     super(props);
     this.state = { term: "" };
@@ -29,4 +29,4 @@ class SearchBar extends Component {
 export default connect(
   null,
   { searchJokes }
-)(SearchBar);
+)(Header);

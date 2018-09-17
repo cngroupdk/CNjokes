@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
-import SearchBar from "./components/searchBar";
+import Header from "./components/header";
+import Categories from "./components/categories";
 import JokeList from "./components/jokeList";
 
 class App extends Component {
@@ -11,9 +12,17 @@ class App extends Component {
 
     return (
       <div className="container">
-        <SearchBar />
-        <h1>Jokes</h1>
-        <JokeList />
+        <div className="header">
+          <Header />
+        </div>
+        <div className="content">
+          <div className="categories-container">
+            <Categories />
+          </div>
+          <div className="jokes-container">
+            <JokeList />
+          </div>
+        </div>
       </div>
     );
   }
