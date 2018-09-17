@@ -1,25 +1,23 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import CategoryListItem from './categoryListItem';
-import {
-  fetchCategories,
-  selectCategory,
-  fetchJokes,
-} from '../../actions';
+import CategoryListItem from "./categoryListItem";
+import { fetchCategories, selectCategory, fetchRandomJoke } from "../../actions";
 
 class CategoryList extends Component {
   componentDidMount() {
     this.props.fetchCategories();
   }
 
+  getJokesForSelectedCategory(category) {
+    console.log(category);
+    this.props.selectCategory(category);
+    this.props.fetchRandomJoke(category);
+  }
+
   render() {
-    const {
-      categories,
-      selectedCategory,
-      selectCategory,
-      fetchAllJokes,
-    } = this.props;
+    const { categories, selectedCategory } = this.props;
+
     return (
       <div>
         {categories &&
@@ -28,9 +26,9 @@ class CategoryList extends Component {
               <CategoryListItem
                 categoryName={category.name}
                 key={index}
-                selectCategory={selectCategory}
+                selectCategory={this.getJokesForSelectedCategory.bind(this)
+                }
                 selectedCategory={selectedCategory}
-                fetchJokes={fetchJokes}
               />
             );
           })}
@@ -42,11 +40,11 @@ class CategoryList extends Component {
 const mapStateToProps = state => {
   return {
     categories: state.categories,
-    selectedCategory: state.jokesFilter.category,
+    selectedCategory: state.jokeOptions.category
   };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchCategories, selectCategory, fetchJokes },
+  { fetchCategories, selectCategory, fetchRandomJoke }
 )(CategoryList);

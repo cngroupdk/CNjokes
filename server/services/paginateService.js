@@ -8,7 +8,6 @@ module.exports = {
 
     const response = {
       data,
-      limit: total,
       page,
       perPage,
       pages
