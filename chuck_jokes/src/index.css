@@ -58,3 +58,6 @@ body {
 .justify-evenly {
   justify-content: space-evenly;
 }
+.text-right {
+  text-align: right;
+}

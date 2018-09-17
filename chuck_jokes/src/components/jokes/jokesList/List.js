@@ -1,48 +1,45 @@
 import React, { Component } from 'react';
 import JokeListItem from './JokeListItem';
 import Pagination from 'react-js-pagination';
-import { switchPage } from '../../../actions';
-import { connect } from 'react-redux';
 
 class List extends Component {
+  //this is temporary state -> move into redux
+  constructor(props) {
+    super(props);
+    this.state = {
+      activePage: 1,
+    };
+    this.handlePageChange = this.handlePageChange.bind(this);
+  }
+
   handlePageChange(pageNumber) {
-    this.props.switchPage(pageNumber);
+    console.log(`active page is ${pageNumber}`);
+    this.setState({ activePage: pageNumber });
   }
   renderJokes() {
-    const { data, activePage } = this.props;
-    const base = 10;
-    const bottom = (0 + activePage - 1) * base;
-    const top = base + bottom;
+    const { data } = this.props;
 
     if (data.length === 0) return <div>Loading...</div>;
 
-    return data.slice(bottom, top).map((item, index) => {
+    return data.slice(0, 10).map((item, index) => {
       return <JokeListItem key={index} joke={item} />;
     });
   }
 
   render() {
-    const { activePage, data } = this.props;
     return (
       <div className="column">
-        {this.renderJokes()}
         <Pagination
-          activePage={activePage}
+          activePage={this.state.activePage}
           itemsCountPerPage={10}
-          totalItemsCount={data.length}
+          totalItemsCount={this.props.data.length}
           pageRangeDisplayed={5}
-          onChange={this.handlePageChange.bind(this)}
+          onChange={this.handlePageChange}
         />
+        {this.renderJokes()}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return { activePage: state.jokesFilter.activePage };
-};
-
-export default connect(
-  mapStateToProps,
-  { switchPage },
-)(List);
+export default List;

@@ -1,13 +1,8 @@
-import {
-  SELECT_CATEGORY,
-  SET_NUMBER,
-  SWITCH_PAGE,
-} from '../actions/actionTypes';
+import { SELECT_CATEGORY, SET_NUMBER } from "../actions/actionTypes";
 
 const initialState = {
   category: null,
-  number: 1,
-  activePage: 1,
+  number: 1
 };
 
 const jokes = (state = initialState, action) => {
@@ -16,8 +11,6 @@ const jokes = (state = initialState, action) => {
       return { ...state, category: action.payload };
     case SET_NUMBER:
       return { ...state, number: action.payload };
-    case SWITCH_PAGE:
-      return { ...state, activePage: action.payload };
     default:
       return state;
   }

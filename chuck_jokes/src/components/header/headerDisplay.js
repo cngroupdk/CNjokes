@@ -5,11 +5,11 @@ class HeaderDisplay extends Component {
   render() {
     const { number, setNumber } = this.props;
     return (
-      <div className="column justify-center flex-25">
+      <div className="column justify-center">
         <div className="row">
-          <span className="column justify-center text-display">Display</span>
+          <span className="column justify-center text-right">Display</span>
           <input
-            className="headerDisplay"
+            className="justify-center headerDisplay"
             type="number"
             value={number}
             onChange={e => {

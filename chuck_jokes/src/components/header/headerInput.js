@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class HeaderInput extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { query: '' };
+    this.state = { query: "" };
   }
 
   onInputChange(query) {
@@ -14,7 +14,7 @@ class HeaderInput extends Component {
 
   render() {
     return (
-      <div className="column justify-center flex-75">
+      <div className="column justify-center">
         <input
           className="headerInput"
           placeholder="Search for a joke"

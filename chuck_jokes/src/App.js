@@ -7,11 +7,9 @@ import Jokes from './components/jokes';
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className="container">
         <Header />
-        <div className="container">
-          <Jokes />
-        </div>
+        <Jokes />
       </div>
     );
   }
