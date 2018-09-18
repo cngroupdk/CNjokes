@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  box-sizing: border-box;
 }
 
 .container {
@@ -11,29 +12,51 @@ body {
   align-items: center;
 }
 
-.header {
+.header-container {
   width: 100%;
   background-color: #ff3030;
   padding: 1rem;
-}
-
-.content{
-  display: flex;
-  width: 80%;
-}
-
-.jokes-container, .categories-container {
-  padding: 1rem;
-}
-
-.search-bar {
   display: flex;
   justify-content: center;
 }
 
-.search-bar input{
-  height: 1.4rem;
-  width: 50%;
+.content{
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  width: 80%;
+  flex-wrap: wrap; 
+}
+
+.jokes-container, .categories-container {
+  box-sizing: border-box;
+}
+
+.categories-container {
+  width: 20%;
+  min-width: 240px;
+}
+
+.jokes-container {
+  flex: 1;
+}
+
+.jokes-container a{
+  cursor: pointer;
+  color: blue;
+}
+
+.jokes-container a:hover{
+  text-decoration: underline;
+}
+
+.load-more-container {
+  width: 100%;
+  text-align: center;
+}
+
+.jokes {
+  padding: 0;
 }
 
 .jokes li {
@@ -41,10 +64,13 @@ body {
 }
 
 .joke {
+  width: 100%;
   padding: 1rem;
+  box-sizing: border-box;
   border: 1px solid black;
   border-radius: 4px;
-  margin-bottom: 0.8rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 1.2rem;
 }
 
 

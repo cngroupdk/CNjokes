@@ -12,7 +12,7 @@ class App extends Component {
 
     return (
       <div className="container">
-        <div className="header">
+        <div className="header-container">
           <Header />
         </div>
         <div className="content">

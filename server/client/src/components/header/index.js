@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import "./header.css";
 import { connect } from "react-redux";
 import { searchJokes } from "../../actions";
+import HeaderLogo from "./headerLogo";
 
 class Header extends Component {
   constructor(props) {
@@ -10,12 +12,17 @@ class Header extends Component {
 
   render() {
     return (
-      <div className="search-bar">
-        <input
-          value={this.state.term}
-          onChange={event => this.onInputChange(event.target.value)}
-          placeholder="Search jokes"
-        />
+      <div className="header">
+        <div className="logo-container">
+          <HeaderLogo />
+        </div>
+        <div className="search-bar">
+          <input
+            value={this.state.term}
+            onChange={event => this.onInputChange(event.target.value)}
+            placeholder="Search jokes"
+          />
+        </div>
       </div>
     );
   }

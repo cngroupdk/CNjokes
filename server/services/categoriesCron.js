@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const Category = mongoose.model("categories");
 
 module.exports = () => {
-  cron.schedule("*/55 * * * *", () => {
+  cron.schedule("0 3 * * *", () => {
     console.log("updating categories");
     axios
       .get("https://api.chucknorris.io/jokes/categories")

@@ -1,0 +1,8 @@
+.category-item {
+    font-size: 1rem;
+    padding-top: 5px;
+}
+.category-item:hover, .category-item.active {
+    font-size: 1.5rem;
+    cursor: pointer;
+}

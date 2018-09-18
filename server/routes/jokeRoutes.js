@@ -14,7 +14,13 @@ module.exports = app => {
         .limit(1)
         .skip(randomNumber);
 
-      res.send(randomJoke);
+      const response = paginateService.paginate(randomJoke, {
+        total: 1,
+        page: 1,
+        perPage: 1
+      });
+
+      res.send(response);
     } catch (err) {
       console.log(err);
       res.status(500).send(err);

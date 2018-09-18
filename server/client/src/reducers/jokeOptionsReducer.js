@@ -1,8 +1,13 @@
-import { SELECT_CATEGORY, SET_NUMBER } from "../actions/actionTypes";
+import {
+  SELECT_CATEGORY,
+  SET_NUMBER,
+  SET_IS_RANDOM
+} from "../actions/actionTypes";
 
 const initialState = {
   category: null,
-  number: 1,
+  limit: 100,
+  random: false
 };
 
 export default function(state = initialState, action) {
@@ -10,7 +15,9 @@ export default function(state = initialState, action) {
     case SELECT_CATEGORY:
       return { ...state, category: action.payload };
     case SET_NUMBER:
-      return { ...state, number: action.payload };
+      return { ...state, limit: action.payload };
+    case SET_IS_RANDOM:
+      return { ...state, random: action.payload };
     default:
       return state;
   }

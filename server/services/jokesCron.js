@@ -3,7 +3,7 @@ const axios = require("axios");
 const mongoose = require("mongoose");
 
 module.exports = () => {
-  cron.schedule("*/59 * * * *", () => {
+  cron.schedule("0 2 * * *", () => {
     console.log("running a task every hour");
     axios
       .get("https://api.chucknorris.io/jokes/search?query=chuck")
