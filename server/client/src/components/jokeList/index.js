@@ -63,8 +63,8 @@ class JokeList extends Component {
   };
 
   loadJokes = () => {
-    const { limit, perPage, page } = this.state;
-    this.props.fetchJokes(limit, perPage, page, this.props.category, () => {
+    const { perPage, page } = this.state;
+    this.props.fetchJokes(this.props.limit, perPage, page, this.props.category, () => {
       this.setState({ scrolling: false });
     });
   };
@@ -80,16 +80,21 @@ class JokeList extends Component {
   };
 
   render() {
-    const jokes = this.props.data;
+    const {data, error }= this.props;
 
-    if (!jokes) {
+    if (!data) {
       return <div>loading...</div>;
     }
+
+    if (error && error === 'empty_string') {
+      return <div className="error-container">No results for empty query</div>;
+    }
+
     return (
       <div>
         <h2>Jokes</h2>
         <ul className="jokes">
-          {jokes.map(joke => (
+          {data.map(joke => (
             <li key={joke.id}>
               <Joke {...joke} />
             </li>
@@ -116,7 +121,10 @@ const mapStateToProps = state => {
     perPage,
     category,
     limit,
-    random
+    random,
+    error: state.error
+    
+    
   };
 };
 

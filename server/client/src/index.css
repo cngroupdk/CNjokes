@@ -37,6 +37,13 @@ body {
   min-width: 240px;
 }
 
+.error-container {
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: bold;
+  color: #ff3030;
+}
+
 .jokes-container {
   flex: 1;
 }
