@@ -8,13 +8,15 @@ import {
   SET_NUMBER,
   SET_IS_RANDOM,
   CLEAR_JOKES_ARRAY,
-  RESTART_PAGINATION_SETTINGS
+  RESTART_PAGINATION_SETTINGS,
+  ERROR
 } from "./actionTypes";
 
 export const fetchRandomJoke = category => async dispatch => {
   const param = category ? `?category=${category}` : "";
   const url = `/api/jokes/random${param}`;
   const res = await axios.get(url);
+  dispatch(dispatchError(null));
   dispatch(setIsRandom(true));
   dispatch({ type: FETCH_RANDOM_JOKE, payload: res.data });
 };
@@ -31,15 +33,21 @@ export const fetchJokes = (
   const res = await axios.get(url);
   if (callback) callback();
   if (page === 1) dispatch(clearJokesArray());
+  dispatch(dispatchError(null));
   dispatch(setIsRandom(false));
   dispatch({ type: FETCH_JOKES, payload: res.data });
 };
 
 export const searchJokes = query => async dispatch => {
-  const url = `/api/jokes/search?query=${query}`;
-  const res = await axios.get(url);
-  dispatch(setIsRandom(false));
-  dispatch({ type: SEARCH_JOKES, payload: res.data });
+  if (query.trim() === "") {
+    dispatch(dispatchError("empty_string"));
+  } else {
+    const url = `/api/jokes/search?query=${query}`;
+    const res = await axios.get(url);
+    dispatch(setIsRandom(false));
+    dispatch(dispatchError(null));
+    dispatch({ type: SEARCH_JOKES, payload: res.data });
+  }
 };
 
 export const fetchCategories = () => async dispatch => {
@@ -67,4 +75,8 @@ const clearJokesArray = () => {
 
 const restartPaginationSettigns = () => {
   return { type: RESTART_PAGINATION_SETTINGS };
+};
+
+const dispatchError = (err) => {
+  return { type: ERROR, payload: err };
 };

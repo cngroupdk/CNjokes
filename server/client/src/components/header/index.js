@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import './header.css';
-import { connect } from 'react-redux';
-import { searchJokes, setNumber, fetchJokes } from '../../actions';
-import HeaderLogo from './headerLogo';
+import React, { Component } from "react";
+import "./header.css";
+import { connect } from "react-redux";
+import { searchJokes, setNumber, fetchJokes } from "../../actions";
+import HeaderLogo from "./headerLogo";
 
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = { query: '', displayNumber: 0 };
+    this.state = { query: "", displayNumber: "" };
   }
 
   render() {
@@ -45,9 +45,9 @@ class Header extends Component {
   onDisplayNumberChange(displayNumber) {
     //searchNumber is set in case the input is empty
     let searchNumber = displayNumber;
-    if (displayNumber === '') {
+    if (displayNumber === "") {
       searchNumber = 100;
-    } else if (displayNumber !== '' && displayNumber <= 0) {
+    } else if (displayNumber !== "" && displayNumber <= 0) {
       displayNumber = 1;
       searchNumber = displayNumber;
     }
@@ -60,5 +60,5 @@ class Header extends Component {
 
 export default connect(
   null,
-  { searchJokes, setNumber, fetchJokes },
+  { searchJokes, setNumber, fetchJokes }
 )(Header);

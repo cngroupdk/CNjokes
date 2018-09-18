@@ -7,7 +7,7 @@ import {
 const initialState = {
   category: null,
   limit: 100,
-  random: false
+  random: false,
 };
 
 export default function(state = initialState, action) {
