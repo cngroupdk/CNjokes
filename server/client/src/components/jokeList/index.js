@@ -1,49 +1,24 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Joke from "./joke";
-import { fetchJokes, fetchRandomJoke } from "../../actions";
+import { fetchJokes, fetchRandomJoke, increasePageNumber } from "../../actions";
 
 class JokeList extends Component {
-  constructor(props) {
-    super(props);
-    const { limit, page, perPage, category } = props;
-    this.state = {
-      limit,
-      page,
-      perPage,
-      scrolling: false,
-      category
-    };
-  }
+  state = {
+    scrolling: false
+  };
 
   componentDidMount() {
     this.props.fetchRandomJoke();
     this.scrollListener = window.addEventListener("scroll", e => {
       this.handleScroll(e);
     });
-    // Dotaz
     //this.checkOffset();
-
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    if (props.category !== state.category) {
-      return {
-        limit: props.limit,
-        page: props.page,
-        perPage: props.perPage,
-        category: props.category,
-        scrolling: false
-      };
-    }
-
-    // Return null to indicate no change to state.
-    return null;
   }
 
   handleScroll = e => {
-    const { pages } = this.props;
-    const { scrolling, page } = this.state;
+    const { pages, page } = this.props;
+    const { scrolling } = this.state;
     if (scrolling) return;
     if (pages <= page) return;
     this.checkOffset();
@@ -51,42 +26,33 @@ class JokeList extends Component {
 
   checkOffset = () => {
     const lastLi = document.querySelector("ul.jokes > li:last-child");
-    console.log(lastLi);
     const lastLiOffset = lastLi.offsetTop + lastLi.clientHeight;
     const pageOffset = window.pageYOffset + window.innerHeight;
     const bottomOffset = 120;
-    console.log(lastLi.offsetTop, lastLi.clientHeight);
-    console.log(window.pageYOffset, window.innerHeight);
-
     if (pageOffset > lastLiOffset - bottomOffset) this.loadMore();
-    // if(window.pageYOffset >= window.innerHeight) this.loadMore();
   };
 
   loadJokes = () => {
-    const { perPage, page } = this.state;
-    this.props.fetchJokes(this.props.limit, perPage, page, this.props.category, () => {
+    const { limit, perPage, page, category } = this.props;
+    this.props.fetchJokes(limit, perPage, page, category, () => {
       this.setState({ scrolling: false });
     });
   };
 
   loadMore = () => {
-    this.setState(
-      prevState => ({
-        page: prevState.page + 1,
-        scrolling: true
-      }),
-      this.loadJokes
-    );
+    this.setState({ scrolling: true });
+    this.props.increasePageNumber(this.props.page);
+    this.loadJokes();
   };
 
   render() {
-    const {data, error }= this.props;
+    const { data, error } = this.props;
 
     if (!data) {
       return <div>loading...</div>;
     }
 
-    if (error && error === 'empty_string') {
+    if (error && error === "empty_string") {
       return <div className="error-container">No results for empty query</div>;
     }
 
@@ -123,12 +89,10 @@ const mapStateToProps = state => {
     limit,
     random,
     error: state.error
-    
-    
   };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchJokes, fetchRandomJoke }
+  { fetchJokes, fetchRandomJoke, increasePageNumber }
 )(JokeList);

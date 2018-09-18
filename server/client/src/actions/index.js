@@ -9,7 +9,8 @@ import {
   SET_IS_RANDOM,
   CLEAR_JOKES_ARRAY,
   RESTART_PAGINATION_SETTINGS,
-  ERROR
+  ERROR,
+  INCREASE_PAGE_NUMBER
 } from "./actionTypes";
 
 export const fetchRandomJoke = category => async dispatch => {
@@ -28,6 +29,7 @@ export const fetchJokes = (
   category = null,
   callback = null
 ) => async dispatch => {
+  perPage = perPage < 10 ? 15 : perPage;
   const categoryParam = category ? `&category=${category}` : "";
   const url = `/api/jokes?limit=${limit}&page=${page}&perPage=${perPage}${categoryParam}`;
   const res = await axios.get(url);
@@ -61,6 +63,10 @@ export const selectCategory = category => dispatch => {
   dispatch({ type: SELECT_CATEGORY, payload: category });
 };
 
+export const increasePageNumber = pageNumber => {
+  return { type: INCREASE_PAGE_NUMBER, payload: pageNumber + 1 };
+};
+
 export const setNumber = number => {
   return { type: SET_NUMBER, payload: number };
 };
@@ -77,6 +83,6 @@ const restartPaginationSettigns = () => {
   return { type: RESTART_PAGINATION_SETTINGS };
 };
 
-const dispatchError = (err) => {
+const dispatchError = err => {
   return { type: ERROR, payload: err };
 };
