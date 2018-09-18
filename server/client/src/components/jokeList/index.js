@@ -21,6 +21,9 @@ class JokeList extends Component {
     this.scrollListener = window.addEventListener("scroll", e => {
       this.handleScroll(e);
     });
+    // Dotaz
+    //this.checkOffset();
+
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -56,6 +59,7 @@ class JokeList extends Component {
     console.log(window.pageYOffset, window.innerHeight);
 
     if (pageOffset > lastLiOffset - bottomOffset) this.loadMore();
+    // if(window.pageYOffset >= window.innerHeight) this.loadMore();
   };
 
   loadJokes = () => {
