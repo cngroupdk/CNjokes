@@ -3,7 +3,8 @@ import {
   SEARCH_JOKES,
   FETCH_RANDOM_JOKE,
   CLEAR_JOKES_ARRAY,
-  RESTART_PAGINATION_SETTINGS
+  RESTART_PAGINATION_SETTINGS,
+  INCREASE_PAGE_NUMBER
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -29,6 +30,9 @@ export default function(state = initialState, action) {
       return { ...state, data: [] };
     case RESTART_PAGINATION_SETTINGS:
       return initialState;
+    case INCREASE_PAGE_NUMBER: {
+      return { ...state, page: action.payload };
+    }
     default:
       return state;
   }
