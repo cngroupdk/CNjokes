@@ -1,0 +1,19 @@
+type Query {
+  info: String,
+  categories(first : Int) : [Category],
+  category(name : String) : Category,
+  jokes(first : Int, offset : Int): [Joke],
+  joke(id : ID) : Joke,
+  randomJoke : Joke
+}
+
+type Category {
+  name : String,
+  jokes : [Joke]
+}
+
+type Joke {
+  id : ID,
+  category : [Category],
+  value : String,
+}

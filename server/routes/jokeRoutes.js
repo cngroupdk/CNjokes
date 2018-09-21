@@ -1,12 +1,12 @@
-const mongoose = require("mongoose");
-const paginateService = require("../services/paginateService");
-const Jokes = mongoose.model("jokes");
+const mongoose = require('mongoose');
+const paginateService = require('../services/paginateService');
+const Jokes = mongoose.model('jokes');
 
 module.exports = app => {
-  app.get("/api/jokes/random", async (req, res) => {
+  app.get('/api/jokes/random', async (req, res) => {
     try {
       const { category } = req.query;
-      const query = category ? { category: new RegExp(category, "i") } : {};
+      const query = category ? { category: new RegExp(category, 'i') } : {};
 
       const count = await Jokes.countDocuments(query);
       const randomNumber = Math.floor(Math.random() * count);
@@ -17,7 +17,7 @@ module.exports = app => {
       const response = paginateService.paginate(randomJoke, {
         total: 1,
         page: 1,
-        perPage: 1
+        perPage: 1,
       });
 
       res.send(response);
@@ -27,12 +27,12 @@ module.exports = app => {
     }
   });
 
-  app.get("/api/jokes", async (req, res) => {
+  app.get('/api/jokes', async (req, res) => {
     try {
       const { category, page, perPage } = req.query;
       const limit = parseInt(req.query.limit, 10);
 
-      const query = category ? { category: new RegExp(category, "i") } : {};
+      const query = category ? { category: new RegExp(category, 'i') } : {};
       const count = await Jokes.countDocuments(query);
 
       const total = limit > count ? count : limit;
@@ -41,7 +41,7 @@ module.exports = app => {
       const options = {
         total: total,
         page: parseInt(page, 10),
-        perPage: parseInt(perPage, 10)
+        perPage: parseInt(perPage, 10),
       };
 
       const response = paginateService.paginate(jokes, options);
@@ -53,18 +53,18 @@ module.exports = app => {
     }
   });
 
-  app.get("/api/jokes/search", async (req, res) => {
+  app.get('/api/jokes/search', async (req, res) => {
     try {
       const { query } = req.query;
       const total = 25;
-      const jokes = await Jokes.find({ value: new RegExp(query, "i") }).limit(
-        total
+      const jokes = await Jokes.find({ value: new RegExp(query, 'i') }).limit(
+        total,
       );
 
       const options = {
         total: total,
         page: 1,
-        perPage: total
+        perPage: total,
       };
 
       const response = paginateService.paginate(jokes, options);

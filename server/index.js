@@ -1,9 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const keys = require('./config/keys');
-require('./models/Joke');
-require('./models/Category');
+const resolvers = require('./resolvers');
+const { GraphQLServer } = require('graphql-yoga');
+// const bodyParser = require('body-parser');
+// require('./models/Joke');
+// require('./models/Category');
 
 mongoose.set('useCreateIndex', true);
 mongoose.connect(
@@ -13,12 +15,14 @@ mongoose.connect(
 
 // generate new express aplication
 const app = express();
+/*
+this is depracated part of the app that uses "REST API"
 app.use(bodyParser.json());
-
 require('./routes/jokeRoutes')(app);
 require('./routes/categoryRoutes')(app);
 require('./services/jokesCron')();
 require('./services/categoriesCron')();
+*/
 
 if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets
@@ -33,7 +37,10 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log('App is listening on port', PORT);
+const PORT = process.env.PORT || 4000;
+const server = new GraphQLServer({
+  typeDefs: './schema.graphql',
+  resolvers,
 });
+
+server.start(() => console.log(`Server is running on http://localhost:4000`));
