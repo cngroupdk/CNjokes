@@ -4,7 +4,7 @@ import {
   SET_IS_RANDOM
 } from "../actions/actionTypes";
 
-const initialState = {
+export const initialState = {
   category: null,
   limit: 100,
   random: false,
