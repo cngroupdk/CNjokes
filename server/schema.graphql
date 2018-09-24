@@ -10,6 +10,7 @@ type Query {
 type Category {
   name : String,
   jokes (limit : Int, perPage : Int, page : Int): [Joke]
+  total : Int
 }
 
 type Joke {

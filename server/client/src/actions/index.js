@@ -11,6 +11,7 @@ import {
   RESTART_PAGINATION_SETTINGS,
   ERROR,
   INCREASE_PAGE_NUMBER,
+  SET_PAGE_NUMBER,
 } from './actionTypes';
 
 export const fetchRandomJoke = category => async dispatch => {
@@ -65,6 +66,10 @@ export const selectCategory = category => dispatch => {
 
 export const increasePageNumber = pageNumber => {
   return { type: INCREASE_PAGE_NUMBER, payload: pageNumber + 1 };
+};
+
+export const setPageNumber = pageNumber => {
+  return { type: SET_PAGE_NUMBER, payload: pageNumber };
 };
 
 export const setNumber = number => {

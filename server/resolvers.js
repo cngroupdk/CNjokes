@@ -56,21 +56,29 @@ const resolvers = {
     name: obj => obj.name,
     jokes: (getJokesFromCategory = async (obj, args) => {
       try {
+        const { perPage, page } = args;
         const query = obj !== 'none' ? { category: [obj] } : {};
         const count = await Joke.countDocuments(query);
         const total = args.limit > count ? count : args.limit;
-        const jokes = await Joke.find(query);
+        const jokes = await Joke.find(query)
+          .limit(perPage)
+          .skip(page * perPage - perPage);
+        //different method with pagination now;
         // const perPage = args.perPage > total ? total : args.perPage;
-        const options = {
-          total: total,
-          page: parseInt(args.page, 10),
-          perPage: parseInt(args.perPage, 10),
-        };
-        const response = paginateService.paginate(jokes, options);
-        return response.data;
+        // const options = {
+        //   total: total,
+        //   page: parseInt(args.page, 10),
+        //   perPage: parseInt(args.perPage, 10),
+        // };
+        // const response = paginateService.paginate(jokes, options);
+        return jokes;
       } catch (error) {
         console.log(error);
       }
+    }),
+    total: (totalItemsCount = async obj => {
+      const query = obj !== 'none' ? { category: [obj] } : {};
+      return await Joke.countDocuments(query);
     }),
   },
   Joke: {

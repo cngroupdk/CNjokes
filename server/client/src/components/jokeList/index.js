@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Pagination from 'react-js-pagination';
 import Joke from './joke';
-import { fetchJokes, fetchRandomJoke, increasePageNumber } from '../../actions';
+import { fetchJokes, fetchRandomJoke, setPageNumber } from '../../actions';
+import './pagination.css';
 
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
@@ -18,42 +20,41 @@ const FEED_QUERY = gql`
       jokes(limit: $limit, page: $page, perPage: $perPage) {
         value
       }
+      total
     }
   }
 `;
 
 class JokeList extends Component {
-  state = {
-    scrolling: false,
-  };
-  pageCount = 0;
+  // all the code in the comments is deprecated, migrating to GQL
 
-  componentDidMount() {
-    this.props.fetchRandomJoke();
-    this.scrollListener = window.addEventListener('scroll', e => {
-      this.handleScroll(e);
-    });
-    this.checkOffset();
-  }
+  // state = {
+  //   scrolling: false,
+  // };
 
-  handleScroll = e => {
-    const { page } = this.props;
-    const { scrolling } = this.state;
-    console.log(this.pageCount, page);
-    if (scrolling) return;
-    if (this.pageCount < page) return;
-    this.checkOffset();
-  };
+  // componentDidMount() {
+  //   this.props.fetchRandomJoke();
+  //   this.scrollListener = window.addEventListener('scroll', e => {
+  //     this.handleScroll(e);
+  //   });
+  //   this.checkOffset();
+  // }
 
-  checkOffset = () => {
-    // console.log('loading');
-    // const lastLi = document.querySelector('ul.jokes > li:last-child');
-    const jokeContainer = document.querySelector('.jokes-container');
-    const pageOffset = window.pageYOffset + window.innerHeight;
-    const bottomOffset = 120;
-    // console.log(jokeContainer);
-    if (pageOffset > jokeContainer.clientHeight) this.loadMore();
-  };
+  // handleScroll = e => {
+  //   const { page } = this.props;
+  //   const { scrolling } = this.state;
+  //   if (scrolling) return;
+  //   if (this.pageCount < page) return;
+  //   this.checkOffset();
+  // };
+
+  // checkOffset = () => {
+  //   // const lastLi = document.querySelector('ul.jokes > li:last-child');
+  //   const jokeContainer = document.querySelector('.jokes-container');
+  //   const pageOffset = window.pageYOffset + window.innerHeight;
+  //   const bottomOffset = 120;
+  //   if (pageOffset > jokeContainer.clientHeight) this.loadMore();
+  // };
 
   // loadJokes = () => {
   //   const { limit, perPage, page, category } = this.props;
@@ -62,13 +63,12 @@ class JokeList extends Component {
   //   });
   // };
 
-  loadMore = () => {
-    this.setState({ scrolling: true });
-    console.log('loading');
-    this.props.increasePageNumber(this.props.page);
-    this.setState({ scrolling: false });
-    // this.loadJokes();
-  };
+  // loadMore = () => {
+  //   this.setState({ scrolling: true });
+  //   this.props.increasePageNumber(this.props.page);
+  //   this.setState({ scrolling: false });
+  //   // this.loadJokes();
+  // };
 
   //   render() {
   //     const { data, error } = this.props;
@@ -101,9 +101,11 @@ class JokeList extends Component {
   //   }
   //
 
+  handllePageChange = e => {
+    this.props.setPageNumber(e);
+  };
   render() {
-    const { error, page, category } = this.props;
-    console.log(category, 'category');
+    const { error, page, category, perPage } = this.props;
     return (
       <div>
         <Query
@@ -111,18 +113,14 @@ class JokeList extends Component {
           variables={{
             categoryName: category,
             limit: 2,
-            perPage: 3,
+            perPage: 10,
             page: page,
           }}
         >
           {({ loading, _, data }) => {
-            console.log(page);
-            if (loading) return <div>Fetching</div>;
+            if (loading) return <div>Loading, please wait</div>;
             if (error) return <div>Error</div>;
-            console.log(data);
             const jokes = data.category.jokes;
-            const pageCount = Math.ceil(jokes.length / 3);
-            this.pageCount = pageCount;
 
             return (
               <div>
@@ -133,6 +131,15 @@ class JokeList extends Component {
                     </li>
                   ))}
                 </ul>
+                <div className="row pagination-container">
+                  <Pagination
+                    activePage={page}
+                    itemsCountPerPage={perPage}
+                    totalItemsCount={data.category.total}
+                    pageRangeDisplayed={5}
+                    onChange={this.handllePageChange.bind(this)}
+                  />
+                </div>
               </div>
             );
           }}
@@ -143,22 +150,24 @@ class JokeList extends Component {
 }
 
 const mapStateToProps = state => {
-  const { data, page, pages, perPage } = state.jokes;
-  const { category, limit, random } = state.jokeOptions;
+  const { page, perPage } = state.jokes;
+  const { category } = state.jokeOptions;
+  // const { category, limit, random } = state.jokeOptions;
 
-  return {
-    data,
-    page,
-    pages,
-    perPage,
-    category,
-    limit,
-    random,
-    error: state.error,
-  };
+  // return {
+  //   data,
+  //   page,
+  //   pages,
+  //   perPage,
+  //   category,
+  //   limit,
+  //   random,
+  //   error: state.error,
+  // };
+  return { page, perPage, category };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchJokes, fetchRandomJoke, increasePageNumber },
+  { fetchJokes, fetchRandomJoke, setPageNumber },
 )(JokeList);
