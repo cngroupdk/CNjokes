@@ -52,13 +52,13 @@ class CategoryList extends Component {
   // }
 
   render() {
+    const { selectedCategory } = this.props;
     return (
       <Query query={FEED_QUERY}>
         {({ loading, error, data }) => {
           if (loading) return <div>Fetching</div>;
           if (error) return <div>Error</div>;
           const categories = data.categories;
-          const { selectedCategory } = this.props;
 
           return (
             <div>
