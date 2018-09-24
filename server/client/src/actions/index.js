@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   FETCH_RANDOM_JOKE,
   FETCH_JOKES,
@@ -10,11 +10,12 @@ import {
   CLEAR_JOKES_ARRAY,
   RESTART_PAGINATION_SETTINGS,
   ERROR,
-  INCREASE_PAGE_NUMBER
-} from "./actionTypes";
+  INCREASE_PAGE_NUMBER,
+  SET_PAGE_NUMBER,
+} from './actionTypes';
 
 export const fetchRandomJoke = category => async dispatch => {
-  const param = category ? `?category=${category}` : "";
+  const param = category ? `?category=${category}` : '';
   const url = `/api/jokes/random${param}`;
   const res = await axios.get(url);
   dispatch(dispatchError(null));
@@ -27,10 +28,10 @@ export const fetchJokes = (
   perPage = 15,
   page = 1,
   category = null,
-  callback = null
+  callback = null,
 ) => async dispatch => {
   perPage = perPage < 10 ? 15 : perPage;
-  const categoryParam = category ? `&category=${category}` : "";
+  const categoryParam = category ? `&category=${category}` : '';
   const url = `/api/jokes?limit=${limit}&page=${page}&perPage=${perPage}${categoryParam}`;
   const res = await axios.get(url);
   if (callback) callback();
@@ -41,8 +42,8 @@ export const fetchJokes = (
 };
 
 export const searchJokes = query => async dispatch => {
-  if (query.trim() === "") {
-    dispatch(dispatchError("empty_string"));
+  if (query.trim() === '') {
+    dispatch(dispatchError('empty_string'));
   } else {
     const url = `/api/jokes/search?query=${query}`;
     const res = await axios.get(url);
@@ -53,7 +54,7 @@ export const searchJokes = query => async dispatch => {
 };
 
 export const fetchCategories = () => async dispatch => {
-  const url = "/api/categories";
+  const url = '/api/categories';
   const res = await axios.get(url);
   dispatch({ type: FETCH_CATEGORIES, payload: res.data });
 };
@@ -65,6 +66,10 @@ export const selectCategory = category => dispatch => {
 
 export const increasePageNumber = pageNumber => {
   return { type: INCREASE_PAGE_NUMBER, payload: pageNumber + 1 };
+};
+
+export const setPageNumber = pageNumber => {
+  return { type: SET_PAGE_NUMBER, payload: pageNumber };
 };
 
 export const setNumber = number => {

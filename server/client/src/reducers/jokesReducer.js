@@ -4,14 +4,15 @@ import {
   FETCH_RANDOM_JOKE,
   CLEAR_JOKES_ARRAY,
   RESTART_PAGINATION_SETTINGS,
-  INCREASE_PAGE_NUMBER
-} from "../actions/actionTypes";
+  INCREASE_PAGE_NUMBER,
+  SET_PAGE_NUMBER,
+} from '../actions/actionTypes';
 
 const initialState = {
   data: [],
   perPage: 15,
   page: 1,
-  pages: null
+  pages: null,
 };
 
 export default function(state = initialState, action) {
@@ -22,7 +23,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         data: [...state.data, ...action.payload.data],
-        pages: action.payload.pages
+        pages: action.payload.pages,
       };
     case SEARCH_JOKES:
       return action.payload;
@@ -31,6 +32,9 @@ export default function(state = initialState, action) {
     case RESTART_PAGINATION_SETTINGS:
       return initialState;
     case INCREASE_PAGE_NUMBER: {
+      return { ...state, page: action.payload };
+    }
+    case SET_PAGE_NUMBER: {
       return { ...state, page: action.payload };
     }
     default:

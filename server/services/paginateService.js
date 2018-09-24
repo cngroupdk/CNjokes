@@ -4,7 +4,7 @@ module.exports = {
     const pages = Math.ceil(total / perPage);
     const startIndex = page * perPage - perPage - 1;
 
-    const data = docs.slice(startIndex + 1, startIndex + perPage + 1);
+    const data = docs.slice(startIndex + 1, startIndex + options.perPage + 1);
 
     const response = {
       data,

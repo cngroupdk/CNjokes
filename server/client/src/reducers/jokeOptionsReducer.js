@@ -1,8 +1,8 @@
 import {
   SELECT_CATEGORY,
   SET_NUMBER,
-  SET_IS_RANDOM
-} from "../actions/actionTypes";
+  SET_IS_RANDOM,
+} from '../actions/actionTypes';
 
 export const initialState = {
   category: null,
