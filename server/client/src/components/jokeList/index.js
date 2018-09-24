@@ -26,29 +26,33 @@ class JokeList extends Component {
   state = {
     scrolling: false,
   };
+  pageCount = 0;
 
   componentDidMount() {
     this.props.fetchRandomJoke();
     this.scrollListener = window.addEventListener('scroll', e => {
       this.handleScroll(e);
     });
-    //this.checkOffset();
+    this.checkOffset();
   }
 
   handleScroll = e => {
-    const { pages, page } = this.props;
+    const { page } = this.props;
     const { scrolling } = this.state;
+    console.log(this.pageCount, page);
     if (scrolling) return;
-    if (pages <= page) return;
+    if (this.pageCount < page) return;
     this.checkOffset();
   };
 
   checkOffset = () => {
-    const lastLi = document.querySelector('ul.jokes > li:last-child');
-    const lastLiOffset = lastLi.offsetTop + lastLi.clientHeight;
+    // console.log('loading');
+    // const lastLi = document.querySelector('ul.jokes > li:last-child');
+    const jokeContainer = document.querySelector('.jokes-container');
     const pageOffset = window.pageYOffset + window.innerHeight;
     const bottomOffset = 120;
-    if (pageOffset > lastLiOffset - bottomOffset) this.loadMore();
+    // console.log(jokeContainer);
+    if (pageOffset > jokeContainer.clientHeight) this.loadMore();
   };
 
   // loadJokes = () => {
@@ -60,6 +64,7 @@ class JokeList extends Component {
 
   loadMore = () => {
     this.setState({ scrolling: true });
+    console.log('loading');
     this.props.increasePageNumber(this.props.page);
     this.setState({ scrolling: false });
     // this.loadJokes();
@@ -97,36 +102,42 @@ class JokeList extends Component {
   //
 
   render() {
-    const { error, limit } = this.props;
+    const { error, page, category } = this.props;
+    console.log(category, 'category');
     return (
-      <Query
-        query={FEED_QUERY}
-        variables={{
-          categoryName: 'food',
-          limit: 2,
-          perPage: 10,
-          page: 1,
-        }}
-      >
-        {({ loading, _, data }) => {
-          if (loading) return <div>Fetching</div>;
-          if (error) return <div>Error</div>;
-          console.log(data);
-          const jokes = data.category.jokes;
+      <div>
+        <Query
+          query={FEED_QUERY}
+          variables={{
+            categoryName: category,
+            limit: 2,
+            perPage: 3,
+            page: page,
+          }}
+        >
+          {({ loading, _, data }) => {
+            console.log(page);
+            if (loading) return <div>Fetching</div>;
+            if (error) return <div>Error</div>;
+            console.log(data);
+            const jokes = data.category.jokes;
+            const pageCount = Math.ceil(jokes.length / 3);
+            this.pageCount = pageCount;
 
-          return (
-            <div>
-              <ul>
-                {jokes.map((joke, index) => (
-                  <li key={index} key={joke.id}>
-                    <Joke {...joke} />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          );
-        }}
-      </Query>
+            return (
+              <div>
+                <ul className="jokes">
+                  {jokes.map((joke, index) => (
+                    <li key={index}>
+                      <Joke {...joke} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          }}
+        </Query>
+      </div>
     );
   }
 }

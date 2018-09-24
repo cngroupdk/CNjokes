@@ -15,7 +15,7 @@ const resolvers = {
     category: (getCategory = async (_, args) => {
       try {
         const data = await Category.findOne({ name: args.name });
-        return data;
+        return data ? data.name : 'none';
       } catch (error) {
         console.log(error);
       }
@@ -56,7 +56,7 @@ const resolvers = {
     name: obj => obj.name,
     jokes: (getJokesFromCategory = async (obj, args) => {
       try {
-        const query = obj.name !== null ? { category: [obj.name] } : {};
+        const query = obj !== 'none' ? { category: [obj] } : {};
         const count = await Joke.countDocuments(query);
         const total = args.limit > count ? count : args.limit;
         const jokes = await Joke.find(query);
