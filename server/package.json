@@ -9,7 +9,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "client": "yarn --cwd client start",
-    "dev": "yarn server & yarn client",
+    "dev": "yarn start & yarn client",
     "app-install" : "yarn install && cd client && yarn install",
     "heroku-postbuild": "YARN_PRODUCTION=false cd client && yarn && yarn run build"
   },

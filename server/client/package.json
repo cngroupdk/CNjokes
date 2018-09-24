@@ -4,12 +4,14 @@
   "private": true,
   "proxy": {
     "/api/*": {
-      "target": "http://localhost:5000"
+      "target": "http://localhost:4000"
     }
   },
   "dependencies": {
+    "apollo-boost": "^0.1.16",
     "axios": "^0.18.0",
     "react": "^16.5.1",
+    "react-apollo": "^2.1.11",
     "react-dom": "^16.5.1",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.5",
