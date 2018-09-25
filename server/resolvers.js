@@ -6,7 +6,6 @@ const paginateService = require('./services/paginateService');
 
 const resolvers = {
   Query: {
-    info: () => null,
     categories: () => {
       return Category.find()
         .then(result => result)
@@ -20,8 +19,11 @@ const resolvers = {
         console.log(error);
       }
     }),
-    jokes: () => {
-      return Joke.find()
+    jokes: async () => {
+      let query = {};
+      query.category = 'dev';
+      query.value = new RegExp('', 'i');
+      return Joke.find(query)
         .then(result => result)
         .catch(error => error);
     },
@@ -56,21 +58,15 @@ const resolvers = {
     name: obj => obj.name,
     jokes: (getJokesFromCategory = async (obj, args) => {
       try {
-        const { perPage, page } = args;
-        const query = obj !== 'none' ? { category: [obj] } : {};
-        const count = await Joke.countDocuments(query);
-        const total = args.limit > count ? count : args.limit;
+        const { limit, offset, searchString } = args;
+        let query = {};
+        if (obj !== 'none') {
+          query.category = [obj];
+        }
+        query.value = new RegExp(searchString, 'i');
         const jokes = await Joke.find(query)
-          .limit(perPage)
-          .skip(page * perPage - perPage);
-        //different method with pagination now;
-        // const perPage = args.perPage > total ? total : args.perPage;
-        // const options = {
-        //   total: total,
-        //   page: parseInt(args.page, 10),
-        //   perPage: parseInt(args.perPage, 10),
-        // };
-        // const response = paginateService.paginate(jokes, options);
+          .limit(limit)
+          .skip(offset);
         return jokes;
       } catch (error) {
         console.log(error);
