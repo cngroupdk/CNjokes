@@ -11,34 +11,33 @@ const GET_RANDOM_JOKE = gql`
   }
 `;
 
-const GET_JOKES_IN_CATEGORY = gql`
-  query JokesInCategory($category: String!, $limit: Int!) {
-    jokesInCategory(category: $category, limit: $limit) {
+const GET_FILTER_SETTINGS = gql`
+  query {
+    selectedCategory @client {
+      name
+    }
+    searchTerm @client {
       value
+    }
+    displayNumber @client {
+      limit
     }
   }
 `;
 
 const SEARCH_JOKES = gql`
-  query SearchJokes($query: String!) {
-    searchJokes(query: $query) {
-      value
-    }
-  }
-`;
-
-const GET_SEARCH_TERM = gql`
-  query {
-    searchTerm @client {
-      value
-    }
-  }
-`;
-
-const GET_SELECTED_CATEGORY = gql`
-  query {
-    selectedCategory @client {
+  query getCategory(
+    $categoryName: String
+    $limit: Int = 10
+    $offset: Int = 0
+    $searchString: String
+  ) {
+    category(name: $categoryName) {
       name
+      jokes(limit: $limit, offset: $offset, searchString: $searchString) {
+        value
+      }
+      total
     }
   }
 `;
@@ -62,7 +61,31 @@ class Jokes extends Component {
 
   render() {
     return (
-      // if search term is not empty string
+      <Query query={GET_FILTER_SETTINGS}>
+        {({ loading, error, data }) => {
+          if (loading) return <div>Loading...</div>;
+          if (error) return <div>Error :(</div>;
+          console.log(data);
+          const { displayNumber, searchTerm, selectedCategory } = data;
+          const categoryName = selectedCategory.name;
+          return (
+            <div>
+              <Query query={SEARCH_JOKES}>
+                {({ loading, error, data }) => {
+                  if (loading) return <div>Loading...</div>;
+                  if (error) return <div>Error :(</div>;
+                  console.log(data.category);
+                  //const { jokes, name } = data.category;
+                  //if (jokes) return renderJokes(jokes);
+                  return <p>Jokes</p>;
+                }}
+                }
+              </Query>
+            </div>
+          );
+        }}
+      </Query>
+      /*       // if search term is not empty string
       // use SEARCH_JOKES query
       <Query query={GET_SEARCH_TERM}>
         {({ data: { loading, searchTerm } }) => {
@@ -136,7 +159,7 @@ class Jokes extends Component {
             );
           }
         }}
-      </Query>
+      </Query> */
     );
   }
 }
