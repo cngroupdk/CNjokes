@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { gql } from "apollo-boost";
-import { Query } from "react-apollo";
-import Joke from "./Joke";
+import React, { Component } from 'react';
+import { gql } from 'apollo-boost';
+import { Query } from 'react-apollo';
+import Joke from './Joke';
 
 const GET_RANDOM_JOKE = gql`
   query {
@@ -42,9 +42,26 @@ const SEARCH_JOKES = gql`
   }
 `;
 
-const renderJokes = jokes => {
+const renderJokes = (jokes, fetchMore, categoryName) => {
   return (
-    <div>
+    <div
+      entries={jokes || []}
+      onLoadMore={() =>
+        fetchMore({
+          variables: {
+            limit: 10,
+            offset: jokes.length,
+            categoryName: categoryName,
+          },
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev;
+            return Object.assign({}, prev, {
+              jokes: [...prev.jokes, ...fetchMoreResult.jokes],
+            });
+          },
+        })
+      }
+    >
       <ul className="jokes">
         {jokes.map((joke, index) => (
           <li key={index}>
@@ -54,6 +71,26 @@ const renderJokes = jokes => {
       </ul>
     </div>
   );
+};
+
+const JokeList = ({ entries = [], onLoadMore }) => {
+  if (entries && entries.length) {
+    return (
+      <div>
+        <ul>
+          {entries.map((joke, index) => {
+            return (
+              <li key={index}>
+                <Joke {...joke} />
+              </li>
+            );
+          })}
+        </ul>
+        <button onClick={onLoadMore}>Load more</button>
+      </div>
+    );
+  }
+  return <div />;
 };
 
 class Jokes extends Component {
@@ -71,17 +108,45 @@ class Jokes extends Component {
             <Query
               query={SEARCH_JOKES}
               variables={{
+                offset: 0,
                 categoryName: selectedCategory.name,
-                limit: displayNumber.limit,
-                searchString: searchTerm.value
+                limit: 3,
+                searchString: searchTerm.value,
               }}
             >
-              {({ loading, error, data }) => {
+              {({ loading, error, data, fetchMore }) => {
+                console.log(fetchMore);
                 if (loading) return <div>Loading...</div>;
                 if (error) return <div>Error :(</div>;
-                console.log(data.category);
                 const { jokes, name } = data.category;
-                return renderJokes(jokes);
+                return (
+                  <JokeList
+                    entries={jokes || []}
+                    onLoadMore={() =>
+                      fetchMore({
+                        variables: {
+                          offset: jokes.length,
+                          categoryName: name,
+                          limit: 3,
+                          searchString: searchTerm.value,
+                        },
+                        updateQuery: (prev, { fetchMoreResult }) => {
+                          console.log(prev);
+                          if (!fetchMoreResult) return prev;
+                          return Object.assign({}, prev, {
+                            category: {
+                              ...prev.category,
+                              jokes: [
+                                ...prev.category.jokes,
+                                ...fetchMoreResult.category.jokes,
+                              ],
+                            },
+                          });
+                        },
+                      })
+                    }
+                  />
+                );
               }}
             </Query>
           );
