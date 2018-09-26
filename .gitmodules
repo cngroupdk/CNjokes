@@ -1,0 +1,6 @@
+[submodule "heroku"]
+	path = heroku
+	url = https://git.heroku.com/gentle-headland-61682.git
+[submodule "cnjokes-gql-server"]
+	path = cnjokes-gql-server
+	url = https://git.heroku.com/gentle-headland-61682.git
