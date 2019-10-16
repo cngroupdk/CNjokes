@@ -7,8 +7,7 @@ class SpecialJoke extends React.Component {
     super(props)
 
     this.state = {
-      selectedJoke: 1,
-      clicked: false
+      selectedJoke: 1
     }
   }
 
@@ -22,16 +21,13 @@ class SpecialJoke extends React.Component {
 
   handleClick = () => {
     this.componentDidMount();
-    this.setState({
-      clicked: true
-    })
     console.log(this.selectedJoke);
   }
 
     render() {
       return (
         <>
-          <p>{this.state.clicked && this.state.selectedJoke}</p>
+          <p>{this.state.selectedJoke}</p>
           <button onClick={this.handleClick}>
             Show me another one!
           </button>
