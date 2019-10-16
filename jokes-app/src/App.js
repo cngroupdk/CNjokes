@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import SpecialJoke from './components/SpecialJoke';
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <header className="App-header">
         Here we are.
       </header>
+      <SpecialJoke/>
     </div>
   );
 }
