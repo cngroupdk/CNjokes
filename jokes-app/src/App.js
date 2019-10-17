@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import SpecialJoke from './components/SpecialJoke';
 import CategoriesList from './components/CategoriesList';
+import SatisfactionSearch from './components/SatisfactionSearch';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <CategoriesList />
       <hr />
       <h2>Still not satisfied?</h2>
+      <SatisfactionSearch />
     </div>
   );
 }

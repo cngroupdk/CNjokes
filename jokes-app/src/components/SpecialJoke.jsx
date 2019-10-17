@@ -21,7 +21,6 @@ class SpecialJoke extends React.Component {
 
   handleClick = () => {
     this.componentDidMount();
-    console.log(this.selectedJoke);
   }
 
     render() {
