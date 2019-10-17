@@ -1,27 +1,59 @@
 <template>
-  <div id="app">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="JokesApp">
+      <header>
+          <h1>{{ title }}</h1>
+      </header>
+    <JokesForm></JokesForm>
+    <JokesList></JokesList>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import JokesList from './components/JokesList.vue'
+import JokesForm from './components/JokesForm.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    JokesList,
+    JokesForm,
+  },
+  data() {
+      return {
+          title: 'Jokes App',
+      }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: lightseagreen;
+}
+
+.JokesApp {
+    margin: 3rem;
+}
+
+.JokesApp header {
+    background: darkblue;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 1rem;
+}
+
+.JokesSection {
+    background: white;
+    color: darkblue;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 1rem;
 }
 </style>
