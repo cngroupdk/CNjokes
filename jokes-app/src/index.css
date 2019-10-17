@@ -26,3 +26,13 @@ code {
 .category-container ul li {
   text-transform: capitalize;
 }
+
+.category-container ul li:hover {
+  text-transform: capitalize;
+  cursor: pointer;
+  color: orange;
+}
+
+.category-container ul li.selected {
+  color: red;
+}
