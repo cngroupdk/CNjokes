@@ -38,7 +38,9 @@ body {
 }
 
 .JokesApp {
-    margin: 3rem;
+    margin: 3rem auto;
+    width: 90%;
+    max-width: 500px;
 }
 
 .JokesApp header {
