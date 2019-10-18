@@ -11,22 +11,49 @@
 <script>
 export default {
   name: 'JokesList',
+  props: {
+      inputsArray: Array,
+  },
+
   data() {
       return {
           randomJokes: [],
+          selectedCategory: this.inputsArray[0],
+          numberOfJokes: this.inputsArray[1],
+          searchInputText: this.inputsArray[2]
       }
   },
   created() {
-      this.displayRandomJoke();
+      (this.searchInputText.length>2) ? this.displaySearchedJoke() : this.displayRandomJoke();
   },
+
+  
   methods: {
       displayRandomJoke() {
-          fetch('https://api.chucknorris.io/jokes/random')
-            .then(res => res.json())
-            .then(data => {this.randomJokes.push(data.value)});
+            let url;
 
-        console.log(this.randomJokes);
-      }
+            if(this.selectedCategory==="") {
+            url ='https://api.chucknorris.io/jokes/random';
+            }
+            else {
+            url = `https://api.chucknorris.io/jokes/random?category=${this.selectedCategory}`;
+            }
+
+            for (let i = 0; i < this.numberOfJokes; i++) {
+
+                fetch(url)
+                    .then(res => res.json())
+                    .then(data => {this.randomJokes.push(data.value)});
+            }
+
+        },
+        displaySearchedJoke() {
+            let url = `https://api.chucknorris.io/jokes/search?query=${this.searchInputText}`;
+            fetch(url)
+                .then(res => res.json())
+                .then(data => this.randomJokes = [...data.result].map(joke => joke.value).slice(0,this.numberOfJokes));
+        }
+
   }
 }
 </script>

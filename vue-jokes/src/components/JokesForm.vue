@@ -2,17 +2,17 @@
     <div class="JokesForm JokesSection">
         <form>
             <div class="JokesForm__Part">
-                <select name="jokes-categories" id="jokes-categories">
+                <select @change="changedSelect($event)" name="jokes-categories" id="jokes-categories">
                     <option value="" disabled selected>Select your category</option>
                     <option v-for="category in categories"
                             v-bind:key="category"
                             :value="category">{{category}}</option>
                 </select>
-                <input type="number" class="JokesForm__Number" step="1" min="1" value="1">
+                <input v-model.number="numberOfJokes" type="number" class="JokesForm__Number" step="1" min="1" value="1">
             </div>
             <div class="JokesForm__Part">
-                <input type="text" class="JokesForm__Search">
-                <button type="submit">Search</button>
+                <input v-model="searchInputText" placeholder="search text..." type="text" class="JokesForm__Search">
+                <button v-on:click="callShowJokes" type="button">{{ getSearchButtonText() }}</button>
             </div>
         </form>
     </div>
@@ -24,6 +24,10 @@ export default {
   data() {
       return {
           categories: [],
+          selectedCategory: "",
+          numberOfJokes: 1,
+          searchInputText: "",
+          clearButton: false
       }
   },
   created() {
@@ -39,6 +43,25 @@ export default {
             });
 
             console.log(this.categories);
+      },
+      changedSelect(event) {
+          this.selectedCategory =event.target.value;
+      },
+      callShowJokes() {
+          this.clearButton = !this.clearButton;
+          this.$emit('searchButtonClicked', [this.selectedCategory, this.numberOfJokes, this.searchInputText]);
+      },
+      getSearchButtonText() {
+          if(this.clearButton) {
+              return "Again"
+          }
+          if (this.searchInputText.length !== 0) {
+              return "search for joke";
+          }
+          if (this.numberOfJokes>1) {
+              return "Get random jokes"
+          }
+          return "Get random joke";
       }
   }
 }

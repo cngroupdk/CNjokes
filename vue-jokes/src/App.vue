@@ -3,8 +3,8 @@
       <header>
           <h1>{{ title }}</h1>
       </header>
-    <JokesForm></JokesForm>
-    <JokesList></JokesList>
+    <JokesForm v-on:searchButtonClicked="searchButtonClicked"></JokesForm>
+    <JokesList v-if="isSearchedButtonClicked" v-bind:inputsArray="inputsArray"></JokesList>
   </div>
 </template>
 
@@ -21,7 +21,15 @@ export default {
   data() {
       return {
           title: 'Jokes App',
+          isSearchedButtonClicked: false,
+          inputsArray: [],
       }
+  },
+  methods: {
+      searchButtonClicked (inputs) {
+          this.inputsArray = inputs;
+          this.isSearchedButtonClicked = !this.isSearchedButtonClicked;
+      },
   }
 }
 </script>
