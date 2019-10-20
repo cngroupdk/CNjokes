@@ -36,3 +36,19 @@ code {
 .category-container ul li.selected {
   color: red;
 }
+
+.jokes-list{
+  list-style-type: none;
+}
+
+.jokes-list li:nth-child(odd) {
+  background-color: #eeeeee;
+}
+
+.info{
+  color: gray;
+  font-size: 0.7em;
+}
+.countInput {
+  margin: 0 0.7em
+}
