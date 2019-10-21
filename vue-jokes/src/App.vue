@@ -4,7 +4,7 @@
           <h1>{{ title }}</h1>
       </header>
     <JokesForm v-on:searchButtonClicked="searchButtonClicked"></JokesForm>
-    <JokesList v-if="isSearchedButtonClicked" v-bind:inputsArray="inputsArray"></JokesList>
+    <JokesList v-if="isSearchedButtonClicked" v-bind:formInputs="formInputs"></JokesList>
   </div>
 </template>
 
@@ -22,12 +22,12 @@ export default {
       return {
           title: 'Jokes App',
           isSearchedButtonClicked: false,
-          inputsArray: [],
+          formInputs: {},
       }
   },
   methods: {
       searchButtonClicked (inputs) {
-          this.inputsArray = inputs;
+          this.formInputs = inputs;
           this.isSearchedButtonClicked = !this.isSearchedButtonClicked;
       },
   }

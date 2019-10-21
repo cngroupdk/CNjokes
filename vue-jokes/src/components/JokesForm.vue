@@ -12,7 +12,7 @@
             </div>
             <div class="JokesForm__Part">
                 <input v-model="searchInputText" placeholder="search text..." type="text" class="JokesForm__Search">
-                <button v-on:click="callShowJokes" type="button">{{ getSearchButtonText() }}</button>
+                <button v-on:click="callShowJokes" type="button">{{ getSearchButtonText }}</button>
             </div>
         </form>
     </div>
@@ -23,7 +23,7 @@ export default {
   name: 'JokesForm',
   data() {
       return {
-          categories: [],
+          categories: ["all"],
           selectedCategory: "",
           numberOfJokes: 1,
           searchInputText: "",
@@ -49,13 +49,15 @@ export default {
       },
       callShowJokes() {
           this.clearButton = !this.clearButton;
-          this.$emit('searchButtonClicked', [this.selectedCategory, this.numberOfJokes, this.searchInputText]);
-      },
-      getSearchButtonText() {
+          this.$emit('searchButtonClicked', {selectedCategory: this.selectedCategory, numberOfJokes: this.numberOfJokes, searchInputText:this.searchInputText});
+      }
+  },
+  computed: {
+      getSearchButtonText () {
           if(this.clearButton) {
               return "Again"
           }
-          if (this.searchInputText.length !== 0) {
+          if (this.searchInputText.length > 2) {
               return "search for joke";
           }
           if (this.numberOfJokes>1) {

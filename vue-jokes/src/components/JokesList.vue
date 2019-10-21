@@ -12,15 +12,15 @@
 export default {
   name: 'JokesList',
   props: {
-      inputsArray: Array,
+      formInputs: Object,
   },
 
   data() {
       return {
           randomJokes: [],
-          selectedCategory: this.inputsArray[0],
-          numberOfJokes: this.inputsArray[1],
-          searchInputText: this.inputsArray[2]
+          selectedCategory: this.formInputs.selectedCategory,
+          numberOfJokes: this.formInputs.numberOfJokes,
+          searchInputText: this.formInputs.searchInputText
       }
   },
   created() {
@@ -32,11 +32,11 @@ export default {
       displayRandomJoke() {
             let url;
 
-            if(this.selectedCategory==="") {
-            url ='https://api.chucknorris.io/jokes/random';
+            if(this.selectedCategory==="" || this.selectedCategory==="all") {
+                url ='https://api.chucknorris.io/jokes/random';
             }
             else {
-            url = `https://api.chucknorris.io/jokes/random?category=${this.selectedCategory}`;
+                url = `https://api.chucknorris.io/jokes/random?category=${this.selectedCategory}`;
             }
 
             for (let i = 0; i < this.numberOfJokes; i++) {
