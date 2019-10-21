@@ -1,63 +1,81 @@
 <template>
-    <div class="JokesList JokesSection">
-        <ul>
-            <li v-for="randomJoke in randomJokes" v-bind:key="randomJoke.index">
-                {{ randomJoke }}
-            </li>
-        </ul>
-    </div>
+  <div class="JokesList JokesSection">
+    <ul>
+      <li v-for="randomJoke in randomJokes" v-bind:key="randomJoke.index">
+        {{ randomJoke }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'JokesList',
+  name: "JokesList",
   props: {
-      formInputs: Object,
+    formInputs: Object
   },
 
   data() {
-      return {
-          randomJokes: [],
-          selectedCategory: this.formInputs.selectedCategory,
-          numberOfJokes: this.formInputs.numberOfJokes,
-          searchInputText: this.formInputs.searchInputText
-      }
+    return {
+      randomJokes: [],
+      selectedCategory: this.formInputs.selectedCategory,
+      numberOfJokes: this.formInputs.numberOfJokes,
+      searchInputText: this.formInputs.searchInputText
+    };
   },
   created() {
-      (this.searchInputText.length>2) ? this.displaySearchedJoke() : this.displayRandomJoke();
+    this.loadJokes();
   },
 
-  
+  watch: {
+    formInputs: "handleChangeProps"
+  },
+
   methods: {
-      displayRandomJoke() {
-            let url;
+    handleChangeProps() {
+      this.selectedCategory = this.formInputs.selectedCategory;
+      this.numberOfJokes = this.formInputs.numberOfJokes;
+      this.searchInputText = this.formInputs.searchInputText;
+      this.randomJokes = [];
+      this.loadJokes();
+    },
 
-            if(this.selectedCategory==="" || this.selectedCategory==="all") {
-                url ='https://api.chucknorris.io/jokes/random';
-            }
-            else {
-                url = `https://api.chucknorris.io/jokes/random?category=${this.selectedCategory}`;
-            }
+    loadJokes() {
+      this.searchInputText.length > 2
+        ? this.fetchSearchedJoke()
+        : this.fetchRandomJoke();
+    },
+    fetchRandomJoke() {
+      let url;
 
-            for (let i = 0; i < this.numberOfJokes; i++) {
+      if (this.selectedCategory === "" || this.selectedCategory === "all") {
+        url = "https://api.chucknorris.io/jokes/random";
+      } else {
+        url = `https://api.chucknorris.io/jokes/random?category=${this.selectedCategory}`;
+      }
 
-                fetch(url)
-                    .then(res => res.json())
-                    .then(data => {this.randomJokes.push(data.value)});
-            }
-
-        },
-        displaySearchedJoke() {
-            let url = `https://api.chucknorris.io/jokes/search?query=${this.searchInputText}`;
-            fetch(url)
-                .then(res => res.json())
-                .then(data => this.randomJokes = [...data.result].map(joke => joke.value).slice(0,this.numberOfJokes));
-        }
-
+      for (let i = 0; i < this.numberOfJokes; i++) {
+        fetch(url)
+          .then(res => res.json())
+          .then(data => {
+            this.randomJokes.push(data.value);
+          });
+      }
+    },
+    fetchSearchedJoke() {
+      let url = `https://api.chucknorris.io/jokes/search?query=${this.searchInputText}`;
+      fetch(url)
+        .then(res => res.json())
+        .then(
+          data =>
+            (this.randomJokes = [...data.result]
+              .map(joke => joke.value)
+              .slice(0, this.numberOfJokes))
+        );
+    }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
+<style scoped></style>

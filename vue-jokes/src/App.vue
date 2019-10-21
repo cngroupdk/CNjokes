@@ -1,69 +1,67 @@
 <template>
   <div id="app" class="JokesApp">
-      <header>
-          <h1>{{ title }}</h1>
-      </header>
+    <header>
+      <h1>{{ title }}</h1>
+    </header>
     <JokesForm v-on:searchButtonClicked="searchButtonClicked"></JokesForm>
-    <JokesList v-if="isSearchedButtonClicked" v-bind:formInputs="formInputs"></JokesList>
+    <JokesList v-bind:formInputs="formInputs"></JokesList>
   </div>
 </template>
 
 <script>
-import JokesList from './components/JokesList.vue'
-import JokesForm from './components/JokesForm.vue'
+import JokesList from "./components/JokesList.vue";
+import JokesForm from "./components/JokesForm.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     JokesList,
-    JokesForm,
+    JokesForm
   },
   data() {
-      return {
-          title: 'Jokes App',
-          isSearchedButtonClicked: false,
-          formInputs: {},
-      }
+    return {
+      title: "Jokes App",
+      formInputs: {}
+    };
   },
   methods: {
-      searchButtonClicked (inputs) {
-          this.formInputs = inputs;
-          this.isSearchedButtonClicked = !this.isSearchedButtonClicked;
-      },
+    searchButtonClicked(inputs) {
+      this.formInputs = inputs;
+    }
   }
-}
+};
 </script>
 
 <style>
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background: lightseagreen;
+  background: lightseagreen;
 }
 
 .JokesApp {
-    margin: 3rem auto;
-    width: 90%;
-    max-width: 500px;
+  margin: 3rem auto;
+  width: 90%;
+  max-width: 500px;
 }
 
 .JokesApp header {
-    background: darkblue;
-    color: white;
-    text-align: center;
-    padding: 1.5rem;
-    border-radius: 1rem;
+  background: darkblue;
+  color: white;
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 1rem;
 }
 
 .JokesSection {
-    background: white;
-    color: darkblue;
-    margin-top: 1.5rem;
-    padding: 1.5rem;
-    border-radius: 1rem;
+  background: white;
+  color: darkblue;
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
 }
 </style>
