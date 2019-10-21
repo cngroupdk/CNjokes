@@ -4,6 +4,7 @@ import './App.css';
 import SpecialJoke from './components/SpecialJoke';
 import CategoriesList from './components/CategoriesList';
 import SatisfactionSearch from './components/SatisfactionSearch';
+import CategoryBlock from './components/CategoryBlock';
 
 function App() {
   return (
@@ -13,8 +14,7 @@ function App() {
       </header>
       <SpecialJoke />
       <hr />
-      <h2>Or choose from categories</h2>
-      <CategoriesList />
+      <CategoryBlock />
       <hr />
       <h2>Still not satisfied?</h2>
       <SatisfactionSearch />

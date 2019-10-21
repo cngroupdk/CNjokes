@@ -7,28 +7,26 @@ class CategoriesList extends React.Component {
         super(props)
 
         this.state = {
-            categories: [],
-            selectedCategory: "- All -"
+            categories: []
         }
     }
 
     componentDidMount = () => {
         this.loadCategoriesFromAPI()
-        // Q: how about this.setState(getCategoriesFromAPI()) ?
+        // Q: how about this.setState(categories:  this.getCategoriesFromAPI()) ?
     };
 
     loadCategoriesFromAPI = () => {
         fetch(API_URL)
             .then(response => response.json())
             .then(data => {
-                data.push("- All -") // let's add All category
+                data.push("all") // let's add "all" category
                 this.setState({ categories: data });
             });
     }
 
     categoryClicked = (name) => {
-        this.setState({ selectedCategory: name })
-        console.log("Category " + name + " clicked!");
+        this.props.categorySetter(name)
     }
 
     render() {
@@ -40,7 +38,7 @@ class CategoriesList extends React.Component {
                             <li
                                 key={categoryName}
                                 onClick={() => this.categoryClicked(categoryName)}
-                                className={categoryName === this.state.selectedCategory ? "selected" : ""}
+                                className={categoryName === this.props.selectedCategory ? "selected" : ""}
                             >
                                 {categoryName}
                             </li>
