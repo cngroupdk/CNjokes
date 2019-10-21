@@ -7,7 +7,7 @@ class SpecialJoke extends React.Component {
     super(props)
 
     this.state = {
-      selectedJoke: 1
+      selectedJoke: 'Waiting for some CN joke.'
     }
   }
 
