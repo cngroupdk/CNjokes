@@ -1,6 +1,6 @@
 import React from 'react';
 
-const API_URL = 'https://api.chucknorris.io/jokes/search?query={query}';
+const API_URL = 'https://api.chucknorris.io/jokes/search?query=';
 let finalUri = ''
 
 class SatisfactionSearch extends React.Component {
@@ -14,11 +14,8 @@ class SatisfactionSearch extends React.Component {
     }
 
     updateQueryStringParameter = () => {
-        const uri = API_URL;
-        const key = 'query';
         const value = this.state.query;
-        const regex = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-        finalUri = uri.replace(regex, '$1' + key + "=" + value);
+        finalUri = API_URL + value
         console.log(finalUri);
       }
 
@@ -26,7 +23,7 @@ class SatisfactionSearch extends React.Component {
         fetch(finalUri)
           .then(response => response.json())
           .then(dataFromApi => {
-              console.log(dataFromApi.result)
+            console.log(dataFromApi.result)
             this.setState({ searchedJokes: dataFromApi.result });
           });
     };

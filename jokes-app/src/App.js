@@ -1,8 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import SpecialJoke from './components/SpecialJoke';
-import CategoriesList from './components/CategoriesList';
 import SatisfactionSearch from './components/SatisfactionSearch';
 import CategoryBlock from './components/CategoryBlock';
 
