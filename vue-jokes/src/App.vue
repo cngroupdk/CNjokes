@@ -1,12 +1,13 @@
 <template>
   <div id="app" class="JokesApp">
+    <JokesHeader></JokesHeader>
     <label class="switch">
       <input v-model="isOfflineModeActive" type="checkbox" />
       <span class="slider round"></span>
     </label>
-    <header>
+    <div class="JokesTitle">
       <h1>{{ title }}</h1>
-    </header>
+    </div>
     <JokesForm v-on:searchButtonClicked="searchButtonClicked"></JokesForm>
     <JokesList
       v-if="isSearchedButtonClicked"
@@ -17,6 +18,7 @@
 </template>
 
 <script>
+import JokesHeader from "./components/JokesHeader.vue";
 import JokesList from "./components/JokesList.vue";
 import JokesForm from "./components/JokesForm.vue";
 
@@ -24,7 +26,8 @@ export default {
   name: "app",
   components: {
     JokesList,
-    JokesForm
+    JokesForm,
+    JokesHeader
   },
   data() {
     return {
@@ -55,12 +58,12 @@ body {
 }
 
 .JokesApp {
-  margin: 3rem auto;
+  margin: 13rem auto 0;
   width: 90%;
   max-width: 500px;
 }
 
-.JokesApp header {
+.JokesTitle {
   background: darkblue;
   color: white;
   text-align: center;
