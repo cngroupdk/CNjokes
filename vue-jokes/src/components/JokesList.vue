@@ -89,9 +89,8 @@ export default {
         if (this.searchInputText.length === 0) {
           return jokes;
         } else {
-          return jokes.filter(joke =>
-            joke.value.includes(this.searchInputText)
-          );
+          const searchedText = new RegExp(this.searchInputText, "gi");
+          return jokes.filter(joke => joke.value.match(searchedText));
         }
       };
 
