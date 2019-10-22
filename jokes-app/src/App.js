@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import SpecialJoke from './components/SpecialJoke';
-import SatisfactionSearch from './components/SatisfactionSearch';
+import SpecialJokeBlock from './components/SpecialJokeBlock';
+import SearchBlock from './components/SearchBlock';
 import CategoryBlock from './components/CategoryBlock';
 
 function App() {
@@ -10,12 +10,12 @@ function App() {
       <header className="App-header">
         Here we are.
       </header>
-      <SpecialJoke />
+      <SpecialJokeBlock />
       <hr />
       <CategoryBlock />
       <hr />
       <h2>Still not satisfied?</h2>
-      <SatisfactionSearch />
+      <SearchBlock />
     </div>
   );
 }
