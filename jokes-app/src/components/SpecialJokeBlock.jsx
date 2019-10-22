@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'reactstrap';
 
 const API_URL = 'https://api.chucknorris.io/jokes/random';
 
@@ -31,9 +32,9 @@ class SpecialJokeBlock extends React.Component {
       return (
         <>
           <p>{this.state.selectedJoke}</p>
-          <button onClick={this.handleClick}>
+          <Button onClick={this.handleClick}>
             Show me another one!
-          </button>
+          </Button>
         </>
       );
     }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, Input } from 'reactstrap';
 
 const API_URL = 'https://api.chucknorris.io/jokes/search?query=';
 let finalUri = ''
@@ -50,8 +51,8 @@ class SearchBlock extends React.Component {
         return (
             <>
               <p>You can use this fulltext search to look for the jokes you're so eager to find.</p>
-              <input type="search" value={this.state.query} onChange={this.handleChange}/>
-              <button onClick={this.handleSearch}>Search!</button>
+              <Input type="search" value={this.state.query} onChange={this.handleChange}/>
+              <Button onClick={this.handleSearch}>Search!</Button>
               {listItems}
             </>
         );
