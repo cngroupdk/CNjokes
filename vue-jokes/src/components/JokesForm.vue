@@ -27,7 +27,7 @@
       <div class="JokesForm__Part">
         <input
           v-model="searchInputText"
-          placeholder="search text..."
+          placeholder="Search text..."
           type="text"
           class="JokesForm__Search"
         />
@@ -76,7 +76,7 @@ export default {
   computed: {
     getSearchButtonText() {
       if (this.searchInputText.length > 2) {
-        return "search for joke";
+        return "Search for joke";
       }
       if (this.numberOfJokes > 1) {
         return "Get random jokes";
