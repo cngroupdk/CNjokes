@@ -14,15 +14,10 @@ class SearchBlock extends React.Component {
         }
     }
 
-    updateQueryStringParameter = () => {
-        const value = this.state.query;
-        finalUri = API_URL + value
+    updateQueryUrl = (API_URL, query) => {
+        finalUri = API_URL + query
         console.log(finalUri);
       }
-
-    componentDidMount = () => {
-        this.fetchData();
-    };
 
     fetchData = () => {
         fetch(finalUri)
@@ -38,7 +33,7 @@ class SearchBlock extends React.Component {
     }
 
     handleSearch = () => {
-        this.updateQueryStringParameter();
+        this.updateQueryUrl(API_URL, this.state.query);
         this.fetchData();
     }
 
