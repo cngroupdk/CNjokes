@@ -2,7 +2,7 @@ import React from 'react';
 
 const API_URL = 'https://api.chucknorris.io/jokes/random';
 
-class SpecialJoke extends React.Component {   
+class SpecialJokeBlock extends React.Component {   
   constructor(props) {
     super(props)
 
@@ -12,15 +12,19 @@ class SpecialJoke extends React.Component {
   }
 
   componentDidMount = () => {
+    this.fetchData();
+  };
+
+  fetchData = () => {
     fetch(API_URL)
       .then(response => response.json())
       .then(dataFromApi => {
         this.setState({ selectedJoke: dataFromApi.value });
       });
-  };
+  }
 
   handleClick = () => {
-    this.componentDidMount();
+    this.fetchData();
   }
 
     render() {
@@ -35,4 +39,4 @@ class SpecialJoke extends React.Component {
     }
   }
 
-  export default SpecialJoke;
+  export default SpecialJokeBlock;
