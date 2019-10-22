@@ -4,7 +4,10 @@
       <h1>{{ title }}</h1>
     </header>
     <JokesForm v-on:searchButtonClicked="searchButtonClicked"></JokesForm>
-    <JokesList v-bind:formInputs="formInputs"></JokesList>
+    <JokesList
+      v-if="isSearchedButtonClicked"
+      v-bind:formInputs="formInputs"
+    ></JokesList>
   </div>
 </template>
 
@@ -21,11 +24,13 @@ export default {
   data() {
     return {
       title: "Jokes App",
-      formInputs: {}
+      formInputs: {},
+      isSearchedButtonClicked: false
     };
   },
   methods: {
     searchButtonClicked(inputs) {
+      this.isSearchedButtonClicked = true;
       this.formInputs = inputs;
     }
   }
