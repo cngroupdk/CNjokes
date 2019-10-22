@@ -29,12 +29,17 @@ class SearchBlock extends React.Component {
     }
 
     handleChange = (event) => {
-        this.setState({query: event.target.value})
+        this.setState({query: event.target.value});
     }
 
     handleSearch = () => {
         this.updateQueryUrl(API_URL, this.state.query);
-        this.fetchData();
+        if (this.state.query === ''){
+            console.log('Nic jsi nenapsal.')
+        } else{
+            this.fetchData();
+        }
+      
     }
 
     render() {
