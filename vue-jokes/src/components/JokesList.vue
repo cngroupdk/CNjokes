@@ -1,6 +1,9 @@
 <template>
   <div class="JokesList JokesSection">
     <ul>
+      <label v-if="isNotEnoughResults"
+        >Sorry for your requirements we have just this jokes:</label
+      >
       <li v-for="randomJoke in randomJokes" v-bind:key="randomJoke.index">
         {{ randomJoke }}
       </li>
@@ -13,7 +16,8 @@ import jokesOfflineDatabase from "./jokes.json";
 export default {
   name: "JokesList",
   props: {
-    formInputs: Object
+    formInputs: Object,
+    isOfflineModeActive: Boolean
   },
 
   data() {
@@ -23,7 +27,7 @@ export default {
       numberOfJokes: this.formInputs.numberOfJokes,
       searchInputText: this.formInputs.searchInputText,
       jokesOffline: jokesOfflineDatabase,
-      isOfflineModeActive: true
+      isNotEnoughResults: true
     };
   },
   created() {
@@ -40,6 +44,7 @@ export default {
       this.numberOfJokes = this.formInputs.numberOfJokes;
       this.searchInputText = this.formInputs.searchInputText;
       this.randomJokes = [];
+      this.isNotEnoughResults = false;
       this.loadJokes();
     },
 
@@ -57,15 +62,11 @@ export default {
       const getRandomNumber = maxNumber => {
         return Math.floor(Math.random() * maxNumber);
       };
-      const getRandomJokeValue = () => {
-        return this.jokesOffline[getRandomNumber(this.jokesOffline.length)]
-          .value;
-      };
 
-      const getRandomDontRepeatNumber = maxNumber => {
+      const getRandomDontRepeatNumbers = maxNumber => {
         let randomDontRepeatNumbers = [];
         let nextNumber = getRandomNumber(maxNumber);
-        while (randomDontRepeatNumbers.length <= this.numberOfJokes) {
+        while (randomDontRepeatNumbers.length < this.numberOfJokes) {
           while (randomDontRepeatNumbers.includes(nextNumber)) {
             nextNumber = getRandomNumber(maxNumber);
           }
@@ -74,49 +75,43 @@ export default {
         return randomDontRepeatNumbers;
       };
 
-      const getJokesFromCategory = () => {
-        const filteredArray = this.jokesOffline.filter(joke =>
-          joke.categories.includes(this.selectedCategory)
-        );
-        if (filteredArray.length < this.numberOfJokes) {
-          this.randomJokes = filteredArray.map(joke => joke.value); //set some label returning all jokes in category!!
+      const getJokesByCategory = jokes => {
+        if (this.selectedCategory === "" || this.selectedCategory === "all") {
+          return jokes;
         } else {
-          const randomDontRepeatNumbers = getRandomDontRepeatNumber(
-            filteredArray.length
+          return jokes.filter(joke =>
+            joke.categories.includes(this.selectedCategory)
           );
-          randomDontRepeatNumbers.forEach(randomNumber => {
-            this.randomJokes.push(filteredArray[randomNumber].value);
-          });
         }
       };
 
-      if (
-        this.searchInputText.length === 0 &&
-        (this.selectedCategory === "" || this.selectedCategory === "all")
-      ) {
-        for (let i = 0; i < this.numberOfJokes; i++) {
-          this.randomJokes.push(getRandomJokeValue());
+      const getJokesBySearch = jokes => {
+        if (this.searchInputText.length === 0) {
+          return jokes;
+        } else {
+          return jokes.filter(joke =>
+            joke.value.includes(this.searchInputText)
+          );
         }
-      } else if (this.searchInputText.length === 0) {
-        getJokesFromCategory();
+      };
+
+      const isEnoughResults = jokes => {
+        return jokes.length <= this.numberOfJokes;
+      };
+
+      let filteredJokes = getJokesByCategory(this.jokesOffline);
+      filteredJokes = getJokesBySearch(filteredJokes);
+      if (isEnoughResults(filteredJokes)) {
+        this.isNotEnoughResults = true;
+        this.randomJokes = filteredJokes.map(joke => joke.value); //set some label returning all jokes in category!!
+      } else {
+        const randomDontRepeatNumbers = getRandomDontRepeatNumbers(
+          filteredJokes.length
+        );
+        randomDontRepeatNumbers.forEach(randomNumber => {
+          this.randomJokes.push(filteredJokes[randomNumber].value);
+        });
       }
-      // console.log("animal: ", this.jokesOffline.filter(joke => joke.categories.includes("animal")).length);
-      // console.log("career: ", this.jokesOffline.filter(joke => joke.categories.includes("career")).length);
-      // console.log("celebrity: ", this.jokesOffline.filter(joke => joke.categories.includes("celebrity")).length);
-      // console.log("dev: ", this.jokesOffline.filter(joke => joke.categories.includes("dev")).length);
-      // console.log("explicit: ", this.jokesOffline.filter(joke => joke.categories.includes("explicit")).length);
-      // console.log("fashion: ", this.jokesOffline.filter(joke => joke.categories.includes("fashion")).length);
-      // console.log("food: ", this.jokesOffline.filter(joke => joke.categories.includes("food")).length);
-      // console.log("history: ", this.jokesOffline.filter(joke => joke.categories.includes("history")).length);
-      // console.log("money: ", this.jokesOffline.filter(joke => joke.categories.includes("money")).length);
-      // console.log("movie: ", this.jokesOffline.filter(joke => joke.categories.includes("movie")).length);
-      // console.log("music: ", this.jokesOffline.filter(joke => joke.categories.includes("music")).length);
-      // console.log("political: ", this.jokesOffline.filter(joke => joke.categories.includes("political")).length);
-      // console.log("religion: ", this.jokesOffline.filter(joke => joke.categories.includes("religion")).length);
-      // console.log("science: ", this.jokesOffline.filter(joke => joke.categories.includes("science")).length);
-      // console.log("sport: ", this.jokesOffline.filter(joke => joke.categories.includes("sport")).length);
-      // console.log("travel: ", this.jokesOffline.filter(joke => joke.categories.includes("travel")).length);
-      //console.log("all: ", this.jokesOffline.filter(joke => joke.categories.length===0).length);
     },
 
     fetchRandomJoke() {
