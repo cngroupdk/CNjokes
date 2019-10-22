@@ -1,14 +1,15 @@
-import React from 'react';
+import React from "react";
+import { Button } from "reactstrap";
 
-const API_URL = 'https://api.chucknorris.io/jokes/random';
+const API_URL = "https://api.chucknorris.io/jokes/random";
 
-class SpecialJokeBlock extends React.Component {   
+class SpecialJokeBlock extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
-      selectedJoke: 'Waiting for some CN joke.'
-    }
+      selectedJoke: "Waiting for some CN joke."
+    };
   }
 
   componentDidMount = () => {
@@ -21,22 +22,20 @@ class SpecialJokeBlock extends React.Component {
       .then(dataFromApi => {
         this.setState({ selectedJoke: dataFromApi.value });
       });
-  }
+  };
 
   handleClick = () => {
     this.fetchData();
-  }
+  };
 
-    render() {
-      return (
-        <>
-          <p>{this.state.selectedJoke}</p>
-          <button onClick={this.handleClick}>
-            Show me another one!
-          </button>
-        </>
-      );
-    }
+  render() {
+    return (
+      <>
+        <p>{this.state.selectedJoke}</p>
+        <Button onClick={this.handleClick}>Show me another one!</Button>
+      </>
+    );
   }
+}
 
-  export default SpecialJokeBlock;
+export default SpecialJokeBlock;
