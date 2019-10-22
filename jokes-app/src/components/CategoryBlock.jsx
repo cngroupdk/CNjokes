@@ -12,7 +12,8 @@ class CategoryBlock extends React.Component {
             count: 4,
             category: "all",
             jokes: [],
-            loaded: false
+            loaded: false,
+            noJokeDuplicates: true
         }
         this.categorySetter = this.categorySetter.bind(this)
         this.countSetter = this.countSetter.bind(this)
@@ -49,6 +50,13 @@ class CategoryBlock extends React.Component {
     loadJokesFromAPI(category, numberOfJokes) {
         let jokes = []
         let jokesLoaded = 0
+        this.setState({ loaded: false })
+
+        if (numberOfJokes === 0) {
+            this.setState({ loaded: true, jokes: [] })
+            return
+        }
+
         for (let i = 0; i < numberOfJokes; i++) {
             fetch(this.getAPIRequestURL(category))
                 .then(response => response.json())
@@ -56,9 +64,9 @@ class CategoryBlock extends React.Component {
                     jokes.push(data.value)
                     jokesLoaded++
                     if (jokesLoaded === numberOfJokes) {
-                        this.setState({ jokes: jokes, loaded: true });
-                    } else {
-                        this.setState({ loaded: false })
+                        const uniqueJokes = [...new Set(jokes)]
+                        const isAllUnique = uniqueJokes.length === numberOfJokes ? true : false
+                        this.setState({ jokes: uniqueJokes, loaded: true, noJokeDuplicates: isAllUnique });
                     }
                 });
         }
@@ -81,7 +89,8 @@ class CategoryBlock extends React.Component {
                 />
                 <JokesList
                     loaded={this.state.loaded}
-                    jokes={this.state.jokes} />
+                    jokes={this.state.jokes}
+                    hasDuplicates={this.state.noJokeDuplicates} />
             </div>
         );
     }
