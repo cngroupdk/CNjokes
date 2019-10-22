@@ -11,14 +11,16 @@ class JokesCountSetter extends React.Component {
 
     countUpdated(e) {
         let count = parseInt(e.target.value)
-        this.setState({ countInputValue: count })
+        this.setState({ countInputValue: count+"" })
 
         if (isNaN(count)) {
             count = 0
         } else if (count < 1) {
             count = 1
+            this.setState({ countInputValue: count })
         } else if (count > 25) {
             count = 25
+            this.setState({ countInputValue: count })
         }
 
         this.props.countSetter(count)
