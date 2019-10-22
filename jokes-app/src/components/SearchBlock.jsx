@@ -1,5 +1,4 @@
 import React from 'react';
-import JokesList from './JokesList'
 
 const API_URL = 'https://api.chucknorris.io/jokes/search?query=';
 let finalUri = ''
@@ -10,7 +9,8 @@ class SearchBlock extends React.Component {
 
         this.state = {
             query: '',
-            searchedJokes: []
+            searchedJokes: [],
+            isQueryEmpty: true
         }
     }
 
@@ -34,16 +34,18 @@ class SearchBlock extends React.Component {
 
     handleSearch = () => {
         this.updateQueryUrl(API_URL, this.state.query);
-        if (this.state.query === ''){
-            console.log('Nic jsi nenapsal.')
-        } else{
+        if(this.state.query === ''){
+            this.setState({ isQueryEmpty: true, searchedJokes: []})
+        } else {
+            this.setState({ isQueryEmpty: false})
             this.fetchData();
         }
-      
+        
     }
 
     render() {
-        const listItems = this.state.searchedJokes.map((joke) => <p key={joke.id}>{joke.value}</p>);
+        const listItems = this.state.isQueryEmpty ? <p>Search for something!</p> :
+        this.state.searchedJokes.map((joke) => <p key={joke.id}>{joke.value}</p>);
     
         return (
             <>
@@ -51,7 +53,6 @@ class SearchBlock extends React.Component {
               <input type="search" value={this.state.query} onChange={this.handleChange}/>
               <button onClick={this.handleSearch}>Search!</button>
               {listItems}
-
             </>
         );
     }
