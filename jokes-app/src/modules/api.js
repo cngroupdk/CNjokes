@@ -1,4 +1,4 @@
-const API_URL = "https://api.chucknorris.io/jokes/";
+const API_URL = "https://api.chucknorris.io/jokes";
 
 export const api = {
   fetchCategories: callback => {
