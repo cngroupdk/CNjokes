@@ -12,7 +12,7 @@ class SearchBlock extends React.Component {
     this.state = {
       query: "",
       searchedJokes: [],
-      isQueryEmpty: true
+      isQueryValid: true
     };
   }
 
@@ -27,6 +27,8 @@ class SearchBlock extends React.Component {
 
   handleQuery = event => {
     this.setState({ query: event.target.value });
+    console.log(this.state.query);
+    console.log(event.target.value);
   };
 
   updateQueryUrl = (API_URL, query) => {
@@ -36,9 +38,9 @@ class SearchBlock extends React.Component {
 
   handleSearch = () => {
     if (this.state.query.length < 3 || this.state.query.length > 120) {
-      this.setState({ isQueryEmpty: true, searchedJokes: [] });
+      this.setState({ isQueryValid: true, searchedJokes: [] });
     } else {
-      this.setState({ isQueryEmpty: false });
+      this.setState({ isQueryValid: false });
       this.fetchData();
     }
   };
@@ -62,8 +64,9 @@ class SearchBlock extends React.Component {
           type="search"
           value={this.state.query}
           onChange={this.handleChange}
+          onKeyUp={this.handleChange}
         />
-        {this.state.isQueryEmpty ? (
+        {this.state.isQueryValid ? (
           <p>
             The word you seek for must have at least 3 characters and maximum
             120.
