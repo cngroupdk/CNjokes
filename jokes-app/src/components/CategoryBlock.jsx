@@ -90,7 +90,7 @@ class CategoryBlock extends React.Component {
                 <JokesList
                     loaded={this.state.loaded}
                     jokes={this.state.jokes}
-                    hasDuplicates={this.state.noJokeDuplicates} />
+                    noJokeDuplicates={this.state.noJokeDuplicates} />
             </div>
         );
     }
