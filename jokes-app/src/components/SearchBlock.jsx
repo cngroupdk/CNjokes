@@ -36,6 +36,8 @@ class SearchBlock extends React.Component {
   };
 
   handleSearch = () => {
+    this.setState({ loaded: false });
+
     if (this.state.query.length < 3 || this.state.query.length > 120) {
       this.setState({ isQueryValid: true, loaded: true, searchedJokes: [] });
     } else {
@@ -45,7 +47,6 @@ class SearchBlock extends React.Component {
   };
 
   handleOutput = () => {
-    this.setState({ loaded: false });
     this.updateQueryUrl(API_URL, this.state.query);
     this.handleSearch();
   };
