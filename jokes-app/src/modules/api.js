@@ -8,5 +8,12 @@ export const api = {
         callback(["all", ...data]);
       });
   },
+  fetchRandomJoke: callback => {
+    fetch(`${API_URL}/random`)
+      .then(response => response.json())
+      .then(data => {
+        callback({ ...data });
+      });
+  },
   fetchSthElse: () => {} // add other endpoints
 };
