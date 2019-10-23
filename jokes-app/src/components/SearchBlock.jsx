@@ -36,7 +36,11 @@ class SearchBlock extends React.Component {
 
   handleSearch = () => {
     this.updateQueryUrl(API_URL, this.state.query);
-    if (this.state.query === "") {
+    if (
+      this.state.query === "" ||
+      this.state.query.length < 3 ||
+      this.state.query.length > 120
+    ) {
       this.setState({ isQueryEmpty: true, searchedJokes: [] });
     } else {
       this.setState({ isQueryEmpty: false });
@@ -55,12 +59,18 @@ class SearchBlock extends React.Component {
         </p>
         <Input
           type="search"
+          pattern=".{3,120}"
+          required
+          minlength="5"
           value={this.state.query}
           onChange={this.handleChange}
         />
         <Button onClick={this.handleSearch}>Search!</Button>
         {this.state.isQueryEmpty ? (
-          <p>Search for something!</p>
+          <p>
+            Search for something! The word you seek for must have at least 3
+            characters and maximum 120.
+          </p>
         ) : (
           <JokesList loaded={true} jokes={listItems} hasDuplicates={true} />
         )}
