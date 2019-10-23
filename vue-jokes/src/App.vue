@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="JokesApp">
-    <JokesHeader></JokesHeader>
+    <JokesHeader :isSearchTab="isSearchTab" :isListingTab="isListingTab"></JokesHeader>
     <label class="switch">
       <input v-model="isOfflineModeActive" type="checkbox" />
       <span class="slider round"></span>
@@ -34,7 +34,9 @@ export default {
       title: "Jokes App",
       formInputs: {},
       isSearchedButtonClicked: false,
-      isOfflineModeActive: false
+      isOfflineModeActive: false,
+      isSearchTab: true,
+      isListingTab: false,
     };
   },
   methods: {
@@ -81,10 +83,11 @@ body {
 
 /* The switch - the box around the slider */
 .switch {
-  position: relative;
   display: inline-block;
   width: 60px;
-  height: 34px;
+  height: 34px;position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
 }
 
 /* Hide default HTML checkbox */

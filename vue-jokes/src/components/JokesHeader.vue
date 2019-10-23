@@ -2,8 +2,8 @@
     <header class="JokesHeader">
         <nav>
             <ul>
-                <li class="ChosenTab">Search</li>
-                <li>Listing</li>
+                <li :class="{ChosenTab : isSearchTab}" @click="changeTab">Search</li>
+                <li :class="{ChosenTab : isListingTab}" @click="changeTab">Listing</li>
             </ul>
         </nav>
     </header>
@@ -12,6 +12,16 @@
 <script>
 export default {
     name: "JokesHeader",
+    props: {
+        isSearchTab: Boolean,
+        isListingTab: Boolean,
+    },
+    methods: {
+        changeTab(evt) {
+            document.querySelector('.ChosenTab').classList.remove('ChosenTab');
+            evt.target.classList.toggle('ChosenTab');
+        },
+    }
 }
 </script>
 
@@ -37,6 +47,10 @@ export default {
         margin-right: .7rem;
         border-radius: .3rem .3rem 0 0;
         position: relative;
+    }
+
+    .JokesHeader li:not(.ChosenTab):hover {
+        cursor: pointer;
     }
 
     .JokesHeader li.ChosenTab {
