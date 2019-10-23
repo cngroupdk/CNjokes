@@ -12,7 +12,8 @@ class SearchBlock extends React.Component {
     this.state = {
       query: "",
       searchedJokes: [],
-      isQueryValid: true
+      isQueryValid: true,
+      loaded: false
     };
   }
 
@@ -21,14 +22,12 @@ class SearchBlock extends React.Component {
       .then(response => response.json())
       .then(dataFromApi => {
         console.log(dataFromApi.result);
-        this.setState({ searchedJokes: dataFromApi.result });
+        this.setState({ loaded: true, searchedJokes: dataFromApi.result });
       });
   };
 
   handleQuery = event => {
     this.setState({ query: event.target.value });
-    console.log(this.state.query);
-    console.log(event.target.value);
   };
 
   updateQueryUrl = (API_URL, query) => {
@@ -38,15 +37,15 @@ class SearchBlock extends React.Component {
 
   handleSearch = () => {
     if (this.state.query.length < 3 || this.state.query.length > 120) {
-      this.setState({ isQueryValid: true, searchedJokes: [] });
+      this.setState({ isQueryValid: true, loaded: true, searchedJokes: [] });
     } else {
       this.setState({ isQueryValid: false });
       this.fetchData();
     }
   };
 
-  handleChange = event => {
-    this.handleQuery(event);
+  handleOutput = () => {
+    this.setState({ loaded: false });
     this.updateQueryUrl(API_URL, this.state.query);
     this.handleSearch();
   };
@@ -63,8 +62,8 @@ class SearchBlock extends React.Component {
         <Input
           type="search"
           value={this.state.query}
-          onChange={this.handleChange}
-          onKeyUp={this.handleChange}
+          onChange={this.handleQuery}
+          onKeyUp={this.handleOutput}
         />
         {this.state.isQueryValid ? (
           <p>
@@ -72,7 +71,11 @@ class SearchBlock extends React.Component {
             120.
           </p>
         ) : (
-          <JokesList loaded={true} jokes={listItems} hasDuplicates={true} />
+          <JokesList
+            loaded={this.state.loaded}
+            jokes={listItems}
+            hasDuplicates={true}
+          />
         )}
       </>
     );
