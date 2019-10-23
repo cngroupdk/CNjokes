@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input } from "reactstrap";
+import { Input } from "reactstrap";
 import JokesList from "./JokesList";
 
 const API_URL = "https://api.chucknorris.io/jokes/search?query=";
@@ -16,11 +16,6 @@ class SearchBlock extends React.Component {
     };
   }
 
-  updateQueryUrl = (API_URL, query) => {
-    finalUri = API_URL + query;
-    console.log(finalUri);
-  };
-
   fetchData = () => {
     fetch(finalUri)
       .then(response => response.json())
@@ -30,18 +25,28 @@ class SearchBlock extends React.Component {
       });
   };
 
-  handleChange = event => {
+  handleQuery = event => {
     this.setState({ query: event.target.value });
   };
 
+  updateQueryUrl = (API_URL, query) => {
+    finalUri = API_URL + query;
+    console.log(finalUri);
+  };
+
   handleSearch = () => {
-    this.updateQueryUrl(API_URL, this.state.query);
-    if (this.state.query === "") {
+    if (this.state.query.length < 3 || this.state.query.length > 120) {
       this.setState({ isQueryEmpty: true, searchedJokes: [] });
     } else {
       this.setState({ isQueryEmpty: false });
       this.fetchData();
     }
+  };
+
+  handleChange = event => {
+    this.handleQuery(event);
+    this.updateQueryUrl(API_URL, this.state.query);
+    this.handleSearch();
   };
 
   render() {
@@ -58,9 +63,11 @@ class SearchBlock extends React.Component {
           value={this.state.query}
           onChange={this.handleChange}
         />
-        <Button onClick={this.handleSearch}>Search!</Button>
         {this.state.isQueryEmpty ? (
-          <p>Search for something!</p>
+          <p>
+            The word you seek for must have at least 3 characters and maximum
+            120.
+          </p>
         ) : (
           <JokesList loaded={true} jokes={listItems} hasDuplicates={true} />
         )}
