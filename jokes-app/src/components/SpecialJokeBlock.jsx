@@ -1,7 +1,6 @@
 import React from "react";
+import { api } from "../modules/api";
 import { Button } from "reactstrap";
-
-const API_URL = "https://api.chucknorris.io/jokes/random";
 
 class SpecialJokeBlock extends React.Component {
   constructor(props) {
@@ -13,19 +12,15 @@ class SpecialJokeBlock extends React.Component {
   }
 
   componentDidMount = () => {
-    this.fetchData();
+    api.fetchRandomJoke(this.setJokeToState);
   };
 
-  fetchData = () => {
-    fetch(API_URL)
-      .then(response => response.json())
-      .then(dataFromApi => {
-        this.setState({ selectedJoke: dataFromApi.value });
-      });
+  setJokeToState = data => {
+    this.setState({ selectedJoke: data.value });
   };
 
   handleClick = () => {
-    this.fetchData();
+    api.fetchRandomJoke(this.setJokeToState);
   };
 
   render() {

@@ -12,7 +12,8 @@ class SearchBlock extends React.Component {
     this.state = {
       query: "",
       searchedJokes: [],
-      isQueryEmpty: true
+      isQueryValid: true,
+      loaded: false
     };
   }
 
@@ -21,7 +22,7 @@ class SearchBlock extends React.Component {
       .then(response => response.json())
       .then(dataFromApi => {
         console.log(dataFromApi.result);
-        this.setState({ searchedJokes: dataFromApi.result });
+        this.setState({ loaded: true, searchedJokes: dataFromApi.result });
       });
   };
 
@@ -35,16 +36,17 @@ class SearchBlock extends React.Component {
   };
 
   handleSearch = () => {
+    this.setState({ loaded: false });
+
     if (this.state.query.length < 3 || this.state.query.length > 120) {
-      this.setState({ isQueryEmpty: true, searchedJokes: [] });
+      this.setState({ isQueryValid: true, loaded: true, searchedJokes: [] });
     } else {
-      this.setState({ isQueryEmpty: false });
+      this.setState({ isQueryValid: false });
       this.fetchData();
     }
   };
 
-  handleChange = event => {
-    this.handleQuery(event);
+  handleOutput = () => {
     this.updateQueryUrl(API_URL, this.state.query);
     this.handleSearch();
   };
@@ -61,15 +63,20 @@ class SearchBlock extends React.Component {
         <Input
           type="search"
           value={this.state.query}
-          onChange={this.handleChange}
+          onChange={this.handleQuery}
+          onKeyUp={this.handleOutput}
         />
-        {this.state.isQueryEmpty ? (
+        {this.state.isQueryValid ? (
           <p>
             The word you seek for must have at least 3 characters and maximum
             120.
           </p>
         ) : (
-          <JokesList loaded={true} jokes={listItems} hasDuplicates={false} />
+          <JokesList
+            loaded={this.state.loaded}
+            jokes={listItems}
+            hasDuplicates={false}
+          />
         )}
       </>
     );
