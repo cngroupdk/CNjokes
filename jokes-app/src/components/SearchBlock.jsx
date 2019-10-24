@@ -12,43 +12,38 @@ class SearchBlock extends React.Component {
     this.state = {
       query: "",
       searchedJokes: [],
-      isQueryValid: true,
+      isQueryValid: false,
       loaded: false
     };
   }
 
   fetchData = () => {
+    this.setState({ loaded: false, searchedJokes: [] });
     fetch(finalUri)
       .then(response => response.json())
       .then(dataFromApi => {
-        console.log(dataFromApi.result);
         this.setState({ loaded: true, searchedJokes: dataFromApi.result });
       });
   };
 
-  handleQuery = event => {
-    this.setState({ query: event.target.value });
-  };
-
-  updateQueryUrl = (API_URL, query) => {
-    finalUri = API_URL + query;
-    console.log(finalUri);
-  };
-
-  handleSearch = () => {
-    this.setState({ loaded: false });
-
+  handleQuery = () => {
     if (this.state.query.length < 3 || this.state.query.length > 120) {
-      this.setState({ isQueryValid: true, loaded: true, searchedJokes: [] });
-    } else {
       this.setState({ isQueryValid: false });
+    } else {
+      this.setState({ isQueryValid: true });
+      this.updateQueryUrl(API_URL, this.state.query);
       this.fetchData();
     }
   };
 
-  handleOutput = () => {
-    this.updateQueryUrl(API_URL, this.state.query);
-    this.handleSearch();
+  updateQueryUrl = (API_URL, query) => {
+    finalUri = API_URL + query;
+  };
+
+  handleSearch = event => {
+    this.setState({ query: event.target.value }, () => {
+      this.handleQuery();
+    });
   };
 
   render() {
@@ -63,10 +58,9 @@ class SearchBlock extends React.Component {
         <Input
           type="search"
           value={this.state.query}
-          onChange={this.handleQuery}
-          onKeyUp={this.handleOutput}
+          onChange={this.handleSearch}
         />
-        {this.state.isQueryValid ? (
+        {!this.state.isQueryValid ? (
           <p>
             The word you seek for must have at least 3 characters and maximum
             120.
@@ -75,7 +69,7 @@ class SearchBlock extends React.Component {
           <JokesList
             loaded={this.state.loaded}
             jokes={listItems}
-            hasDuplicates={true}
+            hasDuplicates={false}
           />
         )}
       </>
