@@ -1,0 +1,16 @@
+{
+  "name": "jokes-backend",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node ./build/main.js",
+    "dev": "backpack dev",
+    "build": "backpack build",
+    "postinstall": "backpack build"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "backpack-core": "^0.8.4",
+    "cors": "^2.8.5",
+    "express": "^4.16.2"
+  }
+}

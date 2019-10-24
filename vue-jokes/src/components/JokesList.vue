@@ -51,10 +51,8 @@ export default {
     loadJokes() {
       if (this.isOfflineModeActive) {
         this.getJokeFromDatabase();
-      } else if (this.searchInputText.length > 2) {
-        this.fetchSearchedJoke();
       } else {
-        this.fetchRandomJoke();
+        this.fetchJokes();
       }
     },
 
@@ -140,6 +138,17 @@ export default {
               .map(joke => joke.value)
               .slice(0, this.numberOfJokes))
         );
+    },
+    fetchJokes() {
+      const reqCategory = this.selectedCategory === '' ? 'all' : this.selectedCategory;
+      const reqSearchedText = this.searchInputText === '' ? 'chu' : this.searchInputText;
+      let url = `http://localhost:3000/jokes/${this.numberOfJokes}.${reqCategory}.${reqSearchedText}`;
+      console.log(url);
+      fetch(url)
+      .then(res => res.json())
+      .then(
+        data => this.randomJokes = [...data].map(joke => joke.value)
+      );
     }
   }
 };
