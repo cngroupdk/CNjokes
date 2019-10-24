@@ -15,5 +15,13 @@ export const api = {
         callback({ ...data });
       });
   },
+  fetchSearchedJokes: (callback, query) => {
+    console.log(callback, query);
+    fetch(`${API_URL}/search?query=${query}`)
+      .then(response => response.json())
+      .then(data => {
+        callback({ ...data });
+      });
+  },
   fetchSthElse: () => {} // add other endpoints
 };

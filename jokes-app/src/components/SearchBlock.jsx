@@ -1,9 +1,7 @@
 import React from "react";
 import { Input } from "reactstrap";
+import { api } from "../modules/api";
 import JokesList from "./JokesList";
-
-const API_URL = "https://api.chucknorris.io/jokes/search?query=";
-let finalUri = "";
 
 class SearchBlock extends React.Component {
   constructor(props) {
@@ -19,11 +17,11 @@ class SearchBlock extends React.Component {
 
   fetchData = () => {
     this.setState({ loaded: false, searchedJokes: [] });
-    fetch(finalUri)
-      .then(response => response.json())
-      .then(dataFromApi => {
-        this.setState({ loaded: true, searchedJokes: dataFromApi.result });
-      });
+    api.fetchSearchedJokes(this.setJokesToState, this.state.query);
+  };
+
+  setJokesToState = data => {
+    this.setState({ loaded: true, searchedJokes: data.result });
   };
 
   handleQuery = () => {
@@ -31,13 +29,8 @@ class SearchBlock extends React.Component {
       this.setState({ isQueryValid: false });
     } else {
       this.setState({ isQueryValid: true });
-      this.updateQueryUrl(API_URL, this.state.query);
       this.fetchData();
     }
-  };
-
-  updateQueryUrl = (API_URL, query) => {
-    finalUri = API_URL + query;
   };
 
   handleSearch = event => {
