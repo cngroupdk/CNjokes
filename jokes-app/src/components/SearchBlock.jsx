@@ -75,7 +75,7 @@ class SearchBlock extends React.Component {
           <JokesList
             loaded={this.state.loaded}
             jokes={listItems}
-            hasDuplicates={true}
+            hasDuplicates={false}
           />
         )}
       </>
