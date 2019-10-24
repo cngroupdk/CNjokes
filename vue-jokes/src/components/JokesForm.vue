@@ -41,11 +41,12 @@
 
 <script>
 import { mapState } from "vuex";
+import { api } from "../modules/api.js";
 export default {
   name: "JokesForm",
   data() {
     return {
-      categories: ["all"],
+      categories: [],
       selectedCategory: "",
       numberOfJokes: 1,
       searchInputText: "",
@@ -53,15 +54,11 @@ export default {
     };
   },
   created() {
-    this.fetchCategories();
+    api.fetchCategories(this.setCategories);
   },
   methods: {
-    fetchCategories() {
-      fetch("https://api.chucknorris.io/jokes/categories")
-        .then(res => res.json())
-        .then(data => {
-          this.categories.push(...data);
-        });
+    setCategories(data) {
+      this.categories = data;
     },
     changedSelect(event) {
       this.selectedCategory = event.target.value;
@@ -83,8 +80,8 @@ export default {
         return "Get random jokes";
       }
       return "Get random joke";
-    },
-    ...mapState(["searchInputText", "numberOfJokes", "selectedCategory"])
+    } //,
+    // ...mapState(["searchInputText", "numberOfJokes", "selectedCategory"])
   }
 };
 </script>

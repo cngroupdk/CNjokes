@@ -4,10 +4,6 @@
       :isSearchTab="isSearchTab"
       :isListingTab="isListingTab"
     ></JokesHeader>
-    <label class="switch">
-      <input v-model="isOfflineModeActive" type="checkbox" />
-      <span class="slider round"></span>
-    </label>
     <div class="JokesTitle">
       <h1>{{ title }}</h1>
     </div>
@@ -15,7 +11,6 @@
     <JokesList
       v-if="isSearchedButtonClicked"
       v-bind:formInputs="formInputs"
-      v-bind:isOfflineModeActive="isOfflineModeActive"
     ></JokesList>
   </div>
 </template>
@@ -37,7 +32,6 @@ export default {
       title: "Jokes App",
       formInputs: {},
       isSearchedButtonClicked: false,
-      isOfflineModeActive: false,
       isSearchTab: true,
       isListingTab: false
     };

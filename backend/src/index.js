@@ -5,6 +5,7 @@ const app = express();
 let cors = require('cors');
 app.use(cors());
 const categories = [
+  "all",
   "animal",
   "career",
   "celebrity",
@@ -55,7 +56,7 @@ const getJokesFromDatabase = (objOfParams) => {
   };
 
   const getJokesBySearch = jokes => {
-    if (searchInputText.length === 'chu') {
+    if (searchInputText === 'empty_search_input') {
       return jokes;
     } else {
       const searchedText = new RegExp(searchInputText, "gi");
@@ -71,7 +72,6 @@ const getJokesFromDatabase = (objOfParams) => {
   filteredJokes = getJokesBySearch(filteredJokes);
   if (isEnoughResults(filteredJokes)) {
     jokesResults = filteredJokes;
-    // jokesResults = filteredJokes.map(joke => joke.value); //set some label returning all jokes in category!!
   } else {
     const randomDontRepeatNumbers = getRandomDontRepeatNumbers(
       filteredJokes.length
@@ -84,17 +84,17 @@ const getJokesFromDatabase = (objOfParams) => {
 }
   
 
-app.get('/', async (req, res) => {
-  const thing = await Promise.resolve({ one: 'two' }) // async/await!
-    .catch(e => res.json({ error: e.message }));
-  return res.json({ ...thing, hello: 'world' }); // object-rest-spread!
-});
+// app.get('/', async (req, res) => {
+//   const thing = await Promise.resolve({ one: 'two' }) // async/await!
+//     .catch(e => res.json({ error: e.message }));
+//   return res.json({ ...thing, hello: 'world' }); // object-rest-spread!
+// });
 
 app.get('/jokes/categories', async (req, res) => {
   return res.json(categories); // object-rest-spread!
 });
 
-app.get('/jokes/:numberOfJokes.:selectedCategory.:searchInputText', async (req, res) => {
+app.get('/jokes/:numberOfJokes/:selectedCategory/:searchInputText', async (req, res) => {
   const thing = await Promise.resolve(getJokesFromDatabase(req.params))
     .catch(e => res.json({ error: e.message }));
   return res.json(thing);

@@ -101,12 +101,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _jokes_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./jokes.json */ "./src/jokes.json");
 var _jokes_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./jokes.json */ "./src/jokes.json", 1);
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 const app = express__WEBPACK_IMPORTED_MODULE_0___default()();
@@ -114,7 +108,7 @@ const app = express__WEBPACK_IMPORTED_MODULE_0___default()();
 let cors = __webpack_require__(/*! cors */ "cors");
 
 app.use(cors());
-const categories = ["animal", "career", "celebrity", "dev", "explicit", "fashion", "food", "history", "money", "movie", "music", "political", "religion", "science", "sport", "travel"];
+const categories = ["all", "animal", "career", "celebrity", "dev", "explicit", "fashion", "food", "history", "money", "movie", "music", "political", "religion", "science", "sport", "travel"];
 
 const getJokesFromDatabase = objOfParams => {
   let {
@@ -153,7 +147,7 @@ const getJokesFromDatabase = objOfParams => {
   };
 
   const getJokesBySearch = jokes => {
-    if (searchInputText.length === 'chu') {
+    if (searchInputText === 'empty_search_input') {
       return jokes;
     } else {
       const searchedText = new RegExp(searchInputText, "gi");
@@ -169,7 +163,7 @@ const getJokesFromDatabase = objOfParams => {
   filteredJokes = getJokesBySearch(filteredJokes);
 
   if (isEnoughResults(filteredJokes)) {
-    jokesResults = filteredJokes; // jokesResults = filteredJokes.map(joke => joke.value); //set some label returning all jokes in category!!
+    jokesResults = filteredJokes;
   } else {
     const randomDontRepeatNumbers = getRandomDontRepeatNumbers(filteredJokes.length);
     randomDontRepeatNumbers.forEach(randomNumber => {
@@ -178,23 +172,17 @@ const getJokesFromDatabase = objOfParams => {
   }
 
   return jokesResults;
-};
+}; // app.get('/', async (req, res) => {
+//   const thing = await Promise.resolve({ one: 'two' }) // async/await!
+//     .catch(e => res.json({ error: e.message }));
+//   return res.json({ ...thing, hello: 'world' }); // object-rest-spread!
+// });
 
-app.get('/', async (req, res) => {
-  const thing = await Promise.resolve({
-    one: 'two'
-  }) // async/await!
-  .catch(e => res.json({
-    error: e.message
-  }));
-  return res.json(_objectSpread({}, thing, {
-    hello: 'world'
-  })); // object-rest-spread!
-});
+
 app.get('/jokes/categories', async (req, res) => {
   return res.json(categories); // object-rest-spread!
 });
-app.get('/jokes/:numberOfJokes.:selectedCategory.:searchInputText', async (req, res) => {
+app.get('/jokes/:numberOfJokes/:selectedCategory/:searchInputText', async (req, res) => {
   const thing = await Promise.resolve(getJokesFromDatabase(req.params)).catch(e => res.json({
     error: e.message
   }));
