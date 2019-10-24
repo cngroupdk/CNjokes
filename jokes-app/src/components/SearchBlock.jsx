@@ -62,7 +62,7 @@ class SearchBlock extends React.Component {
         {this.state.isQueryEmpty ? (
           <p>Search for something!</p>
         ) : (
-          <JokesList loaded={true} jokes={listItems} hasDuplicates={true} />
+          <JokesList loaded={true} jokes={listItems} hasDuplicates={false} />
         )}
       </>
     );
