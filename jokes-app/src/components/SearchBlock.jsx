@@ -69,7 +69,7 @@ class SearchBlock extends React.Component {
             120.
           </p>
         ) : (
-          <JokesList loaded={true} jokes={listItems} hasDuplicates={true} />
+          <JokesList loaded={true} jokes={listItems} hasDuplicates={false} />
         )}
       </>
     );
