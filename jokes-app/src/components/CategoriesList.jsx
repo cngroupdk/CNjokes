@@ -27,13 +27,12 @@ class CategoriesList extends React.Component {
       <div className="category-container">
         <ul>
           {this.state.categories.map(categoryName => {
+            const { selectedCategory } = this.props;
             return (
               <li
                 key={categoryName}
                 onClick={() => this.categoryClicked(categoryName)}
-                className={
-                  categoryName === this.props.selectedCategory ? "selected" : ""
-                }
+                className={categoryName === selectedCategory ? "selected" : ""}
               >
                 {categoryName}
               </li>
