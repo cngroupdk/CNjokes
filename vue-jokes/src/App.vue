@@ -1,6 +1,9 @@
 <template>
   <div id="app" class="JokesApp">
-    <JokesHeader :isSearchTab="isSearchTab" :isListingTab="isListingTab"></JokesHeader>
+    <JokesHeader
+      :isSearchTab="isSearchTab"
+      :isListingTab="isListingTab"
+    ></JokesHeader>
     <label class="switch">
       <input v-model="isOfflineModeActive" type="checkbox" />
       <span class="slider round"></span>
@@ -36,7 +39,7 @@ export default {
       isSearchedButtonClicked: false,
       isOfflineModeActive: false,
       isSearchTab: true,
-      isListingTab: false,
+      isListingTab: false
     };
   },
   methods: {
@@ -85,7 +88,8 @@ body {
 .switch {
   display: inline-block;
   width: 60px;
-  height: 34px;position: fixed;
+  height: 34px;
+  position: fixed;
   top: 1.5rem;
   right: 1.5rem;
 }

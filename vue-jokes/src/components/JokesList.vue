@@ -27,7 +27,7 @@ export default {
       numberOfJokes: this.formInputs.numberOfJokes,
       searchInputText: this.formInputs.searchInputText,
       jokesOffline: jokesOfflineDatabase,
-      isNotEnoughResults: true
+      isNotEnoughResults: false
     };
   },
   created() {

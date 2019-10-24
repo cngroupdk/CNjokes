@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "JokesForm",
   data() {
@@ -82,7 +83,8 @@ export default {
         return "Get random jokes";
       }
       return "Get random joke";
-    }
+    },
+    ...mapState(["searchInputText", "numberOfJokes", "selectedCategory"])
   }
 };
 </script>
