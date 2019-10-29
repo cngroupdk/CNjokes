@@ -1,22 +1,38 @@
 import React from "react";
 
 function CategoriesList({ categories, categorySetter, selectedCategory }) {
+  const categorySelected = event => {
+    categorySetter(event.target.value);
+  };
+
   return (
-    <div className="category-container">
-      <ul>
+    <>
+      <div className="category-container">
+        <ul>
+          {categories.map(categoryName => {
+            return (
+              <li
+                key={categoryName}
+                onClick={() => categorySetter(categoryName)}
+                className={categoryName === selectedCategory ? "selected" : ""}
+              >
+                {categoryName}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <select onChange={categorySelected} className="categories-select">
         {categories.map(categoryName => {
           return (
-            <li
-              key={categoryName}
-              onClick={() => categorySetter(categoryName)}
-              className={categoryName === selectedCategory ? "selected" : ""}
-            >
+            <option value={categoryName} key={categoryName}>
               {categoryName}
-            </li>
+            </option>
           );
         })}
-      </ul>
-    </div>
+      </select>
+    </>
   );
 }
 

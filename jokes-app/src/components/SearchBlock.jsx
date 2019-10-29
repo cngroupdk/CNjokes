@@ -1,5 +1,4 @@
 import React from "react";
-import { Input } from "reactstrap";
 import { api } from "../modules/api";
 import JokesList from "./JokesList";
 
@@ -18,6 +17,10 @@ class SearchBlock extends React.Component {
   fetchData = () => {
     this.setState({ loaded: false, searchedJokes: [] });
     api.fetchSearchedJokes(this.setJokesToState, this.state.query);
+  };
+
+  get25Jokes = jokesList => {
+    return jokesList && jokesList.slice(0, 25).map(joke => joke.value);
   };
 
   setJokesToState = data => {
@@ -40,19 +43,30 @@ class SearchBlock extends React.Component {
   };
 
   render() {
-    const listItems = this.state.searchedJokes.map(joke => joke.value);
+    const listItems = this.get25Jokes(this.state.searchedJokes);
 
     return (
-      <>
+      <div className="search-block">
+        <h2>Still not satisfied?</h2>
         <p>
           You can use this fulltext search to look for the jokes you're so eager
-          to find.
+          to find. <span>&#10549;</span>
         </p>
-        <Input
-          type="search"
-          value={this.state.query}
-          onChange={this.handleSearch}
-        />
+
+        <div className="joke-search input-group">
+          <div className="input-group-prepend">
+            <span className="search-icon-box input-group-text ">
+              <span className="search-icon">&#9740;</span>
+            </span>
+          </div>
+          <input
+            className="form-control search-input"
+            type="text"
+            placeholder="Search"
+            value={this.state.query}
+            onChange={this.handleSearch}
+          />
+        </div>
         {!this.state.isQueryValid ? (
           <p>
             The word you seek for must have at least 3 characters and maximum
@@ -65,7 +79,7 @@ class SearchBlock extends React.Component {
             hasDuplicates={false}
           />
         )}
-      </>
+      </div>
     );
   }
 }
