@@ -1,10 +1,10 @@
 <template>
-  <div class="JokesList JokesSection">
+  <div class="jokes-list jokes-section">
     <ul>
       <!-- <label v-if="isNotEnoughResults"
         >Sorry for your requirements we have just this jokes:</label
       > -->
-      <li v-for="joke in jokes" v-bind:key="joke.index">
+      <li v-for="(joke, index) in jokes" :key="index">
         {{ joke }}
       </li>
     </ul>
@@ -48,4 +48,5 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+</style>

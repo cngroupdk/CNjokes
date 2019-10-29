@@ -1,5 +1,5 @@
 <template>
-  <div class="JokesForm JokesSection">
+  <div class="JokesForm jokes-section">
     <form>
       <div class="JokesForm__Part">
         <select
