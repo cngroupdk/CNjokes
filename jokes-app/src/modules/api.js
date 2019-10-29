@@ -22,16 +22,20 @@ export const api = {
         callback({ ...data });
       });
   },
-  // the function below does not work as required...
-  fetchAmountOfJokes: (callback, category, numberOfJokes) => {
+  fetchAmountOfJokesByCategory: (callback, category, numberOfJokes) => {
+    if (numberOfJokes === 0) {
+      callback([], false);
+      return;
+    }
+
     let jokes = [];
     let jokesLoaded = 0;
     let apiUrl = "";
 
-    if (category !== "all") {
-      apiUrl = `${API_URL}/random?category=${category}`;
-    } else {
+    if (category === "all") {
       apiUrl = `${API_URL}/random`;
+    } else {
+      apiUrl = `${API_URL}/random?category=${category}`;
     }
 
     for (let i = 0; i < numberOfJokes; i++) {
@@ -44,8 +48,7 @@ export const api = {
             const uniqueJokes = [...new Set(jokes)];
             const hasDuplicateJokes =
               uniqueJokes.length === numberOfJokes ? false : true;
-            console.log(uniqueJokes);
-            callback({ ...uniqueJokes, hasDuplicateJokes });
+            callback(uniqueJokes, hasDuplicateJokes);
           }
         });
     }

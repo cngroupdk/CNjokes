@@ -56,34 +56,21 @@ class CategoryBlock extends React.Component {
   };
 
   loadJokesFromAPI(category, numberOfJokes) {
-    let jokes = [];
-    let jokesLoaded = 0;
     this.setState({ loaded: false });
-
-    if (numberOfJokes === 0) {
-      this.setState({ loaded: true, jokes: [] });
-      return;
-    }
-
-    for (let i = 0; i < numberOfJokes; i++) {
-      fetch(this.getAPIRequestURL(category))
-        .then(response => response.json())
-        .then(data => {
-          jokes.push(data.value);
-          jokesLoaded++;
-          if (jokesLoaded === numberOfJokes) {
-            const uniqueJokes = [...new Set(jokes)];
-            const hasDuplicateJokes =
-              uniqueJokes.length === numberOfJokes ? false : true;
-            this.setState({
-              jokes: uniqueJokes,
-              loaded: true,
-              hasDuplicateJokes: hasDuplicateJokes
-            });
-          }
-        });
-    }
+    api.fetchAmountOfJokesByCategory(
+      this.setJokesToState,
+      category,
+      numberOfJokes
+    );
   }
+
+  setJokesToState = (jokes, hasDuplicateJokes) => {
+    this.setState({
+      jokes: jokes,
+      loaded: true,
+      hasDuplicateJokes: hasDuplicateJokes
+    });
+  };
 
   countUpdated(e) {
     this.setState({ count: parseInt(e.target.value) });
