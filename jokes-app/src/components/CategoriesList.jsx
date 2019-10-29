@@ -1,66 +1,39 @@
 import React from "react";
-import { api } from "../modules/api";
 
-class CategoriesList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      categories: []
-    };
-  }
-
-  componentDidMount = () => {
-    api.fetchCategories(this.setCategoriesToState);
+function CategoriesList({ categories, categorySetter, selectedCategory }) {
+  const categorySelected = event => {
+    categorySetter(event.target.value);
   };
 
-  setCategoriesToState = data => {
-    this.setState({ categories: data });
-  };
-
-  categoryClicked = name => {
-    this.props.categorySetter(name);
-  };
-
-  categorySelected = event => {
-    this.props.categorySetter(event.target.value);
-  };
-
-  render() {
-    return (
-      <>
-        <div className="category-container">
-          <ul>
-            {this.state.categories.map(categoryName => {
-              return (
-                <li
-                  key={categoryName}
-                  onClick={() => this.categoryClicked(categoryName)}
-                  className={
-                    categoryName === this.props.selectedCategory
-                      ? "selected"
-                      : ""
-                  }
-                >
-                  {categoryName}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-
-        <select onChange={this.categorySelected} className="categories-select">
-          {this.state.categories.map(categoryName => {
+  return (
+    <>
+      <div className="category-container">
+        <ul>
+          {categories.map(categoryName => {
             return (
-              <option value={categoryName} key={categoryName}>
+              <li
+                key={categoryName}
+                onClick={() => categorySetter(categoryName)}
+                className={categoryName === selectedCategory ? "selected" : ""}
+              >
                 {categoryName}
-              </option>
+              </li>
             );
           })}
-        </select>
-      </>
-    );
-  }
+        </ul>
+      </div>
+
+      <select onChange={categorySelected} className="categories-select">
+        {categories.map(categoryName => {
+          return (
+            <option value={categoryName} key={categoryName}>
+              {categoryName}
+            </option>
+          );
+        })}
+      </select>
+    </>
+  );
 }
 
 export default CategoriesList;

@@ -1,4 +1,5 @@
 import React from "react";
+import { api } from "../modules/api";
 import JokesList from "./JokesList";
 import CategoriesList from "./CategoriesList";
 import JokesCountSetter from "./JokesCountSetter";
@@ -11,6 +12,7 @@ class CategoryBlock extends React.Component {
       count: 4,
       category: "all",
       jokes: [],
+      categories: [],
       loaded: false,
       hasDuplicateJokes: true
     };
@@ -31,12 +33,17 @@ class CategoryBlock extends React.Component {
     this.setState({ category: categoryName });
   }
 
+  setCategoriesToState = data => {
+    this.setState({ categories: data });
+  };
+
   countSetter(jokesCount) {
     this.setState({ count: parseInt(jokesCount) });
   }
 
   componentDidMount = () => {
     this.loadJokesFromAPI(this.state.category, this.state.count);
+    api.fetchCategories(this.setCategoriesToState);
   };
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -89,6 +96,7 @@ class CategoryBlock extends React.Component {
         <CategoriesList
           categorySetter={this.categorySetter}
           selectedCategory={this.state.category}
+          categories={this.state.categories}
         />
         <JokesCountSetter countSetter={this.countSetter} />
         <JokesList
