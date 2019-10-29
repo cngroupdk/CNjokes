@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import { api } from "../modules/api.js";
 export default {
   name: "JokesForm",
