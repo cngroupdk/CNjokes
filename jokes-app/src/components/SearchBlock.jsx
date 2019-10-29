@@ -1,9 +1,7 @@
 import React from "react";
 import { Input } from "reactstrap";
+import { api } from "../modules/api";
 import JokesList from "./JokesList";
-
-const API_URL = "https://api.chucknorris.io/jokes/search?query=";
-let finalUri = "";
 
 class SearchBlock extends React.Component {
   constructor(props) {
@@ -12,43 +10,33 @@ class SearchBlock extends React.Component {
     this.state = {
       query: "",
       searchedJokes: [],
-      isQueryValid: true,
+      isQueryValid: false,
       loaded: false
     };
   }
 
   fetchData = () => {
-    fetch(finalUri)
-      .then(response => response.json())
-      .then(dataFromApi => {
-        console.log(dataFromApi.result);
-        this.setState({ loaded: true, searchedJokes: dataFromApi.result });
-      });
+    this.setState({ loaded: false, searchedJokes: [] });
+    api.fetchSearchedJokes(this.setJokesToState, this.state.query);
   };
 
-  handleQuery = event => {
-    this.setState({ query: event.target.value });
+  setJokesToState = data => {
+    this.setState({ loaded: true, searchedJokes: data.result });
   };
 
-  updateQueryUrl = (API_URL, query) => {
-    finalUri = API_URL + query;
-    console.log(finalUri);
-  };
-
-  handleSearch = () => {
-    this.setState({ loaded: false });
-
+  handleQuery = () => {
     if (this.state.query.length < 3 || this.state.query.length > 120) {
-      this.setState({ isQueryValid: true, loaded: true, searchedJokes: [] });
-    } else {
       this.setState({ isQueryValid: false });
+    } else {
+      this.setState({ isQueryValid: true });
       this.fetchData();
     }
   };
 
-  handleOutput = () => {
-    this.updateQueryUrl(API_URL, this.state.query);
-    this.handleSearch();
+  handleSearch = event => {
+    this.setState({ query: event.target.value }, () => {
+      this.handleQuery();
+    });
   };
 
   render() {
@@ -63,10 +51,9 @@ class SearchBlock extends React.Component {
         <Input
           type="search"
           value={this.state.query}
-          onChange={this.handleQuery}
-          onKeyUp={this.handleOutput}
+          onChange={this.handleSearch}
         />
-        {this.state.isQueryValid ? (
+        {!this.state.isQueryValid ? (
           <p>
             The word you seek for must have at least 3 characters and maximum
             120.
