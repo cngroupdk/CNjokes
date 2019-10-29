@@ -60,7 +60,7 @@ ul.jokes-list {
 
 ul.jokes-list li {
   background-color: #fbfbfb;
-  overflow: auto;
+  word-wrap: break-word;
   padding: 1rem 1rem;
   margin: 1rem auto;
   width: 70vw;
@@ -87,7 +87,7 @@ ul.jokes-list li {
   font-family: "Staatliches", sans-serif;
   font-size: calc(3vh + 3vw);
   padding: 12vh 3vw 1vh 3vw;
-  overflow: auto;
+  word-wrap: break-word;
 }
 
 .special-joke-block {
@@ -184,5 +184,12 @@ footer {
   }
   .categories-select {
     display: block;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .special-joke,
+  .btn-another-joke {
+    font-size: calc(39px + 3vh);
   }
 }
