@@ -84,7 +84,7 @@ class CategoryBlock extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="category-block">
         <h2>Or choose from categories</h2>
         <CategoriesList
           categorySetter={this.categorySetter}

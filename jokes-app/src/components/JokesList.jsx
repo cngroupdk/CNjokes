@@ -8,13 +8,14 @@ function JokesList(props) {
           Sorry, we couldn't get more than {props.jokes.length} this time :(
         </p>
       ) : (
-        <p>There you go - your {props.jokes.length} jokes! :)</p>
+        ""
       )}
       <ul className="jokes-list">
         {props.loaded
           ? props.jokes.map((joke, index) => <li key={index}>{joke}</li>)
           : "Loading..."}
       </ul>
+      {props.jokes.length ? "" : "no matches :("}
     </div>
   );
 }

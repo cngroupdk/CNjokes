@@ -3,13 +3,15 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 10vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 0 2vw;
+  background-color: #efefef59;
+  min-height: 1rem;
+  text-align: right;
+  font-size: calc(10px + 1vmin);
+  color: #969696;
+  font-family: raleway;
 }
 
+.App-header img {
+  filter: grayscale(50%);
+}

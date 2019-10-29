@@ -1,13 +1,12 @@
 import React from "react";
 import { api } from "../modules/api";
-import { Button } from "reactstrap";
 
 class SpecialJokeBlock extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedJoke: "Waiting for some CN joke."
+      selectedJoke: "Loading some CN joke..."
     };
   }
 
@@ -25,10 +24,12 @@ class SpecialJokeBlock extends React.Component {
 
   render() {
     return (
-      <>
-        <p>{this.state.selectedJoke}</p>
-        <Button onClick={this.handleClick}>Show me another one!</Button>
-      </>
+      <div className="special-joke-block">
+        <p className="special-joke">{this.state.selectedJoke}</p>
+        <button className="btn-another-joke" onClick={this.handleClick}>
+          ↻
+        </button>
+      </div>
     );
   }
 }

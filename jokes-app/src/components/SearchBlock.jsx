@@ -1,5 +1,4 @@
 import React from "react";
-import { Input } from "reactstrap";
 import JokesList from "./JokesList";
 
 const API_URL = "https://api.chucknorris.io/jokes/search?query=";
@@ -12,61 +11,71 @@ class SearchBlock extends React.Component {
     this.state = {
       query: "",
       searchedJokes: [],
-      isQueryValid: true,
+      isQueryValid: false,
       loaded: false
     };
   }
 
   fetchData = () => {
+    this.setState({ loaded: false, searchedJokes: [] });
     fetch(finalUri)
       .then(response => response.json())
       .then(dataFromApi => {
-        console.log(dataFromApi.result);
         this.setState({ loaded: true, searchedJokes: dataFromApi.result });
       });
   };
 
-  handleQuery = event => {
-    this.setState({ query: event.target.value });
-  };
-
-  updateQueryUrl = (API_URL, query) => {
-    finalUri = API_URL + query;
-    console.log(finalUri);
-  };
-
-  handleSearch = () => {
-    this.setState({ loaded: false });
-
+  handleQuery = () => {
     if (this.state.query.length < 3 || this.state.query.length > 120) {
-      this.setState({ isQueryValid: true, loaded: true, searchedJokes: [] });
-    } else {
       this.setState({ isQueryValid: false });
+    } else {
+      this.setState({ isQueryValid: true });
+      this.updateQueryUrl(API_URL, this.state.query);
       this.fetchData();
     }
   };
 
-  handleOutput = () => {
-    this.updateQueryUrl(API_URL, this.state.query);
-    this.handleSearch();
+  updateQueryUrl = (API_URL, query) => {
+    finalUri = API_URL + query;
+  };
+
+  handleSearch = event => {
+    this.setState({ query: event.target.value }, () => {
+      this.handleQuery();
+    });
+  };
+
+  get25Jokes = jokesList => {
+    return jokesList && jokesList.slice(0, 25).map(joke => joke.value);
   };
 
   render() {
-    const listItems = this.state.searchedJokes.map(joke => joke.value);
+    const listItems = this.get25Jokes(this.state.searchedJokes);
 
     return (
-      <>
+      <div className="search-block">
+        <h2>Still not satisfied?</h2>
         <p>
           You can use this fulltext search to look for the jokes you're so eager
-          to find.
+          to find. <span>&#10549;</span>
         </p>
-        <Input
-          type="search"
-          value={this.state.query}
-          onChange={this.handleQuery}
-          onKeyUp={this.handleOutput}
-        />
-        {this.state.isQueryValid ? (
+
+        <div className="joke-search input-group">
+          <div className="input-group-prepend">
+            <span className="search-icon-box input-group-text ">
+              <span className="search-icon">&#9740;</span>
+            </span>
+          </div>
+          <input
+            className="form-control search-input"
+            type="text"
+            placeholder="Search"
+            value={this.state.query}
+            onChange={this.handleSearch}
+          />
+        </div>
+
+        {!this.state.isQueryValid ? (
           <p>
             The word you seek for must have at least 3 characters and maximum
             120.
@@ -78,7 +87,7 @@ class SearchBlock extends React.Component {
             hasDuplicates={false}
           />
         )}
-      </>
+      </div>
     );
   }
 }
