@@ -1,29 +1,33 @@
 <template>
   <div id="app" class="jokes-app">
     <JokesHeader></JokesHeader>
-    <div class="jokes-title">
-      <h1>{{ title }}</h1>
+    <div v-if="chosenTab === 'Search'">
+      <div class="jokes-title">
+        <h1>{{ title }}</h1>
+      </div>
+      <JokesSearchForm></JokesSearchForm>
+      <JokesSearchList></JokesSearchList>
     </div>
-    <JokesForm></JokesForm>
-    <JokesList></JokesList>
+    <div v-if="chosenTab === 'Listing'"></div>
   </div>
 </template>
 
 <script>
 import JokesHeader from "./components/JokesHeader.vue";
-import JokesList from "./components/JokesList.vue";
-import JokesForm from "./components/JokesForm.vue";
+import JokesSearchList from "./components/JokesSearchList.vue";
+import JokesSearchForm from "./components/JokesSearchForm.vue";
 
 export default {
   name: "app",
   components: {
-    JokesList,
-    JokesForm,
+    JokesSearchList,
+    JokesSearchForm,
     JokesHeader
   },
   data() {
     return {
-      title: "Jokes App"
+      title: "Jokes App",
+      chosenTab: "Search"
     };
   }
 };

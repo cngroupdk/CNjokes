@@ -15,7 +15,7 @@
 import { api } from "../modules/api.js";
 import { mapState } from "vuex";
 export default {
-  name: "JokesList",
+  name: "JokesSearchList",
 
   data() {
     return {

@@ -2,7 +2,14 @@
   <header class="JokesHeader">
     <nav>
       <ul>
-        <li v-for="(tab, index) in tabs" :key="index" :class="{ ChosenTab: tab === chosenTab }" @click="chosenTab = tab">{{tab}}</li>
+        <li
+          v-for="(tab, index) in tabs"
+          :key="index"
+          :class="{ ChosenTab: tab === chosenTab }"
+          @click="chosenTab = tab"
+        >
+          {{ tab }}
+        </li>
       </ul>
     </nav>
   </header>
@@ -12,14 +19,14 @@
 export default {
   name: "JokesHeader",
   data() {
-      return {
-          tabs: ['Search', 'Listing'],
-          chosenTab: 'Search',
-      }
+    return {
+      tabs: ["Search", "Listing"],
+      chosenTab: "Search"
+    };
   },
   props: {
     tab: String
-  },
+  }
 };
 </script>
 
