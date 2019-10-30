@@ -1,10 +1,8 @@
-const API_URL = "http://api.chucknorris.io/jokes/";
+const API_URL = "http://localhost:3000/jokes/";
 
 export const api = {
   fetchCategories: callback => {
-    fetch(`${API_URL}categories`, {
-        mode: 'no-cors',
-    })
+    fetch(`${API_URL}categories`)
       .then(response => response.json())
       .then(data => callback(data));
   },
@@ -16,10 +14,7 @@ export const api = {
         ? "empty_search_input"
         : formInputs.searchInputText;
     fetch(
-      `${API_URL}${formInputs.numberOfJokes}/${reqCategory}/${reqSearchedText}`
-    , {
-        mode: 'no-cors',
-    })
+      `${API_URL}${formInputs.numberOfJokes}/${reqCategory}/${reqSearchedText}`)
       .then(response => response.json())
       .then(data => callback([...data]));
   }
