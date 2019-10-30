@@ -1,9 +1,9 @@
 <template>
-  <div class="JokesSearchForm jokes-section">
-    <form>
-      <div class="JokesSearchForm__Part">
+  <div class="JokesForm jokes-section">
+    <form  @submit.prevent="callShowJokes">
+      <div class="JokesForm__Part">
         <select
-          v-model="selectedCategory"
+          @change="changedSelect($event)"
           name="jokes-categories"
           id="jokes-categories"
         >
@@ -18,20 +18,19 @@
         <input
           v-model.number="numberOfJokes"
           type="number"
-          class="JokesSearchForm__Number"
+          class="JokesForm__Number"
           step="1"
           min="1"
           value="1"
         />
       </div>
-      <div class="JokesSearchForm__Part">
+      <div class="JokesForm__Part">
         <input
           v-model="searchInputText"
           placeholder="Search text..."
           type="text"
-          class="JokesSearchForm__Search"
+          class="JokesForm__Search"
         />
-        <button @click="callShowJokes" type="button">
         <button type="submit">
           {{ getSearchButtonText }}
         </button>
@@ -43,77 +42,75 @@
 <script>
 import { api } from "../modules/api.js";
 export default {
-  name: "JokesSearchForm",
+  name: "JokesForm",
+  data() {
+    return {
+      categories: [],
+      selectedCategory: "",
+      numberOfJokes: 1,
+      searchInputText: "",
+      clearButton: false
+    };
+  },
   created() {
     api.fetchCategories(this.setCategories);
   },
   methods: {
     setCategories(data) {
-      this.$store.commit("updateCategories", data);
+      this.categories = data;
+    },
+    changedSelect(event) {
+      this.selectedCategory = event.target.value;
+    },
+    callShowJokes() {
+      this.$emit("searchButtonClicked", {
+        selectedCategory: this.selectedCategory,
+        numberOfJokes: this.numberOfJokes,
+        searchInputText: this.searchInputText
+      });
     }
   },
   computed: {
-    searchInputText: {
-      get() {
-        return this.$store.state.searchInputText;
-      },
-      set(value) {
-        this.$store.commit("updateSearchInputText", value);
-      }
-    },
-    numberOfJokes: {
-      get() {
-        return this.$store.state.numberOfJokes;
-      },
-      set(value) {
-        this.$store.commit("updateNumberOfJokes", value);
-      }
-    },
-    selectedCategory: {
-      get() {
-        return this.$store.state.selectedCategory;
-      },
-      set(value) {
-        this.$store.commit("updateSelectedCategory", value);
-      }
-    },
-    categories: {
-      get() {
-        return this.$store.state.categories;
-      }
+    getSearchButtonText() {
+      if (this.numberOfJokes > 1 && this.searchInputText.length > 2) {
+        return "Search for jokes";
+      } else if (this.searchInputText.length > 2) {
+        return "Search for joke"
+      } else if (this.numberOfJokes > 1 && this.searchInputText.length < 3) {
+        return "Get random jokes";
+      } else {return "Get random joke"};
     }
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.JokesSearchForm__Part * {
+.JokesForm__Part * {
   font-size: 1.2rem;
   padding: 0.2rem;
   border: 0.1rem solid darkblue;
   border-radius: 0.6rem;
 }
 
-.JokesSearchForm__Part:first-child select {
+.JokesForm__Part:first-child select {
   width: 75%;
   margin-right: 5%;
 }
-.JokesSearchForm__Part:first-child input {
+.JokesForm__Part:first-child input {
   width: 20%;
   text-align: center;
 }
-.JokesSearchForm__Part:last-child input {
+.JokesForm__Part:last-child input {
   width: 100%;
   margin-top: 1rem;
 }
-.JokesSearchForm__Part button {
+.JokesForm__Part button {
   background: darkblue;
   color: white;
   margin-top: 1rem;
   padding: 0.2rem 0.6rem;
 }
-.JokesSearchForm__Part button:hover {
+.JokesForm__Part button:hover {
   cursor: pointer;
 }
 </style>
