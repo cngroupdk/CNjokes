@@ -79,13 +79,11 @@ export default {
       } else if (this.numberOfJokes > 1 && this.searchInputText.length < 3) {
         return "Get random jokes";
       } else {return "Get random joke"};
-    } //,
-    // ...mapState(["searchInputText", "numberOfJokes", "selectedCategory"])
+    }
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .JokesForm__Part * {
   font-size: 1.2rem;
