@@ -1,6 +1,6 @@
 import React from "react";
 
-function JokesList({ loaded, jokes, hasDuplicates }) {
+function JokesList({ jokesLoaded, jokes, hasDuplicates }) {
   return (
     <div>
       {hasDuplicates ? (
@@ -9,7 +9,7 @@ function JokesList({ loaded, jokes, hasDuplicates }) {
         ""
       )}
       <ul className="jokes-list">
-        {loaded
+        {jokesLoaded
           ? jokes.map((joke, index) => <li key={index}>{joke}</li>)
           : "Loading..."}
       </ul>

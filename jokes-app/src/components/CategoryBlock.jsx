@@ -13,21 +13,21 @@ class CategoryBlock extends React.Component {
       category: "all",
       jokes: [],
       categories: [],
-      loaded: false,
+      jokesLoaded: false,
       hasDuplicateJokes: true
     };
     this.categorySetter = this.categorySetter.bind(this);
     this.countSetter = this.countSetter.bind(this);
   }
 
-  getAPIRequestURL(category) {
-    const baseUrl = "https://api.chucknorris.io/jokes/random";
+  // getAPIRequestURL(category) {
+  //   const baseUrl = "https://api.chucknorris.io/jokes/random";
 
-    if (category !== "all") {
-      return `${baseUrl}?category=${category}`;
-    }
-    return baseUrl;
-  }
+  //   if (category !== "all") {
+  //     return `${baseUrl}?category=${category}`;
+  //   }
+  //   return baseUrl;
+  // }
 
   categorySetter(categoryName) {
     this.setState({ category: categoryName });
@@ -56,7 +56,7 @@ class CategoryBlock extends React.Component {
   };
 
   loadJokesFromAPI(category, numberOfJokes) {
-    this.setState({ loaded: false });
+    this.setState({ jokesLoaded: false });
     api.fetchAmountOfJokesByCategory(
       this.setJokesToState,
       category,
@@ -67,7 +67,7 @@ class CategoryBlock extends React.Component {
   setJokesToState = (jokes, hasDuplicateJokes) => {
     this.setState({
       jokes: jokes,
-      loaded: true,
+      jokesLoaded: true,
       hasDuplicateJokes: hasDuplicateJokes
     });
   };
@@ -87,7 +87,7 @@ class CategoryBlock extends React.Component {
         />
         <JokesCountSetter countSetter={this.countSetter} />
         <JokesList
-          loaded={this.state.loaded}
+          jokesLoaded={this.state.jokesLoaded}
           jokes={this.state.jokes}
           hasDuplicates={this.state.hasDuplicateJokes}
         />

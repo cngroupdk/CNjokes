@@ -4,6 +4,7 @@ import { SET_JOKES_LOADING } from "./actions";
 import { SET_QUERY_INVALID } from "./actions";
 import { SET_QUERY_VALID } from "./actions";
 import { SET_QUERY } from "./actions";
+import { SET_CATEGORY } from "./actions";
 
 const initialState = {
   // SpecialJokeBlock
@@ -12,7 +13,14 @@ const initialState = {
   query: "",
   searchedJokes: [],
   isQueryValid: false,
-  loaded: false
+  loaded: false,
+  // CategoryBlock
+  count: 4,
+  category: "all",
+  jokes: [],
+  categories: [],
+  jokesLoaded: false,
+  hasDuplicateJokes: true
 };
 
 function jokeReducer(state = initialState, action) {
@@ -52,6 +60,12 @@ function jokeReducer(state = initialState, action) {
       return {
         ...state,
         query: action.query
+      };
+    // CategoryBlock
+    case SET_CATEGORY:
+      return {
+        ...state,
+        category: action.category
       };
     default:
       return state;
