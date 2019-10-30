@@ -6,7 +6,7 @@
           v-for="(tab, index) in tabs"
           :key="index"
           :class="{ ChosenTab: tab === chosenTab }"
-          @click="chosenTab = tab"
+          @click="$store.commit('updateChosenTab', tab)"
         >
           {{ tab }}
         </li>
@@ -20,12 +20,15 @@ export default {
   name: "JokesHeader",
   data() {
     return {
-      tabs: ["Search", "Listing"],
-      chosenTab: "Search"
+      tabs: ["Search", "Listing"]
     };
   },
-  props: {
-    tab: String
+  computed: {
+    chosenTab: {
+      get() {
+        return this.$store.state.chosenTab;
+      }
+    }
   }
 };
 </script>

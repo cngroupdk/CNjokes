@@ -8,7 +8,8 @@ export const store = new Vuex.Store({
     searchInputText: "",
     numberOfJokes: 1,
     selectedCategory: "",
-    categories: []
+    categories: [],
+    chosenTab: "Search"
   },
   mutations: {
     updateSearchInputText(state, searchInputText) {
@@ -22,6 +23,9 @@ export const store = new Vuex.Store({
     },
     updateCategories(state, categories) {
       state.categories = categories;
+    },
+    updateChosenTab(state, chosenTab) {
+      state.chosenTab = chosenTab;
     }
   }
 });

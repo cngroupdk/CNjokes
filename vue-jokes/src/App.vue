@@ -16,6 +16,7 @@
 import JokesHeader from "./components/JokesHeader.vue";
 import JokesSearchList from "./components/JokesSearchList.vue";
 import JokesSearchForm from "./components/JokesSearchForm.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "app",
@@ -26,10 +27,10 @@ export default {
   },
   data() {
     return {
-      title: "Jokes App",
-      chosenTab: "Search"
+      title: "Jokes App"
     };
-  }
+  },
+  computed: mapState(["chosenTab"])
 };
 </script>
 
