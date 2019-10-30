@@ -30,6 +30,11 @@ class SearchBlock extends React.Component {
   handleQuery = () => {
     if (this.state.query.length < 3 || this.state.query.length > 120) {
       this.setState({ isQueryValid: false });
+    } else if (
+      this.state.query.length === 3 &&
+      this.state.query.includes(" ")
+    ) {
+      this.setState({ isQueryValid: false });
     } else {
       this.setState({ isQueryValid: true });
       this.fetchData();
