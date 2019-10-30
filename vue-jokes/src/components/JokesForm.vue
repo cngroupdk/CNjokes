@@ -1,6 +1,6 @@
 <template>
   <div class="JokesForm jokes-section">
-    <form>
+    <form  @submit.prevent="callShowJokes">
       <div class="JokesForm__Part">
         <select
           @change="changedSelect($event)"
@@ -31,7 +31,7 @@
           type="text"
           class="JokesForm__Search"
         />
-        <button @click="callShowJokes" type="button">
+        <button type="submit">
           {{ getSearchButtonText }}
         </button>
       </div>
