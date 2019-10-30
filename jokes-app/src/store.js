@@ -1,4 +1,4 @@
 import { createStore } from "redux";
-import setJokeReducer from "./reducers";
+import jokeReducer from "./reducers";
 
-export default createStore(setJokeReducer);
+export default createStore(jokeReducer);
