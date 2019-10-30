@@ -3,7 +3,7 @@
     <form>
       <div class="JokesForm__Part">
         <select
-          @change="changedSelect($event)"
+          v-model="selectedCategory"
           name="jokes-categories"
           id="jokes-categories"
         >
@@ -31,9 +31,6 @@
           type="text"
           class="JokesForm__Search"
         />
-        <button v-on:click="callShowJokes" type="button">
-          {{ getSearchButtonText }}
-        </button>
       </div>
     </form>
   </div>
@@ -43,44 +40,44 @@
 import { api } from "../modules/api.js";
 export default {
   name: "JokesForm",
-  data() {
-    return {
-      categories: [],
-      selectedCategory: "",
-      numberOfJokes: 1,
-      searchInputText: "",
-      clearButton: false
-    };
-  },
   created() {
     api.fetchCategories(this.setCategories);
   },
   methods: {
     setCategories(data) {
-      this.categories = data;
-    },
-    changedSelect(event) {
-      this.selectedCategory = event.target.value;
-    },
-    callShowJokes() {
-      this.$emit("searchButtonClicked", {
-        selectedCategory: this.selectedCategory,
-        numberOfJokes: this.numberOfJokes,
-        searchInputText: this.searchInputText
-      });
+      this.$store.commit("updateCategories", data);
     }
   },
   computed: {
-    getSearchButtonText() {
-      if (this.searchInputText.length > 2) {
-        return "Search for joke";
+    searchInputText: {
+      get() {
+        return this.$store.state.searchInputText;
+      },
+      set(value) {
+        this.$store.commit("updateSearchInputText", value);
       }
-      if (this.numberOfJokes > 1) {
-        return "Get random jokes";
+    },
+    numberOfJokes: {
+      get() {
+        return this.$store.state.numberOfJokes;
+      },
+      set(value) {
+        this.$store.commit("updateNumberOfJokes", value);
       }
-      return "Get random joke";
-    } //,
-    // ...mapState(["searchInputText", "numberOfJokes", "selectedCategory"])
+    },
+    selectedCategory: {
+      get() {
+        return this.$store.state.selectedCategory;
+      },
+      set(value) {
+        this.$store.commit("updateSelectedCategory", value);
+      }
+    },
+    categories: {
+      get() {
+        return this.$store.state.categories;
+      }
+    }
   }
 };
 </script>

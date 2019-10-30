@@ -1,11 +1,11 @@
 <template>
   <div class="jokes-list jokes-section">
     <ul>
-      <!-- <label v-if="isNotEnoughResults"
+      <label v-if="isEnoughResults"
         >Sorry for your requirements we have just this jokes:</label
-      > -->
-      <li v-for="(joke, index) in jokes" :key="index">
-        {{ joke }}
+      >
+      <li v-for="(joke, id) in jokes" :key="id">
+        {{ joke.value }}
       </li>
     </ul>
   </div>
@@ -13,11 +13,9 @@
 
 <script>
 import { api } from "../modules/api.js";
+import { mapState } from "vuex";
 export default {
   name: "JokesList",
-  props: {
-    formInputs: Object
-  },
 
   data() {
     return {
@@ -25,28 +23,34 @@ export default {
     };
   },
   created() {
-    api.fetchJokes(this.getTextFromJokes, this.formInputs);
+    this.fetchJokesFromApi();
   },
-
-  watch: {
-    formInputs: "handleChangeProps"
-  },
-
   methods: {
-    handleChangeProps() {
-      this.selectedCategory = this.formInputs.selectedCategory;
-      this.numberOfJokes = this.formInputs.numberOfJokes;
-      this.searchInputText = this.formInputs.searchInputText;
-      this.jokes = [];
-      api.fetchJokes(this.getTextFromJokes, this.formInputs);
+    fetchJokesFromApi() {
+      api.fetchJokes(this.getJokes, {
+        selectedCategory: this.selectedCategory,
+        numberOfJokes: this.numberOfJokes,
+        searchInputText: this.searchInputText
+      });
     },
-    getTextFromJokes(data) {
-      this.jokes = data.map(joke => joke.value);
+    getJokes(data) {
+      this.jokes = data;
     }
+  },
+  watch: {
+    selectedCategory: "fetchJokesFromApi",
+    numberOfJokes: "fetchJokesFromApi",
+    searchInputText: "fetchJokesFromApi"
+  },
+
+  computed: {
+    isEnoughResults: function() {
+      return this.numberOfJokes > this.jokes.length;
+    },
+    ...mapState(["selectedCategory", "numberOfJokes", "searchInputText"])
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
+<style scoped></style>

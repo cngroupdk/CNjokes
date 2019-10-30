@@ -6,17 +6,22 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     searchInputText: "",
-    numberOfJokes: "",
-    selectedCategory: ""
+    numberOfJokes: 1,
+    selectedCategory: "",
+    categories: []
   },
   mutations: {
-    change(state, searchInputText) {
+    updateSearchInputText(state, searchInputText) {
       state.searchInputText = searchInputText;
+    },
+    updateNumberOfJokes(state, numberOfJokes) {
+      state.numberOfJokes = numberOfJokes;
+    },
+    updateSelectedCategory(state, selectedCategory) {
+      state.selectedCategory = selectedCategory;
+    },
+    updateCategories(state, categories) {
+      state.categories = categories;
     }
-  },
-  getters: {
-    searchInputText: state => state.searchInputText,
-    numberOfJokes: state => state.numberOfJokes,
-    selectedCategory: state => state.selectedCategory
   }
 });
