@@ -26,7 +26,8 @@ h2 {
   -moz-column-count: 4;
   /* Firefox */
   column-count: 4;
-  margin: 0 10em;
+  margin: 2rem auto 3rem auto;
+  max-width: 850px;
 }
 
 .category-container ul {
@@ -54,13 +55,9 @@ ul.jokes-list {
   padding: 0;
 }
 
-/*ul.jokes-list li:nth-child(odd) {
-  background-color: #eeeeee;
-}*/
-
 ul.jokes-list li {
   background-color: #fbfbfb;
-  overflow: auto;
+  word-wrap: break-word;
   padding: 1rem 1rem;
   margin: 1rem auto;
   width: 70vw;
@@ -87,7 +84,9 @@ ul.jokes-list li {
   font-family: "Staatliches", sans-serif;
   font-size: calc(3vh + 3vw);
   padding: 12vh 3vw 1vh 3vw;
-  overflow: auto;
+  max-width: 2000px;
+  margin: 0 auto;
+  word-wrap: break-word;
 }
 
 .special-joke-block {
@@ -184,5 +183,12 @@ footer {
   }
   .categories-select {
     display: block;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .special-joke,
+  .btn-another-joke {
+    font-size: calc(39px + 3vh);
   }
 }
