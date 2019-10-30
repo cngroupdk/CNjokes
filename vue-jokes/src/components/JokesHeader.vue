@@ -2,8 +2,7 @@
   <header class="JokesHeader">
     <nav>
       <ul>
-        <li :class="{ ChosenTab: isSearchTab }" @click="changeTab">Search</li>
-        <li :class="{ ChosenTab: isListingTab }" @click="changeTab">Listing</li>
+        <li v-for="(tab, index) in tabs" :key="index" :class="{ ChosenTab: tab === chosenTab }" @click="chosenTab = tab">{{tab}}</li>
       </ul>
     </nav>
   </header>
@@ -12,16 +11,15 @@
 <script>
 export default {
   name: "JokesHeader",
-  props: {
-    isSearchTab: Boolean,
-    isListingTab: Boolean
+  data() {
+      return {
+          tabs: ['Search', 'Listing'],
+          chosenTab: 'Search',
+      }
   },
-  methods: {
-    changeTab(evt) {
-      document.querySelector(".ChosenTab").classList.remove("ChosenTab");
-      evt.target.classList.toggle("ChosenTab");
-    }
-  }
+  props: {
+    tab: String
+  },
 };
 </script>
 

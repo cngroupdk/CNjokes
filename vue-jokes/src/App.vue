@@ -1,9 +1,6 @@
 <template>
   <div id="app" class="jokes-app">
-    <JokesHeader
-      :isSearchTab="isSearchTab"
-      :isListingTab="isListingTab"
-    ></JokesHeader>
+    <JokesHeader></JokesHeader>
     <div class="jokes-title">
       <h1>{{ title }}</h1>
     </div>
@@ -32,8 +29,6 @@ export default {
       title: "Jokes App",
       formInputs: {},
       isSearchedButtonClicked: false,
-      isSearchTab: true,
-      isListingTab: false
     };
   },
   methods: {
