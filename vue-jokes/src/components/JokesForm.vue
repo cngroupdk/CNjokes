@@ -72,13 +72,13 @@ export default {
   },
   computed: {
     getSearchButtonText() {
-      if (this.searchInputText.length > 2) {
-        return "Search for joke";
-      }
-      if (this.numberOfJokes > 1) {
+      if (this.numberOfJokes > 1 && this.searchInputText.length > 2) {
+        return "Search for jokes";
+      } else if (this.searchInputText.length > 2) {
+        return "Search for joke"
+      } else if (this.numberOfJokes > 1 && this.searchInputText.length < 3) {
         return "Get random jokes";
-      }
-      return "Get random joke";
+      } else {return "Get random joke"};
     } //,
     // ...mapState(["searchInputText", "numberOfJokes", "selectedCategory"])
   }
