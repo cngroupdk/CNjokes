@@ -1,10 +1,10 @@
 <template>
-  <div id="app" class="JokesApp">
+  <div id="app" class="jokes-app">
     <JokesHeader
       :isSearchTab="isSearchTab"
       :isListingTab="isListingTab"
     ></JokesHeader>
-    <div class="JokesTitle">
+    <div class="jokes-title">
       <h1>{{ title }}</h1>
     </div>
     <JokesForm v-on:searchButtonClicked="searchButtonClicked"></JokesForm>
@@ -56,13 +56,13 @@ body {
   background: lightseagreen;
 }
 
-.JokesApp {
+.jokes-app {
   margin: 13rem auto 0;
   width: 90%;
   max-width: 500px;
 }
 
-.JokesTitle {
+.jokes-title {
   background: darkblue;
   color: white;
   text-align: center;
@@ -70,7 +70,7 @@ body {
   border-radius: 1rem;
 }
 
-.JokesSection {
+.jokes-section {
   background: white;
   color: darkblue;
   margin-top: 1.5rem;

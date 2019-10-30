@@ -14,8 +14,7 @@ export const api = {
         ? "empty_search_input"
         : formInputs.searchInputText;
     fetch(
-      `${API_URL}${formInputs.numberOfJokes}/${reqCategory}/${reqSearchedText}`
-    )
+      `${API_URL}${formInputs.numberOfJokes}/${reqCategory}/${reqSearchedText}`)
       .then(response => response.json())
       .then(data => callback([...data]));
   }
