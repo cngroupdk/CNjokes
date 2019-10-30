@@ -9,8 +9,8 @@
         >
           <option value="" disabled selected>Select your category</option>
           <option
-            v-for="category in categories"
-            v-bind:key="category"
+            v-for="(category, index) in categories"
+            :key="index"
             :value="category"
             >{{ category }}</option
           >
@@ -31,7 +31,7 @@
           type="text"
           class="JokesForm__Search"
         />
-        <button v-on:click="callShowJokes" type="button">
+        <button @click="callShowJokes" type="button">
           {{ getSearchButtonText }}
         </button>
       </div>

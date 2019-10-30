@@ -7,10 +7,10 @@
     <div class="jokes-title">
       <h1>{{ title }}</h1>
     </div>
-    <JokesForm v-on:searchButtonClicked="searchButtonClicked"></JokesForm>
+    <JokesForm @searchButtonClicked="searchButtonClicked"></JokesForm>
     <JokesList
       v-if="isSearchedButtonClicked"
-      v-bind:formInputs="formInputs"
+      :formInputs="formInputs"
     ></JokesList>
   </div>
 </template>
