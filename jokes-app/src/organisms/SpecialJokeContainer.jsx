@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { SpecialJoke } from '../molecules';
 import { api } from '../modules/api';
 import { useSelector, useDispatch } from 'react-redux';
-import { setJoke } from '../actions';
+import { setJoke } from '../services/actions';
 import { getSelectedJoke } from '../services/selectors';
 
 export function SpecialJokeContainer() {

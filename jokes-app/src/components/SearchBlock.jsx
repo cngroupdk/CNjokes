@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { api } from '../modules/api';
-import { setSearchedJokes } from '../actions';
-import { setJokesLoading } from '../actions';
-import { setQueryInvalid } from '../actions';
-import { setQueryValid } from '../actions';
-import { setQuery } from '../actions';
+import { setSearchedJokes } from '../services/actions';
+import { setJokesLoading } from '../services/actions';
+import { setQueryInvalid } from '../services/actions';
+import { setQueryValid } from '../services/actions';
+import { setQuery } from '../services/actions';
 import JokesList from './JokesList';
 import {
   getSearchedJokes,
