@@ -1,8 +1,8 @@
-import React from "react";
-import { api } from "../modules/api";
-import JokesList from "./JokesList";
-import CategoriesList from "./CategoriesList";
-import JokesCountSetter from "./JokesCountSetter";
+import React from 'react';
+import { api } from '../modules/api';
+import JokesList from './JokesList';
+import CategoriesList from './CategoriesList';
+import JokesCountSetter from './JokesCountSetter';
 
 class CategoryBlock extends React.Component {
   constructor(props) {
@@ -10,11 +10,11 @@ class CategoryBlock extends React.Component {
 
     this.state = {
       count: 4,
-      category: "all",
+      category: 'all',
       jokes: [],
       categories: [],
       jokesLoaded: false,
-      hasDuplicateJokes: true
+      hasDuplicateJokes: true,
     };
     this.categorySetter = this.categorySetter.bind(this);
     this.countSetter = this.countSetter.bind(this);
@@ -60,7 +60,7 @@ class CategoryBlock extends React.Component {
     api.fetchAmountOfJokesByCategory(
       this.setJokesToState,
       category,
-      numberOfJokes
+      numberOfJokes,
     );
   }
 
@@ -68,7 +68,7 @@ class CategoryBlock extends React.Component {
     this.setState({
       jokes: jokes,
       jokesLoaded: true,
-      hasDuplicateJokes: hasDuplicateJokes
+      hasDuplicateJokes: hasDuplicateJokes,
     });
   };
 

@@ -1,14 +1,14 @@
-import React from "react";
-import "./App.css";
-import SpecialJokeBlock from "./components/SpecialJokeBlock";
-import SearchBlock from "./components/SearchBlock";
-import CategoryBlock from "./components/CategoryBlock";
+import React from 'react';
+import './App.css';
+import { SpecialJokeContainer } from './organisms/SpecialJokeContainer';
+import { SearchBlock } from './components/SearchBlock';
+import CategoryBlock from './components/CategoryBlock';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">CN jokes 2019</header>
-      <SpecialJokeBlock />
+      <SpecialJokeContainer />
       <CategoryBlock />
       <hr />
       <SearchBlock />

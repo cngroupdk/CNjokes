@@ -1,39 +1,45 @@
-export const SET_JOKE = "SET_JOKE"; // action types
-export const SET_SEARCHED_JOKES = "SET_SEARCHED_JOKES";
-export const SET_JOKES_LOADING = "SET_JOKES_LOADING";
-export const SET_QUERY_INVALID = "SET_QUERY_INVALID";
-export const SET_QUERY_VALID = "SET_QUERY_VALID";
-export const SET_QUERY = "SET_QUERY";
-export const SET_CATEGORY = "SET_CATEGORY";
+export const SET_JOKE = 'SET_JOKE'; // action types
+export const SET_SEARCHED_JOKES = 'SET_SEARCHED_JOKES';
+export const SET_JOKES_LOADING = 'SET_JOKES_LOADING';
+export const SET_QUERY_INVALID = 'SET_QUERY_INVALID';
+export const SET_QUERY_VALID = 'SET_QUERY_VALID';
+export const SET_QUERY = 'SET_QUERY';
+export const SET_CATEGORY = 'SET_CATEGORY';
+export const SET_CATEGORIES = 'SET_CATEGORIES';
 
 export const setJoke = data => ({
   type: SET_JOKE,
-  data: data // action payload
+  data: data, // action payload
 });
 
 export const setSearchedJokes = data => ({
   type: SET_SEARCHED_JOKES,
-  data: data
+  data: data,
 });
 
 export const setJokesLoading = () => ({
-  type: SET_JOKES_LOADING
+  type: SET_JOKES_LOADING,
 });
 
 export const setQueryInvalid = () => ({
-  type: SET_QUERY_INVALID
+  type: SET_QUERY_INVALID,
 });
 
 export const setQueryValid = () => ({
-  type: SET_QUERY_VALID
+  type: SET_QUERY_VALID,
 });
 
 export const setQuery = query => ({
   type: SET_QUERY,
-  query: query
+  query: query,
 });
 
 export const setCategory = categoryName => ({
   type: SET_CATEGORY,
-  category: categoryName
+  category: categoryName,
+});
+
+export const setCategories = data => ({
+  type: SET_CATEGORIES,
+  data: data,
 });

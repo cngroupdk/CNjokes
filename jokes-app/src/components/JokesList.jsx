@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function JokesList({ jokesLoaded, jokes, hasDuplicates }) {
   return (
@@ -6,14 +6,14 @@ function JokesList({ jokesLoaded, jokes, hasDuplicates }) {
       {hasDuplicates ? (
         <p>Sorry, we couldn't get more than {jokes.length} this time :(</p>
       ) : (
-        ""
+        ''
       )}
       <ul className="jokes-list">
         {jokesLoaded
           ? jokes.map((joke, index) => <li key={index}>{joke}</li>)
-          : "Loading..."}
+          : 'Loading...'}
       </ul>
-      {jokes.length ? "" : "no matches :("}
+      {jokes.length ? '' : 'no matches :('}
     </div>
   );
 }
