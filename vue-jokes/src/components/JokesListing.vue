@@ -19,18 +19,18 @@
     <div class="listing-col listing-col2">
       <ul>
         <li v-for="(joke, id) in jokes" :key="id">
-        {{ joke.value }}
+          {{ joke.value }}
         </li>
       </ul>
       <input
-          v-model.number="pageNumber"
-          type="number"
-          class="jokes-listing-page-number"
-          step="1"
-          min="1"
-          v-bind:max="maxNumberOfPages"
-          value="1"
-        />
+        v-model.number="pageNumber"
+        type="number"
+        class="jokes-listing-page-number"
+        step="1"
+        min="1"
+        v-bind:max="maxNumberOfPages"
+        value="1"
+      />
     </div>
   </div>
 </template>
@@ -54,28 +54,32 @@ export default {
   },
   computed: {
     ...mapState(["categories"]),
-    maxNumberOfPages: function () {
-      return Math.floor(this.numberOfResults/20)+1
+    maxNumberOfPages: function() {
+      return Math.floor(this.numberOfResults / 20) + 1;
     }
   },
   watch: {
-    chosenCategory:'fetchJokesFromApi',
-    pageNumber:'fetchJokesFromApi'
+    chosenCategory: "fetchJokesFromApi",
+    pageNumber: "fetchJokesFromApi"
   },
   methods: {
     fetchJokesFromApi() {
-      if (this.pageNumber>this.maxNumberOfPages) {
-        this.pageNumber = this.maxNumberOfPages
+      if (this.pageNumber > this.maxNumberOfPages) {
+        this.pageNumber = this.maxNumberOfPages;
       }
-      let pageNumberReq = this.pageNumber
-      if(this.pageNumber === "") {
+      let pageNumberReq = this.pageNumber;
+      if (this.pageNumber === "") {
         pageNumberReq = 1;
       }
-      api.fetchJokesByCategory(this.getJokes, this.chosenCategory, pageNumberReq);
+      api.fetchJokesByCategory(
+        this.getJokes,
+        this.chosenCategory,
+        pageNumberReq
+      );
     },
     getJokes(data) {
-      this.numberOfResults = data[data.length-1];
-      this.jokes = data.slice(0,data.length-1);
+      this.numberOfResults = data[data.length - 1];
+      this.jokes = data.slice(0, data.length - 1);
     }
   }
 };
@@ -98,9 +102,7 @@ export default {
   min-height: 70vh;
 }
 
-.
-
-.listing-col1 {
+. .listing-col1 {
   width: 25%;
 }
 

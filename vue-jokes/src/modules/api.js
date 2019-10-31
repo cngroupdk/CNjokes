@@ -20,9 +20,7 @@ export const api = {
       .then(data => callback([...data]));
   },
   fetchJokesByCategory: (callback, category, pageNumber) => {
-    fetch(
-      `${API_URL}bycategory/${category}/${pageNumber}`
-    )
+    fetch(`${API_URL}bycategory/${category}/${pageNumber}`)
       .then(response => response.json())
       .then(data => callback([...data]));
   }
