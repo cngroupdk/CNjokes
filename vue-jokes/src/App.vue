@@ -8,7 +8,9 @@
       <JokesSearchForm></JokesSearchForm>
       <JokesSearchList></JokesSearchList>
     </div>
-    <div v-if="chosenTab === 'Listing'"></div>
+    <div v-if="chosenTab === 'Listing'">
+      <JokesListing></JokesListing>
+    </div>
   </div>
 </template>
 
@@ -16,6 +18,7 @@
 import JokesHeader from "./components/JokesHeader.vue";
 import JokesSearchList from "./components/JokesSearchList.vue";
 import JokesSearchForm from "./components/JokesSearchForm.vue";
+import JokesListing from "./components/JokesListing.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -23,7 +26,8 @@ export default {
   components: {
     JokesSearchList,
     JokesSearchForm,
-    JokesHeader
+    JokesHeader,
+    JokesListing
   },
   data() {
     return {

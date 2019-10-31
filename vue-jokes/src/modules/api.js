@@ -14,7 +14,14 @@ export const api = {
         ? "empty_search_input"
         : formInputs.searchInputText;
     fetch(
-      `${API_URL}${formInputs.numberOfJokes}/${reqCategory}/${reqSearchedText}`
+      `${API_URL}random/${formInputs.numberOfJokes}/${reqCategory}/${reqSearchedText}`
+    )
+      .then(response => response.json())
+      .then(data => callback([...data]));
+  },
+  fetchJokesByCategory: (callback, category, pageNumber) => {
+    fetch(
+      `${API_URL}bycategory/${category}/${pageNumber}`
     )
       .then(response => response.json())
       .then(data => callback([...data]));

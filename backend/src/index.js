@@ -24,7 +24,28 @@ const categories = [
   "travel"
   ];
 
-const getJokesFromDatabase = (objOfParams) => {
+  const getJokesByCategory = (selectedCategory, numberOfPage) => {
+    let jokes = jokesDB;
+    // if (selectedCategory === "all") {
+    //   return jokes;
+    // } else {
+    //   return jokes.filter(joke =>
+    //     joke.categories.includes(selectedCategory)
+    //   );
+    // }
+    if (selectedCategory !== "all"){
+      jokes = jokes.filter(joke =>
+        joke.categories.includes(selectedCategory))
+    }
+    if (numberOfPage !== undefined) {
+      const numberOfResults = jokes.length;
+      jokes = jokes.slice((numberOfPage-1) * 20, (numberOfPage*20) - 1);
+      jokes.push(numberOfResults);
+    }
+    return jokes;
+  };
+
+const getRandomiseJokesFromDatabase = (objOfParams) => {
   let {numberOfJokes, selectedCategory, searchInputText} = objOfParams;
   numberOfJokes = parseInt(numberOfJokes);
   let jokesResults = [];
@@ -45,15 +66,7 @@ const getJokesFromDatabase = (objOfParams) => {
     return randomDontRepeatNumbers;
   };
 
-  const getJokesByCategory = jokes => {
-    if (selectedCategory === "all") {
-      return jokes;
-    } else {
-      return jokes.filter(joke =>
-        joke.categories.includes(selectedCategory)
-      );
-    }
-  };
+  
 
   const getJokesBySearch = jokes => {
     if (searchInputText === 'empty_search_input') {
@@ -68,7 +81,7 @@ const getJokesFromDatabase = (objOfParams) => {
     return jokes.length <= numberOfJokes;
   };
 
-  let filteredJokes = getJokesByCategory(jokesDB);
+  let filteredJokes = getJokesByCategory(selectedCategory);
   filteredJokes = getJokesBySearch(filteredJokes);
   if (isEnoughResults(filteredJokes)) {
     jokesResults = filteredJokes;
@@ -94,12 +107,18 @@ app.get('/jokes/categories', async (req, res) => {
   return res.json(categories); // object-rest-spread!
 });
 
-app.get('/jokes/:numberOfJokes/:selectedCategory/:searchInputText', async (req, res) => {
-  const thing = await Promise.resolve(getJokesFromDatabase(req.params))
+app.get('/jokes/random/:numberOfJokes/:selectedCategory/:searchInputText', async (req, res) => {
+  const result = await Promise.resolve(getRandomiseJokesFromDatabase(req.params))
     .catch(e => res.json({ error: e.message }));
-  return res.json(thing);
+  return res.json(result);
 
   //return res.json(getJokesFromDatabase(req.params.numberOfJokes, req.params.category, req.params.searchWord));
+});
+
+app.get('/jokes/bycategory/:selectedCategory/:numberOfPage', async (req, res) => {
+  const result = await Promise.resolve(getJokesByCategory(req.params.selectedCategory, req.params.numberOfPage))
+    .catch(e => res.json({ error: e.message }));
+  return res.json(result);
 });
 
 

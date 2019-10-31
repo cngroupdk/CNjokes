@@ -110,7 +110,29 @@ let cors = __webpack_require__(/*! cors */ "cors");
 app.use(cors());
 const categories = ["all", "animal", "career", "celebrity", "dev", "explicit", "fashion", "food", "history", "money", "movie", "music", "political", "religion", "science", "sport", "travel"];
 
-const getJokesFromDatabase = objOfParams => {
+const getJokesByCategory = (selectedCategory, numberOfPage) => {
+  let jokes = _jokes_json__WEBPACK_IMPORTED_MODULE_1__; // if (selectedCategory === "all") {
+  //   return jokes;
+  // } else {
+  //   return jokes.filter(joke =>
+  //     joke.categories.includes(selectedCategory)
+  //   );
+  // }
+
+  if (selectedCategory !== "all") {
+    jokes = jokes.filter(joke => joke.categories.includes(selectedCategory));
+  }
+
+  if (numberOfPage !== undefined) {
+    const numberOfResults = jokes.length;
+    jokes = jokes.slice((numberOfPage - 1) * 20, numberOfPage * 20 - 1);
+    jokes.push(numberOfResults);
+  }
+
+  return jokes;
+};
+
+const getRandomiseJokesFromDatabase = objOfParams => {
   let {
     numberOfJokes,
     selectedCategory,
@@ -138,14 +160,6 @@ const getJokesFromDatabase = objOfParams => {
     return randomDontRepeatNumbers;
   };
 
-  const getJokesByCategory = jokes => {
-    if (selectedCategory === "all") {
-      return jokes;
-    } else {
-      return jokes.filter(joke => joke.categories.includes(selectedCategory));
-    }
-  };
-
   const getJokesBySearch = jokes => {
     if (searchInputText === 'empty_search_input') {
       return jokes;
@@ -159,7 +173,7 @@ const getJokesFromDatabase = objOfParams => {
     return jokes.length <= numberOfJokes;
   };
 
-  let filteredJokes = getJokesByCategory(_jokes_json__WEBPACK_IMPORTED_MODULE_1__);
+  let filteredJokes = getJokesByCategory(selectedCategory);
   filteredJokes = getJokesBySearch(filteredJokes);
 
   if (isEnoughResults(filteredJokes)) {
@@ -182,11 +196,17 @@ const getJokesFromDatabase = objOfParams => {
 app.get('/jokes/categories', async (req, res) => {
   return res.json(categories); // object-rest-spread!
 });
-app.get('/jokes/:numberOfJokes/:selectedCategory/:searchInputText', async (req, res) => {
-  const thing = await Promise.resolve(getJokesFromDatabase(req.params)).catch(e => res.json({
+app.get('/jokes/random/:numberOfJokes/:selectedCategory/:searchInputText', async (req, res) => {
+  const result = await Promise.resolve(getRandomiseJokesFromDatabase(req.params)).catch(e => res.json({
     error: e.message
   }));
-  return res.json(thing); //return res.json(getJokesFromDatabase(req.params.numberOfJokes, req.params.category, req.params.searchWord));
+  return res.json(result); //return res.json(getJokesFromDatabase(req.params.numberOfJokes, req.params.category, req.params.searchWord));
+});
+app.get('/jokes/bycategory/:selectedCategory/:numberOfPage', async (req, res) => {
+  const result = await Promise.resolve(getJokesByCategory(req.params.selectedCategory, req.params.numberOfPage)).catch(e => res.json({
+    error: e.message
+  }));
+  return res.json(result);
 });
 const port = process.env.PORT || 3000;
 app.listen(port, err => {
