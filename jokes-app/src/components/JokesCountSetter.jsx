@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react';
 
 class JokesCountSetter extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      countInputValue: 4
+      countInputValue: 4,
     };
   }
 
   countUpdated(e) {
     let count = parseInt(e.target.value);
-    this.setState({ countInputValue: count + "" });
+    this.setState({ countInputValue: count + '' });
 
     if (isNaN(count)) {
       count = 0;

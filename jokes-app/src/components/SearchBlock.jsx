@@ -1,87 +1,90 @@
-import React from "react";
-import { api } from "../modules/api";
-import JokesList from "./JokesList";
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-class SearchBlock extends React.Component {
-  constructor(props) {
-    super(props);
+import { api } from '../modules/api';
+import { setSearchedJokes } from '../services/actions';
+import { setJokesLoading } from '../services/actions';
+import { setQueryInvalid } from '../services/actions';
+import { setQueryValid } from '../services/actions';
+import { setQuery } from '../services/actions';
+import JokesList from './JokesList';
+import {
+  getSearchedJokes,
+  getQuery,
+  getIsQueryValid,
+  getLoaded,
+} from '../services/selectors';
 
-    this.state = {
-      query: "",
-      searchedJokes: [],
-      isQueryValid: false,
-      loaded: false
-    };
-  }
+function useFetchJokesOnValidQuery(query) {
+  const dispatch = useDispatch();
 
-  fetchData = () => {
-    this.setState({ loaded: false, searchedJokes: [] });
-    api.fetchSearchedJokes(this.setJokesToState, this.state.query);
-  };
+  useEffect(() => {
+    const queryNoWhitespace = query.split(' ').join('');
 
-  get25Jokes = jokesList => {
+    if (queryNoWhitespace.length < 3 || query.length > 120) {
+      dispatch(setQueryInvalid());
+    } else {
+      dispatch(setQueryValid());
+      dispatch(setJokesLoading());
+      api.fetchSearchedJokes(data => {
+        dispatch(setSearchedJokes(data));
+      }, query);
+    }
+  }, [query, dispatch]);
+}
+
+export function SearchBlock(props) {
+  const query = useSelector(getQuery);
+  const searchedJokes = useSelector(getSearchedJokes);
+  const isQueryValid = useSelector(getIsQueryValid);
+  const loaded = useSelector(getLoaded);
+  const dispatch = useDispatch();
+
+  const get25Jokes = jokesList => {
     return jokesList && jokesList.slice(0, 25).map(joke => joke.value);
   };
 
-  setJokesToState = data => {
-    this.setState({ loaded: true, searchedJokes: data.result });
+  const handleSearch = event => {
+    dispatch(setQuery(event.target.value));
   };
 
-  handleQuery = () => {
-    if (this.state.query.length < 3 || this.state.query.length > 120) {
-      this.setState({ isQueryValid: false });
-    } else {
-      this.setState({ isQueryValid: true });
-      this.fetchData();
-    }
-  };
+  useFetchJokesOnValidQuery(query);
 
-  handleSearch = event => {
-    this.setState({ query: event.target.value }, () => {
-      this.handleQuery();
-    });
-  };
+  const listItems = get25Jokes(searchedJokes);
 
-  render() {
-    const listItems = this.get25Jokes(this.state.searchedJokes);
+  return (
+    <div className="search-block">
+      <h2>Still not satisfied?</h2>
+      <p>
+        You can use this fulltext search to look for the jokes you're so eager
+        to find. <span>&#10549;</span>
+      </p>
 
-    return (
-      <div className="search-block">
-        <h2>Still not satisfied?</h2>
-        <p>
-          You can use this fulltext search to look for the jokes you're so eager
-          to find. <span>&#10549;</span>
-        </p>
-
-        <div className="joke-search input-group">
-          <div className="input-group-prepend">
-            <span className="search-icon-box input-group-text ">
-              <span className="search-icon">&#9740;</span>
-            </span>
-          </div>
-          <input
-            className="form-control search-input"
-            type="text"
-            placeholder="Search"
-            value={this.state.query}
-            onChange={this.handleSearch}
-          />
+      <div className="joke-search input-group">
+        <div className="input-group-prepend">
+          <span className="search-icon-box input-group-text ">
+            <span className="search-icon">&#9740;</span>
+          </span>
         </div>
-        {!this.state.isQueryValid ? (
-          <p>
-            The word you seek for must have at least 3 characters and maximum
-            120.
-          </p>
-        ) : (
-          <JokesList
-            loaded={this.state.loaded}
-            jokes={listItems}
-            hasDuplicates={false}
-          />
-        )}
+        <input
+          className="form-control search-input"
+          type="text"
+          placeholder="Search"
+          value={props.query}
+          onChange={handleSearch}
+        />
       </div>
-    );
-  }
+      {!isQueryValid ? (
+        <p>
+          The word you seek for must have at least 3 characters and maximum 120.
+        </p>
+      ) : (
+        <JokesList
+          jokesLoaded={loaded}
+          jokes={listItems}
+          hasDuplicates={false}
+        />
+      )}
+    </div>
+  );
 }
-
-export default SearchBlock;
