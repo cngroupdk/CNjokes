@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function CategoriesList({ categories, categorySetter, selectedCategory }) {
   const categorySelected = event => {
@@ -14,7 +14,7 @@ function CategoriesList({ categories, categorySetter, selectedCategory }) {
               <li
                 key={categoryName}
                 onClick={() => categorySetter(categoryName)}
-                className={categoryName === selectedCategory ? "selected" : ""}
+                className={categoryName === selectedCategory ? 'selected' : ''}
               >
                 {categoryName}
               </li>

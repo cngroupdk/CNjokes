@@ -1,0 +1,1 @@
+export { SpecialJoke } from './SpecialJoke';

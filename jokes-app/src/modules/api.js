@@ -1,11 +1,11 @@
-const API_URL = "https://api.chucknorris.io/jokes";
+const API_URL = 'https://api.chucknorris.io/jokes';
 
 export const api = {
   fetchCategories: callback => {
     fetch(`${API_URL}/categories`)
       .then(response => response.json())
       .then(data => {
-        callback(["all", ...data]);
+        callback(['all', ...data]);
       });
   },
   fetchRandomJoke: callback => {
@@ -30,9 +30,9 @@ export const api = {
 
     let jokes = [];
     let jokesLoaded = 0;
-    let apiUrl = "";
+    let apiUrl = '';
 
-    if (category === "all") {
+    if (category === 'all') {
       apiUrl = `${API_URL}/random`;
     } else {
       apiUrl = `${API_URL}/random?category=${category}`;
@@ -53,5 +53,5 @@ export const api = {
         });
     }
   },
-  fetchSthElse: () => {} // add other endpoints
+  fetchSthElse: () => {}, // add other endpoints
 };
