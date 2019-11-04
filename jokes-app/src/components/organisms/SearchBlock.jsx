@@ -1,19 +1,23 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { api } from '../modules/api';
-import { setSearchedJokes } from '../services/actions';
-import { setJokesLoading } from '../services/actions';
-import { setQueryInvalid } from '../services/actions';
-import { setQueryValid } from '../services/actions';
-import { setQuery } from '../services/actions';
-import JokesList from './JokesList';
+import { SearchInput } from '../atoms';
+import { JokesList } from '../molecules';
+
+import { api } from '../../modules/api';
+import {
+  setSearchedJokes,
+  setJokesLoading,
+  setQueryInvalid,
+  setQueryValid,
+  setQuery,
+} from '../../services/actions';
 import {
   getSearchedJokes,
   getQuery,
   getIsQueryValid,
   getLoaded,
-} from '../services/selectors';
+} from '../../services/selectors';
 
 function useFetchJokesOnValidQuery(query) {
   const dispatch = useDispatch();
@@ -60,20 +64,8 @@ export function SearchBlock(props) {
         to find. <span>&#10549;</span>
       </p>
 
-      <div className="joke-search input-group">
-        <div className="input-group-prepend">
-          <span className="search-icon-box input-group-text ">
-            <span className="search-icon">&#9740;</span>
-          </span>
-        </div>
-        <input
-          className="form-control search-input"
-          type="text"
-          placeholder="Search"
-          value={props.query}
-          onChange={handleSearch}
-        />
-      </div>
+      <SearchInput searchQuery={props.query} onSearch={handleSearch} />
+
       {!isQueryValid ? (
         <p>
           The word you seek for must have at least 3 characters and maximum 120.

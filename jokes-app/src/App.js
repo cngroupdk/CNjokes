@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import { SpecialJokeContainer } from './organisms/SpecialJokeContainer';
-import { SearchBlock } from './components/SearchBlock';
-import CategoryBlock from './components/CategoryBlock';
+import { SpecialJokeContainer } from './components/organisms/SpecialJokeContainer';
+import { SearchBlock } from './components/organisms/SearchBlock';
+import { CategoryBlock } from './components/organisms/CategoryBlock';
 
 function App() {
   return (
