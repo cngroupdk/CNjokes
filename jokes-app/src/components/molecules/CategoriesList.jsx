@@ -1,6 +1,10 @@
 import React from 'react';
 
-function CategoriesList({ categories, categorySetter, selectedCategory }) {
+export function CategoriesList({
+  categories,
+  categorySetter,
+  selectedCategory,
+}) {
   const categorySelected = event => {
     categorySetter(event.target.value);
   };
@@ -35,5 +39,3 @@ function CategoriesList({ categories, categorySetter, selectedCategory }) {
     </>
   );
 }
-
-export default CategoriesList;

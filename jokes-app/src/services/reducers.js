@@ -6,6 +6,9 @@ import { SET_QUERY_VALID } from './actions';
 import { SET_QUERY } from './actions';
 import { SET_CATEGORY } from './actions';
 import { SET_CATEGORIES } from './actions';
+import { SET_JOKES_COUNT } from './actions';
+import { SET_JOKES_LOADED } from './actions';
+import { SET_CATEGORY_JOKES } from './actions';
 
 const initialState = {
   // SpecialJokeBlock
@@ -79,6 +82,26 @@ function jokeReducer(state = initialState, action) {
       return {
         ...state,
         categories: action.data,
+      };
+
+    case SET_JOKES_COUNT:
+      return {
+        ...state,
+        count: action.jokesCountNumber,
+      };
+
+    case SET_JOKES_LOADED:
+      return {
+        ...state,
+        jokesLoaded: false,
+      };
+
+    case SET_CATEGORY_JOKES:
+      return {
+        ...state,
+        jokes: action.jokes,
+        jokesLoaded: true,
+        hasDuplicateJokes: action.hasDuplicateJokes,
       };
 
     default:
