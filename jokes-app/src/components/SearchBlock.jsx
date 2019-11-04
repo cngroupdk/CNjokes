@@ -34,6 +34,7 @@ function useFetchJokesOnValidQuery(query) {
 }
 
 export function SearchBlock(props) {
+  // Q: are the props still useful here?
   const query = useSelector(getQuery);
   const searchedJokes = useSelector(getSearchedJokes);
   const isQueryValid = useSelector(getIsQueryValid);
