@@ -1,6 +1,6 @@
 import React from 'react';
 
-function JokesList({ jokesLoaded, jokes, hasDuplicates }) {
+export function JokesList({ jokesLoaded, jokes, hasDuplicates }) {
   return (
     <div>
       {hasDuplicates ? (
@@ -13,9 +13,7 @@ function JokesList({ jokesLoaded, jokes, hasDuplicates }) {
           ? jokes.map((joke, index) => <li key={index}>{joke}</li>)
           : 'Loading...'}
       </ul>
-      {jokes.length ? '' : 'no matches :('}
+      {jokes.length ? '' : 'No matches :('}
     </div>
   );
 }
-
-export default JokesList;
