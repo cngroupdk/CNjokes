@@ -13,5 +13,10 @@
     "likedJokes": [
       "tng5xzi5t9syvqaubukycw"
     ]
+  },
+  {
+    "userName": "test",
+    "userPassword": "$2b$05$PVIGBvF4YqmTybid15n7V.6SZzRKrRmRWOLjE5Qhj0.jUHMuJUu.a",
+    "likedJokes": []
   }
 ]
