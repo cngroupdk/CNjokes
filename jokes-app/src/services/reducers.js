@@ -87,7 +87,7 @@ function jokeReducer(state = initialState, action) {
     case SET_JOKES_COUNT:
       return {
         ...state,
-        count: action.jokesCountNumber,
+        count: action.count,
       };
 
     case SET_JOKES_LOADED:

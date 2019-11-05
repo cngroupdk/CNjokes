@@ -87,6 +87,7 @@ ul.jokes-list li {
   max-width: 2000px;
   margin: 0 auto;
   word-wrap: break-word;
+  text-shadow: 3px 2px 5px #3333335c;
 }
 
 .special-joke-block {

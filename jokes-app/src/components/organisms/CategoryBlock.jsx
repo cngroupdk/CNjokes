@@ -48,8 +48,6 @@ export function CategoryBlock() {
   };
 
   const countSetter = jokesCountNumber => {
-    console.log('Count is...', jokesCountNumber);
-
     dispatch(setJokesCount(jokesCountNumber));
   };
 
