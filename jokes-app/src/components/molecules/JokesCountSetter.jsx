@@ -24,7 +24,7 @@ export function JokesCountSetter({ countNumber, countSetter }) {
           type="number"
           min="1"
           onChange={categorySelected}
-          value={countNumber}
+          defaultValue={countNumber}
           max="25"
         />
         <span className="info">(25&nbsp;max)</span>
