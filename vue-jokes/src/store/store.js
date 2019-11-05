@@ -10,7 +10,8 @@ export const store = new Vuex.Store({
     selectedCategory: "",
     categories: [],
     chosenTab: "Search",
-    loginUser: ""
+    loginUser: "",
+    isUserLogin: false
   },
   mutations: {
     updateSearchInputText(state, searchInputText) {
@@ -30,6 +31,11 @@ export const store = new Vuex.Store({
     },
     updateLoginUser(state, loginUser) {
       state.loginUser = loginUser;
+      if (loginUser !== "") {
+        state.isUserLogin = true;
+      } else {
+        state.isUserLogin = false;
+      }
     }
   }
 });

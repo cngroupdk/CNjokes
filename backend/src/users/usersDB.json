@@ -3,20 +3,15 @@
     "userName": "Milan",
     "userPassword": "$2b$05$6UaVFTMNa69YNv5fDMcjI.AOMk9g3eyqf9SxY5GM6n8FfYp/MWS6q",
     "likedJokes": [
-      "zdj0bfkjsmup6pkb2rpmbw",
-      "czOG2URYTx6USbXqYObkaA"
-    ]
-  },
-  {
-    "userName": "Lenka",
-    "userPassword": "$2b$05$bVg6hg3OEnUQsZh99qhut.SumyEqxwITDQuiahOuAfkFVNrNkzPCO",
-    "likedJokes": [
-      "tng5xzi5t9syvqaubukycw"
+      "0wdewlp2tz-mt_upesvrjw",
+      "i3ri7iiurh6l1vnvtqow2a",
+      "rqcvwdgqq6amwony3nngba",
+      "kfjreqvxs464s6rspcj-qq"
     ]
   },
   {
     "userName": "test",
-    "userPassword": "$2b$05$PVIGBvF4YqmTybid15n7V.6SZzRKrRmRWOLjE5Qhj0.jUHMuJUu.a",
+    "userPassword": "$2b$05$qHckeq56mOJ/8XP/tnQnL.J5J31/LuLDA9FtxGvVKxR0JIc0.24Q.",
     "likedJokes": []
   }
 ]

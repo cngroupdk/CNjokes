@@ -5,6 +5,13 @@
         <nav>
           <ul>
             <li
+              v-if="isUserLogin"
+              @click="chosenCategory = 'favourites'"
+              :class="{ active: 'favourites' === chosenCategory }"
+            >
+              favourites
+            </li>
+            <li
               v-for="(category, index) in categories"
               :key="index"
               :class="{ active: category === chosenCategory }"
@@ -20,6 +27,18 @@
       <ul>
         <li v-for="(joke, id) in jokes" :key="id">
           {{ joke.value }}
+          <img
+            v-if="isUserLogin && chosenCategory !== 'favourites'"
+            v-on:click="likeJokeClick(joke.id)"
+            src="../imgs/thumb_up.png"
+            alt="thumbUp"
+          />
+          <img
+            v-if="chosenCategory === 'favourites'"
+            v-on:click="dislikeJokeClick(joke.id)"
+            src="../imgs/thumb_down.png"
+            alt="thumbDown"
+          />
         </li>
       </ul>
       <input
@@ -53,7 +72,7 @@ export default {
     this.fetchJokesFromApi();
   },
   computed: {
-    ...mapState(["categories"]),
+    ...mapState(["categories", "isUserLogin"]),
     maxNumberOfPages: function() {
       return Math.floor(this.numberOfResults / 20) + 1;
     }
@@ -71,15 +90,44 @@ export default {
       if (this.pageNumber === "") {
         pageNumberReq = 1;
       }
-      api.fetchJokesByCategory(
-        this.getJokes,
-        this.chosenCategory,
-        pageNumberReq
-      );
+      if (this.chosenCategory === "favourites") {
+        api.fetchLikedJokes(
+          this.getJokes,
+          this.$store.state.loginUser,
+          pageNumberReq
+        );
+      } else {
+        api.fetchJokesByCategory(
+          this.getJokes,
+          this.chosenCategory,
+          pageNumberReq
+        );
+      }
     },
     getJokes(data) {
       this.numberOfResults = data[data.length - 1];
       this.jokes = data.slice(0, data.length - 1);
+    },
+    likeJokeClick(jokeID) {
+      api.addLikedJokes(
+        this.addLikedJokeResponse,
+        this.$store.state.loginUser,
+        jokeID
+      );
+    },
+    addLikedJokeResponse(data) {
+      console.log(data.response);
+    },
+    dislikeJokeClick(jokeID) {
+      api.removeLikedJoke(
+        this.dislikeJokeClickResponse,
+        this.$store.state.loginUser,
+        jokeID
+      );
+    },
+    dislikeJokeClickResponse(data) {
+      this.fetchJokesFromApi();
+      console.log(data.response);
     }
   }
 };

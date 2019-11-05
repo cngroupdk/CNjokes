@@ -1,11 +1,15 @@
 <template>
   <header class="JokesHeader">
     <div class="login">
-      <JokesSignUpWindow v-if="!isUserLogin"></JokesSignUpWindow>
-      <JokesLoginWindow v-if="!isUserLogin"></JokesLoginWindow>
+      <JokesSignUpWindow
+        v-if="!this.$store.state.isUserLogin"
+      ></JokesSignUpWindow>
+      <JokesLoginWindow
+        v-if="!this.$store.state.isUserLogin"
+      ></JokesLoginWindow>
       <button
         class="logout-button"
-        v-if="isUserLogin"
+        v-if="this.$store.state.isUserLogin"
         v-on:click="logout"
         type="button"
       >
@@ -47,9 +51,6 @@ export default {
       get() {
         return this.$store.state.chosenTab;
       }
-    },
-    isUserLogin: function() {
-      return this.$store.state.loginUser !== "";
     }
   },
   methods: {

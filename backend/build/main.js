@@ -160,8 +160,8 @@ app.get('/jokes/removeliked/:userName/:jokeID', async (req, res) => {
   }));
   return res.json(result);
 });
-app.get('/jokes/getlikedjokes/:userName', async (req, res) => {
-  const result = await Promise.resolve(Object(_modules_users_modules_getLikedJokes__WEBPACK_IMPORTED_MODULE_8__["getLikedJokes"])(req.params.userName)).catch(e => res.json({
+app.get('/jokes/getlikedjokes/:userName/:pageNumber', async (req, res) => {
+  const result = await Promise.resolve(Object(_modules_users_modules_getLikedJokes__WEBPACK_IMPORTED_MODULE_8__["getLikedJokes"])(req.params.userName, req.params.pageNumber)).catch(e => res.json({
     error: e.message
   }));
   return res.json(result);
@@ -331,8 +331,18 @@ let users = __webpack_require__(/*! ../../users/usersDB.json */ "./src/users/use
 users = Array.from(users);
 const addLikedJokeToUser = (userName, jokeID) => {
   const userIndex = Object(_getUserIndexByName__WEBPACK_IMPORTED_MODULE_1__["getUserIndexByName"])(userName);
+
+  if (users[userIndex].likedJokes.includes(jokeID)) {
+    return {
+      response: false
+    };
+  }
+
   users[userIndex].likedJokes.push(jokeID);
   Object(_saveProfile_js__WEBPACK_IMPORTED_MODULE_0__["saveProfile"])(users);
+  return {
+    response: true
+  };
 };
 
 /***/ }),
@@ -402,12 +412,15 @@ var _jokes_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/__webpack_
 let users = __webpack_require__(/*! ../../users/usersDB.json */ "./src/users/usersDB.json");
 
 users = Array.from(users);
-const getLikedJokes = userName => {
-  console.log(userName);
+const getLikedJokes = (userName, numberOfPage) => {
   const loginUserLikedJokesID = Object(_getUserByName__WEBPACK_IMPORTED_MODULE_1__["getUserByName"])(userName).likedJokes;
-  return loginUserLikedJokesID.map(likeJokeID => {
+  let jokes = loginUserLikedJokesID.map(likeJokeID => {
     return _jokes_json__WEBPACK_IMPORTED_MODULE_0__.find(joke => joke.id === likeJokeID);
   });
+  const numberOfResults = jokes.length;
+  jokes = jokes.slice((numberOfPage - 1) * 20, numberOfPage * 20 - 1);
+  jokes.push(numberOfResults);
+  return jokes;
 };
 
 /***/ }),
@@ -510,6 +523,9 @@ const removeLikedJokeFromUser = (userName, jokeID) => {
   const newLikedJokes = users[userIndex].likedJokes.filter(likeJokeID => likeJokeID !== jokeID);
   users[userIndex].likedJokes = newLikedJokes;
   Object(_saveProfile__WEBPACK_IMPORTED_MODULE_1__["saveProfile"])(users);
+  return {
+    response: true
+  };
 };
 
 /***/ }),
@@ -546,10 +562,10 @@ const saveProfile = users => {
 /*!********************************!*\
   !*** ./src/users/usersDB.json ***!
   \********************************/
-/*! exports provided: 0, 1, 2, default */
+/*! exports provided: 0, 1, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("[{\"userName\":\"Milan\",\"userPassword\":\"$2b$05$6UaVFTMNa69YNv5fDMcjI.AOMk9g3eyqf9SxY5GM6n8FfYp/MWS6q\",\"likedJokes\":[\"zdj0bfkjsmup6pkb2rpmbw\",\"czOG2URYTx6USbXqYObkaA\"]},{\"userName\":\"Lenka\",\"userPassword\":\"$2b$05$bVg6hg3OEnUQsZh99qhut.SumyEqxwITDQuiahOuAfkFVNrNkzPCO\",\"likedJokes\":[\"tng5xzi5t9syvqaubukycw\"]},{\"userName\":\"test\",\"userPassword\":\"$2b$05$PVIGBvF4YqmTybid15n7V.6SZzRKrRmRWOLjE5Qhj0.jUHMuJUu.a\",\"likedJokes\":[]}]");
+module.exports = JSON.parse("[{\"userName\":\"Milan\",\"userPassword\":\"$2b$05$6UaVFTMNa69YNv5fDMcjI.AOMk9g3eyqf9SxY5GM6n8FfYp/MWS6q\",\"likedJokes\":[\"0wdewlp2tz-mt_upesvrjw\",\"i3ri7iiurh6l1vnvtqow2a\",\"rqcvwdgqq6amwony3nngba\",\"kfjreqvxs464s6rspcj-qq\"]},{\"userName\":\"test\",\"userPassword\":\"$2b$05$qHckeq56mOJ/8XP/tnQnL.J5J31/LuLDA9FtxGvVKxR0JIc0.24Q.\",\"likedJokes\":[]}]");
 
 /***/ }),
 

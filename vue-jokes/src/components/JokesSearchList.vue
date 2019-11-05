@@ -6,6 +6,12 @@
       >
       <li v-for="(joke, id) in jokes" :key="id">
         {{ joke.value }}
+        <img
+          v-if="isUserLogin"
+          v-on:click="likeJokeClick(joke.id)"
+          src="../imgs/thumb_up.png"
+          alt="thumbUp"
+        />
       </li>
     </ul>
   </div>
@@ -35,6 +41,16 @@ export default {
     },
     getJokes(data) {
       this.jokes = data;
+    },
+    likeJokeClick(jokeID) {
+      api.addLikedJokes(
+        this.addLikedJokeResponse,
+        this.$store.state.loginUser,
+        jokeID
+      );
+    },
+    addLikedJokeResponse(data) {
+      console.log(data.response);
     }
   },
   watch: {
@@ -47,7 +63,12 @@ export default {
     isEnoughResults: function() {
       return this.numberOfJokes > this.jokes.length;
     },
-    ...mapState(["selectedCategory", "numberOfJokes", "searchInputText"])
+    ...mapState([
+      "selectedCategory",
+      "numberOfJokes",
+      "searchInputText",
+      "isUserLogin"
+    ])
   }
 };
 </script>

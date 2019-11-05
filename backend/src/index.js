@@ -52,8 +52,8 @@ app.get('/jokes/removeliked/:userName/:jokeID' , async (req, res) => {
   return res.json(result);
 });
 
-app.get('/jokes/getlikedjokes/:userName', async (req, res) => {
-  const result = await Promise.resolve(getLikedJokes(req.params.userName))
+app.get('/jokes/getlikedjokes/:userName/:pageNumber', async (req, res) => {
+  const result = await Promise.resolve(getLikedJokes(req.params.userName, req.params.pageNumber))
     .catch(e => res.json({ error: e.message}));
   return res.json(result);
 });

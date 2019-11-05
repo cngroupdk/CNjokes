@@ -12,6 +12,7 @@
         class="modal-content animate"
         action="http://localhost:8080/"
         method="post"
+        @submit.prevent="createProfile"
       >
         <div class="imgcontainer">
           <span
@@ -51,7 +52,7 @@
           />
           <label v-if="!isProfileCreated"> *Username already used </label>
 
-          <button v-on:click="createProfile" type="button">
+          <button type="submit">
             Create profile
           </button>
         </div>
@@ -94,6 +95,9 @@ export default {
     },
     checkProfileCreated(data) {
       this.isProfileCreated = data.response;
+      if (data.response) {
+        document.getElementById("id01").style.display = "none";
+      }
     }
   }
 };

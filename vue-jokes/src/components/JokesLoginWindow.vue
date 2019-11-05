@@ -8,7 +8,7 @@
       Login
     </button>
     <div id="id02" class="modal">
-      <form class="modal-content animate">
+      <form class="modal-content animate" @submit.prevent="loginProfile">
         <div class="imgcontainer">
           <span
             onclick="document.getElementById('id02').style.display='none'"
@@ -36,10 +36,10 @@
             name="psw"
             required
           />
+          <label v-if="loginFailed">*Incorrect Username/password</label>
 
-          <button v-on:click="loginProfile" type="button">Login</button>
+          <button type="submit">Login</button>
         </div>
-
         <div class="container" style="background-color:#f1f1f1">
           <button
             type="button"
@@ -63,7 +63,8 @@ export default {
     return {
       userName: "",
       userPassword: "",
-      isUserLogin: false
+      isUserLogin: false,
+      loginFailed: false
     };
   },
   methods: {
@@ -73,6 +74,7 @@ export default {
 
     checkLogin(data) {
       this.isUserLogin = data.response;
+      this.loginFailed = !data.response;
       if (data.response) {
         this.$store.commit("updateLoginUser", this.userName);
       }

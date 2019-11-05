@@ -8,4 +8,5 @@ export const removeLikedJokeFromUser = (userName, jokeID) => {
   const newLikedJokes = users[userIndex].likedJokes.filter(likeJokeID => likeJokeID !== jokeID)
   users[userIndex].likedJokes = newLikedJokes;
   saveProfile(users);
+  return { response: true }
 }

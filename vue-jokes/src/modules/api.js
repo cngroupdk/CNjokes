@@ -33,5 +33,20 @@ export const api = {
     fetch(`${API_URL}login/${userName}/${userPassword}`)
       .then(response => response.json())
       .then(data => callback(data));
+  },
+  fetchLikedJokes: (callback, userName, pageNumber) => {
+    fetch(`${API_URL}getlikedjokes/${userName}/${pageNumber}`)
+      .then(response => response.json())
+      .then(data => callback(data));
+  },
+  addLikedJokes: (callback, userName, jokeID) => {
+    fetch(`${API_URL}addliked/${userName}/${jokeID}`)
+      .then(response => response.json())
+      .then(data => callback(data));
+  },
+  removeLikedJoke: (callback, userName, jokeID) => {
+    fetch(`${API_URL}removeliked/${userName}/${jokeID}`)
+      .then(response => response.json())
+      .then(data => callback(data));
   }
 };
