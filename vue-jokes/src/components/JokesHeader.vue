@@ -1,5 +1,17 @@
 <template>
   <header class="JokesHeader">
+    <div class="login">
+      <JokesSignUpWindow v-if="!isUserLogin"></JokesSignUpWindow>
+      <JokesLoginWindow v-if="!isUserLogin"></JokesLoginWindow>
+      <button
+        class="logout-button"
+        v-if="isUserLogin"
+        v-on:click="logout"
+        type="button"
+      >
+        {{ this.$store.state.loginUser }} <br />LOGOUT
+      </button>
+    </div>
     <nav>
       <ul>
         <li
@@ -16,8 +28,15 @@
 </template>
 
 <script>
+import JokesLoginWindow from "./JokesLoginWindow.vue";
+import JokesSignUpWindow from "./JokesSignUpWindow.vue";
+
 export default {
   name: "JokesHeader",
+  components: {
+    JokesSignUpWindow,
+    JokesLoginWindow
+  },
   data() {
     return {
       tabs: ["Search", "Listing"]
@@ -28,6 +47,14 @@ export default {
       get() {
         return this.$store.state.chosenTab;
       }
+    },
+    isUserLogin: function() {
+      return this.$store.state.loginUser !== "";
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.commit("updateLoginUser", "");
     }
   }
 };
@@ -96,5 +123,16 @@ export default {
   border-width: 3.3rem 0 0 1.3rem;
   border-color: transparent transparent transparent lightblue;
   border-style: solid;
+}
+
+.logout-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+  width: 15%;
+  float: right;
 }
 </style>

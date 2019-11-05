@@ -1,0 +1,17 @@
+[
+  {
+    "userName": "Milan",
+    "userPassword": "$2b$05$6UaVFTMNa69YNv5fDMcjI.AOMk9g3eyqf9SxY5GM6n8FfYp/MWS6q",
+    "likedJokes": [
+      "zdj0bfkjsmup6pkb2rpmbw",
+      "czOG2URYTx6USbXqYObkaA"
+    ]
+  },
+  {
+    "userName": "Lenka",
+    "userPassword": "$2b$05$bVg6hg3OEnUQsZh99qhut.SumyEqxwITDQuiahOuAfkFVNrNkzPCO",
+    "likedJokes": [
+      "tng5xzi5t9syvqaubukycw"
+    ]
+  }
+]

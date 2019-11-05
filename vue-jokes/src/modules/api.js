@@ -23,5 +23,15 @@ export const api = {
     fetch(`${API_URL}bycategory/${category}/${pageNumber}`)
       .then(response => response.json())
       .then(data => callback([...data]));
+  },
+  createProfile: (callback, userName, userPassword) => {
+    fetch(`${API_URL}createprofile/${userName}/${userPassword}`)
+      .then(response => response.json())
+      .then(data => callback(data));
+  },
+  loginProfile: (callback, userName, userPassword) => {
+    fetch(`${API_URL}login/${userName}/${userPassword}`)
+      .then(response => response.json())
+      .then(data => callback(data));
   }
 };

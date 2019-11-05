@@ -102,7 +102,7 @@ export default {
   min-height: 70vh;
 }
 
-. .listing-col1 {
+.listing-col1 {
   width: 25%;
 }
 

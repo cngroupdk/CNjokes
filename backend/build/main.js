@@ -97,27 +97,30 @@ module.exports =
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! express */ "express");
+/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! express */ "express");
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _jokes_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./jokes.json */ "./src/jokes.json");
 var _jokes_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./jokes.json */ "./src/jokes.json", 1);
 
+ //import users from './users/usersDB.json';
 
 const app = express__WEBPACK_IMPORTED_MODULE_0___default()();
 
 let cors = __webpack_require__(/*! cors */ "cors");
 
 app.use(cors());
+
+const bcrypt = __webpack_require__(/*! bcrypt */ "bcrypt");
+
+const fs = __webpack_require__(/*! fs */ "fs");
+
+let users = __webpack_require__(/*! ./users/usersDB.json */ "./src/users/usersDB.json");
+
+users = Array.from(users);
 const categories = ["all", "animal", "career", "celebrity", "dev", "explicit", "fashion", "food", "history", "money", "movie", "music", "political", "religion", "science", "sport", "travel"];
 
 const getJokesByCategory = (selectedCategory, numberOfPage) => {
-  let jokes = _jokes_json__WEBPACK_IMPORTED_MODULE_1__; // if (selectedCategory === "all") {
-  //   return jokes;
-  // } else {
-  //   return jokes.filter(joke =>
-  //     joke.categories.includes(selectedCategory)
-  //   );
-  // }
+  let jokes = _jokes_json__WEBPACK_IMPORTED_MODULE_1__;
 
   if (selectedCategory !== "all") {
     jokes = jokes.filter(joke => joke.categories.includes(selectedCategory));
@@ -186,11 +189,139 @@ const getRandomiseJokesFromDatabase = objOfParams => {
   }
 
   return jokesResults;
-}; // app.get('/', async (req, res) => {
-//   const thing = await Promise.resolve({ one: 'two' }) // async/await!
-//     .catch(e => res.json({ error: e.message }));
-//   return res.json({ ...thing, hello: 'world' }); // object-rest-spread!
-// });
+};
+
+const isUserInDB = userName => {
+  return users.map(user => user.userName).includes(userName);
+};
+
+const getUserByName = userName => {
+  return users.find(user => user.userName === userName);
+};
+
+const getUserIndexByName = userName => {
+  return users.findIndex(user => user.userName === userName);
+}; // async function hashPassword (userPassword) {
+//   const saltRounds = 5;
+//   const hashedPassword = await new Promise((resolve, reject) => {
+//     bcrypt.hash(userPassword, saltRounds, function(err, hash) {
+//       err ? reject(err) : resolve(hash)
+//     });
+//   })
+//   console.log(hashedPassword);
+//   return hashedPassword;
+// }
+
+
+const saveProfile = () => {
+  var path = __webpack_require__(/*! path */ "path");
+
+  const jsonString = JSON.stringify(users, null, 2);
+  fs.writeFile(path.join(__dirname, '../src/users/usersDB.json'), jsonString, err => {
+    if (err) {
+      console.log('Error writing file', err);
+    } else {
+      console.log('Successfully wrote file');
+    }
+  });
+};
+
+const createProfile = loginParams => {
+  const userName = loginParams.userName;
+  const userPassword = loginParams.userPassword;
+
+  if (isUserInDB(userName)) {
+    return {
+      response: false
+    };
+  } else {
+    const hashedPassword = bcrypt.hashSync(userPassword, 5);
+    users.push({
+      userName: userName,
+      userPassword: hashedPassword,
+      likedJokes: []
+    });
+    saveProfile(userName, hashedPassword);
+    return {
+      response: true
+    };
+  }
+};
+
+const loginProfile = loginParams => {
+  const loginUser = getUserByName(loginParams.userName);
+  console.log(loginUser);
+
+  if (loginUser !== undefined) {
+    if (bcrypt.compareSync(loginParams.userPassword, loginUser.userPassword)) {
+      return {
+        response: true
+      };
+    } else {
+      return {
+        response: false
+      };
+    }
+  } else {
+    return {
+      response: false
+    };
+  }
+};
+
+const getLikedJokes = userName => {
+  console.log(userName);
+  const loginUserLikedJokesID = getUserByName(userName).likedJokes;
+  return loginUserLikedJokesID.map(likeJokeID => {
+    return _jokes_json__WEBPACK_IMPORTED_MODULE_1__.find(joke => joke.id === likeJokeID);
+  });
+};
+
+const addLikedJokeToUser = (userName, jokeID) => {
+  const userIndex = getUserIndexByName(userName);
+  users[userIndex].likedJokes.push(jokeID);
+  saveProfile();
+};
+
+const removeLikedJokeFromUser = (userName, jokeID) => {
+  const userIndex = getUserIndexByName(userName);
+  const newLikedJokes = users[userIndex].likedJokes.filter(likeJokeID => likeJokeID !== jokeID);
+  users[userIndex].likedJokes = newLikedJokes;
+  saveProfile();
+}; // if (isUserInDB(loginParams.userName)) {
+//   const user
+//   if (bcrypt.compareSync(loginParams.userPassword, )) {
+//     return true;
+//   }
+//   else {
+//     return false;
+//   }
+// }
+// const creatingFile = loginParams => {
+//   var path = require('path');
+//   const jsonString = JSON.stringify(loginParams);
+//   console.log(jsonString);
+//   fs.writeFile(path.join(__dirname, '../src/users/usersDB.json'), jsonString, err => {
+//     if (err) {
+//         console.log('Error writing file', err)
+//     } else {
+//         console.log('Successfully wrote file')
+//     }
+//   })
+// }
+// const getFromUsersDB = () => {
+//   fs.readFile('./users/usersDB.json', 'utf8', (err, jsonString) => {
+//     if (err) {
+//         console.log("Error reading file from disk:", err)
+//         return
+//     }
+//     try {
+//         return JSON.parse(jsonString)
+// } catch(err) {
+//         console.log('Error parsing JSON string:', err)
+//     }
+//   })
+// }
 
 
 app.get('/jokes/categories', async (req, res) => {
@@ -200,10 +331,40 @@ app.get('/jokes/random/:numberOfJokes/:selectedCategory/:searchInputText', async
   const result = await Promise.resolve(getRandomiseJokesFromDatabase(req.params)).catch(e => res.json({
     error: e.message
   }));
-  return res.json(result); //return res.json(getJokesFromDatabase(req.params.numberOfJokes, req.params.category, req.params.searchWord));
+  return res.json(result);
 });
 app.get('/jokes/bycategory/:selectedCategory/:numberOfPage', async (req, res) => {
   const result = await Promise.resolve(getJokesByCategory(req.params.selectedCategory, req.params.numberOfPage)).catch(e => res.json({
+    error: e.message
+  }));
+  return res.json(result);
+});
+app.get('/jokes/createprofile/:userName/:userPassword', async (req, res) => {
+  const result = await Promise.resolve(createProfile(req.params)).catch(e => res.json({
+    error: e.messege
+  }));
+  return res.json(result);
+});
+app.get('/jokes/login/:userName/:userPassword', async (req, res) => {
+  const result = await Promise.resolve(loginProfile(req.params)).catch(e => res.json({
+    error: e.messege
+  }));
+  return res.json(result);
+});
+app.get('/jokes/addliked/:userName/:jokeID', async (req, res) => {
+  const result = await Promise.resolve(addLikedJokeToUser(req.params.userName, req.params.jokeID)).catch(e => res.json({
+    error: e.message
+  }));
+  return res.json(result);
+});
+app.get('/jokes/removeliked/:userName/:jokeID', async (req, res) => {
+  const result = await Promise.resolve(removeLikedJokeFromUser(req.params.userName, req.params.jokeID)).catch(e => res.json({
+    error: e.message
+  }));
+  return res.json(result);
+});
+app.get('/jokes/getlikedjokes/:userName', async (req, res) => {
+  const result = await Promise.resolve(getLikedJokes(req.params.userName)).catch(e => res.json({
     error: e.message
   }));
   return res.json(result);
@@ -221,6 +382,7 @@ app.listen(port, err => {
 
   console.log(`> listening on port ${port}`);
 });
+/* WEBPACK VAR INJECTION */}.call(this, "src"))
 
 /***/ }),
 
@@ -235,6 +397,17 @@ module.exports = JSON.parse("[{\"categories\":[\"dev\"],\"created_at\":\"2016-05
 
 /***/ }),
 
+/***/ "./src/users/usersDB.json":
+/*!********************************!*\
+  !*** ./src/users/usersDB.json ***!
+  \********************************/
+/*! exports provided: 0, 1, 2, 3, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("[{\"userName\":\"Milan\",\"userPassword\":\"$2b$05$6UaVFTMNa69YNv5fDMcjI.AOMk9g3eyqf9SxY5GM6n8FfYp/MWS6q\",\"likedJokes\":[\"zdj0bfkjsmup6pkb2rpmbw\",\"czOG2URYTx6USbXqYObkaA\"]},{\"userName\":\"Lenka\",\"userPassword\":\"$2b$05$bVg6hg3OEnUQsZh99qhut.SumyEqxwITDQuiahOuAfkFVNrNkzPCO\",\"likedJokes\":[\"tng5xzi5t9syvqaubukycw\"]},{\"userName\":\"something\",\"userPassword\":\"$2b$05$7T3/cxXxlpBCzdEFulfv.uwIonN461CCGG8nkP4qc9dJp6vNJ.udy\",\"likedJokes\":[]},{\"userName\":\"aaaa\",\"userPassword\":\"$2b$05$NcyoQfpGcVnDRRbP8b8jFea0JeeVAvW3xDWniXiPAoZYu55ovZ7rK\",\"likedJokes\":[]}]");
+
+/***/ }),
+
 /***/ 0:
 /*!****************************!*\
   !*** multi ./src/index.js ***!
@@ -244,6 +417,17 @@ module.exports = JSON.parse("[{\"categories\":[\"dev\"],\"created_at\":\"2016-05
 
 module.exports = __webpack_require__(/*! /Users/piller/Documents/work/Vue/CNjokes/backend/src/index.js */"./src/index.js");
 
+
+/***/ }),
+
+/***/ "bcrypt":
+/*!*************************!*\
+  !*** external "bcrypt" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("bcrypt");
 
 /***/ }),
 
@@ -266,6 +450,28 @@ module.exports = require("cors");
 /***/ (function(module, exports) {
 
 module.exports = require("express");
+
+/***/ }),
+
+/***/ "fs":
+/*!*********************!*\
+  !*** external "fs" ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("fs");
+
+/***/ }),
+
+/***/ "path":
+/*!***********************!*\
+  !*** external "path" ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("path");
 
 /***/ })
 
