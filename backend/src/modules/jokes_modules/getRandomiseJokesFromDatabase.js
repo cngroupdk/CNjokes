@@ -1,7 +1,7 @@
-import { getJokesByCategory } from './getJokesByCategory.js'
+import { getJokesByCategory } from "./getJokesByCategory.js";
 
-export const getRandomiseJokesFromDatabase = (objOfParams) => {
-  let {numberOfJokes, selectedCategory, searchInputText} = objOfParams;
+export const getRandomiseJokesFromDatabase = objOfParams => {
+  let { numberOfJokes, selectedCategory, searchInputText } = objOfParams;
   numberOfJokes = parseInt(numberOfJokes);
   let jokesResults = [];
 
@@ -21,10 +21,8 @@ export const getRandomiseJokesFromDatabase = (objOfParams) => {
     return randomDontRepeatNumbers;
   };
 
-  
-
   const getJokesBySearch = jokes => {
-    if (searchInputText === 'empty_search_input') {
+    if (searchInputText === "empty_search_input") {
       return jokes;
     } else {
       const searchedText = new RegExp(searchInputText, "gi");
@@ -49,4 +47,4 @@ export const getRandomiseJokesFromDatabase = (objOfParams) => {
     });
   }
   return jokesResults;
-}
+};

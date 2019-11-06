@@ -16,8 +16,8 @@ const categories = [
   "science",
   "sport",
   "travel"
-  ];
+];
 
-  export const getCategories = () => {
-    return categories;
-  }
+export const getCategories = () => {
+  return categories;
+};

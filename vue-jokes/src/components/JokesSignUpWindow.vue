@@ -50,8 +50,8 @@
             name="psw"
             required
           />
-          <label v-if="!isProfileCreated"> *Username already used </label>
-
+          <label v-if="!isProfileCreated">*Username already used </label>
+          <label v-if="isPasswordsDifferent">Passwords do not match </label>
           <button type="submit">
             Create profile
           </button>
@@ -82,16 +82,22 @@ export default {
       userName: "",
       userPassword: "",
       userCheckPassword: "",
-      isProfileCreated: true
+      isProfileCreated: true,
+      isPasswordsDifferent: false
     };
   },
   methods: {
     createProfile() {
-      api.createProfile(
-        this.checkProfileCreated,
-        this.userName,
-        this.userPassword
-      );
+      if (this.userPassword === this.userCheckPassword) {
+        api.createProfile(
+          this.checkProfileCreated,
+          this.userName,
+          this.userPassword
+        );
+        this.isPasswordsDifferent = false;
+      } else {
+        this.isPasswordsDifferent = true;
+      }
     },
     checkProfileCreated(data) {
       this.isProfileCreated = data.response;
