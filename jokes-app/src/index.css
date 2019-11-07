@@ -91,6 +91,7 @@ ul.jokes-list-light li {
 
 .count-input {
   margin: 0 0.7em;
+  padding: 0 0 0 1em;
 }
 
 .count-setter-component {
