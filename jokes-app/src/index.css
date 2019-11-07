@@ -1,14 +1,14 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Raleway", "Segoe UI",
-    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Raleway', 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
@@ -74,6 +74,7 @@ ul.jokes-list li {
 
 .count-input {
   margin: 0 0.7em;
+  padding: 0 0 0 1em;
 }
 
 .count-setter-component {
@@ -81,7 +82,7 @@ ul.jokes-list li {
 }
 
 .special-joke {
-  font-family: "Staatliches", sans-serif;
+  font-family: 'Staatliches', sans-serif;
   font-size: calc(3vh + 3vw);
   padding: 12vh 3vw 1vh 3vw;
   max-width: 2000px;

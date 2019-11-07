@@ -1,14 +1,16 @@
-import { SET_JOKE } from './actions';
-import { SET_SEARCHED_JOKES } from './actions';
-import { SET_JOKES_LOADING } from './actions';
-import { SET_QUERY_INVALID } from './actions';
-import { SET_QUERY_VALID } from './actions';
-import { SET_QUERY } from './actions';
-import { SET_CATEGORY } from './actions';
-import { SET_CATEGORIES } from './actions';
-import { SET_JOKES_COUNT } from './actions';
-import { SET_JOKES_LOADED } from './actions';
-import { SET_CATEGORY_JOKES } from './actions';
+import {
+  SET_JOKE,
+  SET_SEARCHED_JOKES,
+  SET_JOKES_LOADING,
+  SET_QUERY_INVALID,
+  SET_QUERY_VALID,
+  SET_QUERY,
+  SET_CATEGORY,
+  SET_CATEGORIES,
+  SET_JOKES_COUNT,
+  SET_JOKES_LOADED,
+  SET_CATEGORY_JOKES,
+} from './actions';
 
 const initialState = {
   // SpecialJokeBlock
@@ -28,7 +30,7 @@ const initialState = {
 };
 
 function jokeReducer(state = initialState, action) {
-  console.log('reducer', state, action);
+  // console.log('reducer', state, action);
 
   switch (action.type) {
     // SpecialJokeBlock
