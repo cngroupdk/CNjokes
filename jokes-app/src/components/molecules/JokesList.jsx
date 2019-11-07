@@ -1,14 +1,16 @@
 import React from 'react';
 
-export function JokesList({ jokesLoaded, jokes, hasDuplicates }) {
+export function JokesList({ jokesLoaded, jokes, hasDuplicates, styling }) {
   return (
     <div>
       {hasDuplicates ? (
-        <p>Sorry, we couldn't get more than {jokes.length} this time :(</p>
+        <p className="info-error">
+          Sorry, we couldn't get more than {jokes.length} this time :(
+        </p>
       ) : (
         ''
       )}
-      <ul className="jokes-list">
+      <ul className={styling}>
         {jokesLoaded
           ? jokes.map((joke, index) => <li key={index}>{joke}</li>)
           : 'Loading...'}

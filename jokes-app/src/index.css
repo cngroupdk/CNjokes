@@ -1,14 +1,15 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Raleway", "Segoe UI",
+  /*font-family: -apple-system, BlinkMacSystemFont, "Raleway", "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+    "Helvetica Neue", sans-serif;*/
+  font-family: 'Raleway';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
@@ -18,6 +19,7 @@ hr {
 
 h2 {
   padding-bottom: 0.5rem;
+  font-weight: 600;
 }
 
 .category-container {
@@ -57,19 +59,34 @@ ul.jokes-list {
 
 ul.jokes-list li {
   background-color: #fbfbfb;
+  font-weight: 300;
   word-wrap: break-word;
   padding: 1rem 1rem;
   margin: 1rem auto;
   width: 70vw;
   border-radius: 0.3rem;
-  -webkit-box-shadow: 0px 4px 9px 5px rgb(228, 228, 228);
-  -moz-box-shadow: 0px 4px 9px 5px rgb(228, 228, 228);
-  box-shadow: 0px 4px 9px 5px rgb(228, 228, 228);
+}
+
+ul.jokes-list-dark li {
+  -webkit-box-shadow: 0px 4px 6px -2px rgb(228, 228, 228);
+  -moz-box-shadow: 0px 4px 6px -2px rgb(228, 228, 228);
+  box-shadow: 0px 4px 6px -2px rgb(228, 228, 228);
+}
+ul.jokes-list-light li {
+  -webkit-box-shadow: 0px 4px 6px -2px rgb(228, 228, 228);
+  -moz-box-shadow: 0px 4px 6px -2px rgb(228, 228, 228);
+  box-shadow: 0px 4px 6px -2px rgb(228, 228, 228);
+  border: 1px solid #8080801c;
+  background-color: white;
 }
 
 .info {
   color: gray;
   font-size: 0.7em;
+}
+
+.info-error {
+  color: #dc1414;
 }
 
 .count-input {
@@ -81,7 +98,7 @@ ul.jokes-list li {
 }
 
 .special-joke {
-  font-family: "Staatliches", sans-serif;
+  font-family: 'Staatliches', sans-serif;
   font-size: calc(3vh + 3vw);
   padding: 12vh 3vw 1vh 3vw;
   max-width: 2000px;
@@ -106,8 +123,8 @@ ul.jokes-list li {
   background-color: crimson;
   color: white;
   font-weight: 300;
-  font-size: calc(3vh + 3vw);
-  padding: 7px;
+  font-size: calc(2vh + 2vw);
+  padding: 10px 7px 7px 7px;
   margin-bottom: 9vh;
   line-height: 85%;
   border-radius: 10px;
@@ -147,7 +164,7 @@ ul.jokes-list li {
   -moz-transform: rotate(170deg);
   -o-transform: rotate(170deg);
   transform: rotate(170deg);
-  font-size: x-large;
+  font-size: xx-large;
   line-height: 0;
   color: white;
   font-weight: 800;
@@ -188,8 +205,10 @@ footer {
 }
 
 @media screen and (min-width: 1300px) {
-  .special-joke,
-  .btn-another-joke {
+  .special-joke {
     font-size: calc(39px + 3vh);
+  }
+  .btn-another-joke {
+    font-size: calc(26px + 2vh);
   }
 }

@@ -73,6 +73,7 @@ export function CategoryBlock() {
         jokesLoaded={jokesLoaded}
         jokes={jokes}
         hasDuplicates={hasDuplicateJokes}
+        styling={'jokes-list jokes-list-dark'}
       />
     </div>
   );
