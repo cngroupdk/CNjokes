@@ -92,7 +92,7 @@ function jokeReducer(state = initialState, action) {
         count: action.count,
       };
 
-    case SET_JOKES_LOADED:
+    case SET_JOKES_LOADED: // Q: why loaded if we`re setting it to false? :/
       return {
         ...state,
         jokesLoaded: false,

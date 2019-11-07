@@ -76,6 +76,7 @@ export function SearchBlock(props) {
           jokesLoaded={loaded}
           jokes={listItems}
           hasDuplicates={false}
+          styling={'jokes-list jokes-list-light'}
         />
       )}
     </div>
