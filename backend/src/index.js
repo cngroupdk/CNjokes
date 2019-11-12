@@ -23,9 +23,7 @@ app.get("/jokes/categories", async (req, res) => {
 app.get(
   "/jokes/random/:numberOfJokes/:selectedCategory/:searchInputText",
   async (req, res) => {
-    const result = await Promise.resolve(
-      getRandomiseJokesFromDatabase(req.params)
-    ).catch(e => res.json({ error: e.message }));
+    const result = await getRandomiseJokesFromDatabase(req.params);
     return res.json(result);
   }
 );
@@ -33,45 +31,34 @@ app.get(
 app.get(
   "/jokes/bycategory/:selectedCategory/:numberOfPage",
   async (req, res) => {
-    const result = await Promise.resolve(
-      getJokesByCategory(req.params.selectedCategory, req.params.numberOfPage)
-    ).catch(e => res.json({ error: e.message }));
+    const result = await getJokesByCategory(req.params.selectedCategory, req.params.numberOfPage);
     return res.json(result);
   }
 );
 
 app.get("/jokes/createprofile/:userName/:userPassword", async (req, res) => {
-  const result = await Promise.resolve(createProfile(req.params)).catch(e =>
-    res.json({ error: e.messege })
-  );
+  const result = await createProfile(req.params);
   return res.json(result);
 });
 
 app.get("/jokes/login/:userName/:userPassword", async (req, res) => {
-  const result = await Promise.resolve(loginProfile(req.params)).catch(e =>
-    res.json({ error: e.messege })
-  );
+  const result = await loginProfile(req.params);
   return res.json(result);
 });
 
 app.get("/jokes/addliked/:userName/:jokeID", async (req, res) => {
-  const result = await Promise.resolve(
-    addLikedJokeToUser(req.params.userName, req.params.jokeID)
-  ).catch(e => res.json({ error: e.message }));
+  const result = await addLikedJokeToUser(req.params.userName, req.params.jokeID)
+  
   return res.json(result);
 });
 
 app.get("/jokes/removeliked/:userName/:jokeID", async (req, res) => {
-  const result = await Promise.resolve(
-    removeLikedJokeFromUser(req.params.userName, req.params.jokeID)
-  ).catch(e => res.json({ error: e.message }));
+  const result = await removeLikedJokeFromUser(req.params.userName, req.params.jokeID);
   return res.json(result);
 });
 
 app.get("/jokes/getlikedjokes/:userName/:pageNumber", async (req, res) => {
-  const result = await Promise.resolve(
-    getLikedJokes(req.params.userName, req.params.pageNumber)
-  ).catch(e => res.json({ error: e.message }));
+  const result = await getLikedJokes(req.params.userName, req.params.pageNumber)
   return res.json(result);
 });
 
