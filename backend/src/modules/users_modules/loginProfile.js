@@ -1,16 +1,14 @@
-import { getUserByName } from "./getUserByName";
+import { getUsersCollection } from "../db_modules/dbClientConnect.js"
+import bcrypt from 'bcryptjs';
 
-const bcrypt = require("bcrypt");
-
-export const loginProfile = loginParams => {
-  const loginUser = getUserByName(loginParams.userName);
-  if (loginUser !== undefined) {
-    if (bcrypt.compareSync(loginParams.userPassword, loginUser.userPassword)) {
-      return { response: true };
-    } else {
-      return { response: false };
-    }
-  } else {
+export const loginProfile = async loginParams => {
+  const collectionUsers = getUsersCollection();
+  const loginUser = await collectionUsers.findOne({userName: loginParams.userName})
+  if (loginUser === null) {
     return { response: false };
   }
+  if (bcrypt.compareSync(loginParams.userPassword, loginUser.userPassword)) {
+    return { response: true };
+  }
+  return {response: false}
 };

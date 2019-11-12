@@ -1,14 +1,15 @@
-import { saveProfile } from "./saveProfile.js";
-import { getUserIndexByName } from "./getUserIndexByName";
-let users = require("../../users/usersDB.json");
-users = Array.from(users);
+import { getUsersCollection } from "../db_modules/dbClientConnect.js"
+import { getLikedJokesID } from "./getLikedJokesID.js";
 
-export const addLikedJokeToUser = (userName, jokeID) => {
-  const userIndex = getUserIndexByName(userName);
-  if (users[userIndex].likedJokes.includes(jokeID)) {
-    return { response: false };
+export const addLikedJokeToUser = async (userName, jokeID) => {
+  const collectionUsers = getUsersCollection();
+  let userLikedJokesID = await getLikedJokesID(userName);
+
+  if(userLikedJokesID.includes(jokeID)) {
+    return { response: false }
   }
-  users[userIndex].likedJokes.push(jokeID);
-  saveProfile(users);
-  return { response: true };
+
+  userLikedJokesID.push(jokeID);
+  collectionUsers.updateOne({ userName: userName}, { $set: { likedJokes: userLikedJokesID}})
+  return { response: true};
 };

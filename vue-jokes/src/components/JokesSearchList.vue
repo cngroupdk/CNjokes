@@ -1,20 +1,26 @@
 <template>
-  <div class="jokes-list jokes-section">
-    <ul>
-      <label v-if="isEnoughResults"
-        >Sorry for your requirements we have just this jokes:</label
-      >
-      <li v-for="(joke, id) in jokes" :key="id">
-        {{ joke.value }}
-        <img
-          v-if="isUserLogin"
-          v-on:click="likeJokeClick(joke.id)"
-          src="../imgs/thumb_up.png"
-          alt="thumbUp"
-        />
-      </li>
-    </ul>
-  </div>
+  <b-list-group class="lp1">
+    <b-badge v-if="isEnoughResults"
+      >Sorry for your requirements we have just this jokes:</b-badge
+    >
+    <b-list-group-item v-for="(joke, id) in jokes" :key="id">
+      <!-- <img src="../imgs/kick.png"/> -->
+      {{ joke.value }}
+      <img
+        v-if="isUserLogin && !usersLikedJokesID.includes(joke.id)"
+        v-on:click="likeJokeClick(joke.id)"
+        src="../imgs/thumb_up.png"
+        alt="thumbUp"
+      />
+      <img
+        v-if="usersLikedJokesID.includes(joke.id)"
+        v-on:click="dislikeJokeClick(joke.id)"
+        src="../imgs/thumb_up_filled.png"
+        alt="thumbDown"
+      />
+      
+    </b-list-group-item>
+  </b-list-group>
 </template>
 
 <script>
@@ -25,7 +31,7 @@ export default {
 
   data() {
     return {
-      jokes: []
+      jokes: [],
     };
   },
   created() {
@@ -44,15 +50,33 @@ export default {
     },
     likeJokeClick(jokeID) {
       api.addLikedJokes(
-        this.addLikedJokeResponse,
+        this.likedJokeResponse,
         this.$store.state.loginUser,
         jokeID
       );
     },
-    addLikedJokeResponse(data) {
-      console.log(data.response);
+    likedJokeResponse(data) {
+      if(data.response){
+        api.fetchLikedJokesID(
+            this.getLikedJokesID,
+            this.$store.state.loginUser,
+          );
+      }
+    },
+    getLikedJokesID(response) {
+    console.log(response)
+    this.$store.commit("updateUsersLikedJokesID", response)
+    },
+    dislikeJokeClick(jokeID) {
+      api.removeLikedJoke(
+        this.likedJokeResponse,
+        this.$store.state.loginUser,
+        jokeID
+      )
     }
+    
   },
+
   watch: {
     selectedCategory: "fetchJokesFromApi",
     numberOfJokes: "fetchJokesFromApi",
@@ -63,15 +87,27 @@ export default {
     isEnoughResults: function() {
       return this.numberOfJokes > this.jokes.length;
     },
+
+  
     ...mapState([
       "selectedCategory",
       "numberOfJokes",
       "searchInputText",
-      "isUserLogin"
+      "isUserLogin",
+      "usersLikedJokesID"
     ])
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+.list-group {
+  margin-top: 2rem
+}
+.list-group-item {
+  border-width: 2px;
+}
+  
+
+</style>

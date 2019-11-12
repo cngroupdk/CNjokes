@@ -1,57 +1,59 @@
 <template>
-  <div class="listing">
-    <div class="listing-col listing-col1">
-      <header class="JokesListing">
-        <nav>
+  <b-container class="listing">
+    <b-row>
+      <b-col sm="3" class="listing-col listing-col1">
+        <div class="JokesListing">
+            <b-list-group>
+              <b-list-group-item
+                v-if="isUserLogin"
+                variant="dark"
+                @click="chosenCategory = 'favourites'"
+                :class="{ active: 'favourites' === chosenCategory }"
+              >
+                favourites
+              </b-list-group-item>
+              <b-list-group-item
+                v-for="(category, index) in categories"
+                :key="index"
+                variant="dark"
+                href="#"
+                :class="{ active: category === chosenCategory }"
+                @click="chosenCategory = category"
+              >
+                {{ category }}
+              </b-list-group-item>
+            </b-list-group>
+        </div>
+      </b-col>
+      <b-col class="listing-col listing-col2">
+        <div class="listing-results">
           <ul>
-            <li
-              v-if="isUserLogin"
-              @click="chosenCategory = 'favourites'"
-              :class="{ active: 'favourites' === chosenCategory }"
-            >
-              favourites
-            </li>
-            <li
-              v-for="(category, index) in categories"
-              :key="index"
-              :class="{ active: category === chosenCategory }"
-              @click="chosenCategory = category"
-            >
-              {{ category }}
+            <li v-for="(joke, id) in jokes" :key="id">
+              {{ joke.value }}
+              <img
+                v-if="isUserLogin && (!usersLikedJokesID.includes(joke.id))"
+                v-on:click="likeJokeClick(joke.id)"
+                src="../imgs/thumb_up.png"
+                alt="thumbUp"
+              />
+              <img
+                v-if="usersLikedJokesID.includes(joke.id)"
+                v-on:click="dislikeJokeClick(joke.id)"
+                src="../imgs/thumb_up_filled.png"
+                alt="thumbDown"
+              />
             </li>
           </ul>
-        </nav>
-      </header>
-    </div>
-    <div class="listing-col listing-col2">
-      <ul>
-        <li v-for="(joke, id) in jokes" :key="id">
-          {{ joke.value }}
-          <img
-            v-if="isUserLogin && chosenCategory !== 'favourites'"
-            v-on:click="likeJokeClick(joke.id)"
-            src="../imgs/thumb_up.png"
-            alt="thumbUp"
+          <b-pagination
+            v-model="pageNumber"
+            v-bind:per-page="jokesPerPage"
+            v-bind:total-rows="numberOfResults"
+            class="sticky-bottom"
           />
-          <img
-            v-if="chosenCategory === 'favourites'"
-            v-on:click="dislikeJokeClick(joke.id)"
-            src="../imgs/thumb_down.png"
-            alt="thumbDown"
-          />
-        </li>
-      </ul>
-      <input
-        v-model.number="pageNumber"
-        type="number"
-        class="jokes-listing-page-number"
-        step="1"
-        min="1"
-        v-bind:max="maxNumberOfPages"
-        value="1"
-      />
-    </div>
-  </div>
+        </div>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
@@ -65,14 +67,15 @@ export default {
       chosenCategory: "all",
       jokes: [],
       numberOfResults: 1,
-      pageNumber: 1
+      pageNumber: 1,
+      jokesPerPage: 20
     };
   },
   created() {
     this.fetchJokesFromApi();
   },
   computed: {
-    ...mapState(["categories", "isUserLogin"]),
+    ...mapState(["categories", "isUserLogin", "usersLikedJokesID"]),
     maxNumberOfPages: function() {
       return Math.floor(this.numberOfResults / 20) + 1;
     }
@@ -105,29 +108,38 @@ export default {
       }
     },
     getJokes(data) {
+      console.log("JokesListing data from Api", data)
       this.numberOfResults = data[data.length - 1];
       this.jokes = data.slice(0, data.length - 1);
     },
     likeJokeClick(jokeID) {
       api.addLikedJokes(
-        this.addLikedJokeResponse,
+        this.likedJokeResponse,
         this.$store.state.loginUser,
         jokeID
       );
     },
-    addLikedJokeResponse(data) {
-      console.log(data.response);
+    likedJokeResponse(data) {
+      if(data.response){
+          api.fetchLikedJokesID(
+              this.getLikedJokesID,
+              this.$store.state.loginUser,
+            );
+          if(this.chosenCategory === "favourites") {
+            this.fetchJokesFromApi();
+          }
+      }
+    },
+    getLikedJokesID(response) {
+    console.log(response)
+    this.$store.commit("updateUsersLikedJokesID", response)
     },
     dislikeJokeClick(jokeID) {
       api.removeLikedJoke(
-        this.dislikeJokeClickResponse,
+        this.likedJokeResponse,
         this.$store.state.loginUser,
         jokeID
       );
-    },
-    dislikeJokeClickResponse(data) {
-      this.fetchJokesFromApi();
-      console.log(data.response);
     }
   }
 };
@@ -186,5 +198,11 @@ export default {
 .JokesListing li:hover:not(.active) {
   background-color: #555;
   color: white;
+}
+.listing-results {
+  margin-left: 5rem;
+}
+ul {
+  list-style-image: url('../imgs/kick.png')
 }
 </style>

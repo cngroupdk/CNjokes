@@ -13,7 +13,8 @@
     "backpack-core": "^0.8.4",
     "bcrypt": "^3.0.6",
     "cors": "^2.8.5",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "mongodb": "^3.3.3"
   },
   "devDependencies": {
     "prettier": "1.18.2"

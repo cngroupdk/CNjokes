@@ -6,11 +6,18 @@ import { loginProfile } from "./modules/users_modules/loginProfile";
 import { addLikedJokeToUser } from "./modules/users_modules/addLikedJokeToUser";
 import { getCategories } from "./modules/jokes_modules/getCategories.js";
 import { removeLikedJokeFromUser } from "./modules/users_modules/removeLikedJokeFromUser.js";
-import { getLikedJokes } from "./modules/users_modules/getLikedJokes";
+import { getLikedJokes } from "./modules/users_modules/getLikedJokes.js";
+import { getLikedJokesID } from "./modules/users_modules/getLikedJokesID.js";
+import { clientConnect } from "./modules/db_modules/dbClientConnect.js";
+
 
 const app = express();
 let cors = require("cors");
 app.use(cors());
+
+clientConnect();                                                    //database connection
+
+
 
 app.get("/jokes/categories", async (req, res) => {
   return res.json(getCategories());
@@ -68,6 +75,11 @@ app.get("/jokes/getlikedjokes/:userName/:pageNumber", async (req, res) => {
   const result = await Promise.resolve(
     getLikedJokes(req.params.userName, req.params.pageNumber)
   ).catch(e => res.json({ error: e.message }));
+  return res.json(result);
+});
+
+app.get("/jokes/getlikedjokesID/:userName/", async (req, res) => {
+  const result = await getLikedJokesID(req.params.userName)
   return res.json(result);
 });
 

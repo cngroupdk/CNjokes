@@ -4,10 +4,40 @@
     "userPassword": "$2b$05$6UaVFTMNa69YNv5fDMcjI.AOMk9g3eyqf9SxY5GM6n8FfYp/MWS6q",
     "likedJokes": [
       "0wdewlp2tz-mt_upesvrjw",
-      "i3ri7iiurh6l1vnvtqow2a",
-      "kfjreqvxs464s6rspcj-qq",
-      "JMez1nOcRfC1RqItPub0Mw",
-      "xbae5jywto6wjcwalfwlmq"
+      "xbae5jywto6wjcwalfwlmq",
+      "rnI6YBagTaORv3Q9sWu5Uw",
+      "CRKdXCnfSu6hZV79lhJSrQ",
+      "sqPuLSmbRPyJS96J8wN-mw",
+      "FYeiFhE5QmOjn1kyjObH4A",
+      "fB4MIyRQTX2f1oBpJu4_1A",
+      "I5_aDblgSZ2rtTRy16julA",
+      "zdj0bfkjsmup6pkb2rpmbw",
+      "c7WhIoZsSsmpdp1lJAE-1w",
+      "zk14uc6xr82d7ig9qhaymg",
+      "3y7vnqsvtvuvvmhtuqjuma",
+      "czip-do5sbcehb7meep_hq",
+      "rmippwentlkoza8wlv_vjg",
+      "H_kE59K4SDi-lgW7s2E7Yw",
+      "axtqqerhrm2lredluq1suw",
+      "gqkhGYjIQ_CCtiwSTHSnvQ",
+      "9vqrfnk0qhoainqtrwgg4w",
+      "QmdIebXaSkuj6pTVYwLQrg",
+      "umwzezi7siitlteg3jiyiw",
+      "Hc1oGQMSSgmbkffdIxu-OA",
+      "Z0hPp5AsQNu2IzTsxhHwOw",
+      "Xb0D54uER7GIVkGRvAb8mA",
+      "4Nqt9In9T7aB3kI1SXw8eA",
+      "qCE6vrfAT0u8CeDrjDTGmg",
+      "7DrobDFwT0a0EKy1Ho-kJQ",
+      "kloj8_6utuwlbixe3ek9sq",
+      "30lywvzfsowzxkiiy2voyw",
+      "gSys68CVR8q6FIgDHJiBtA",
+      "5xvm-ye0t9awb7xfgntxdq",
+      "tng5xzi5t9syvqaubukycw",
+      "yXfvekTsRcSqIlN98ypIXQ",
+      "odognilzqycwinumdqbwwq",
+      "ukrzhvanszmegxo5jlyxna",
+      "o7quf87osyal6bsxjndela"
     ]
   },
   {
@@ -28,5 +58,29 @@
       "pnk-iwkxqt6_k2fqgeuxwq",
       "7k7Dl6koR92Y6TnwYYgAaA"
     ]
+  },
+  {
+    "userName": "Tester",
+    "userPassword": "$2b$05$PdJZDpO16bHVziygxQLsVuaD5YSIuv/C9ZDSm0aTYR4xV/4UOp3s6",
+    "likedJokes": []
+  },
+  {
+    "userName": "Milan2",
+    "userPassword": "$2b$05$Es4na0RhgHh/TNDblwz3Wuywgvyd3iV6GQVRDwu4/tc5xiZBeqLG2",
+    "likedJokes": []
+  },
+  {
+    "userName": "SSlavek",
+    "userPassword": "$2b$05$6LzVn.BSo5qkVBQYOY6EtuU4ODfbzKgwl06sF1KLJImbvHwjV4N1G",
+    "likedJokes": [
+      "8danvsbpq_sa8uluveqn4a",
+      "xbae5jywto6wjcwalfwlmq",
+      "xyhl4mh4q72locghzxm-tw"
+    ]
+  },
+  {
+    "userName": "testing",
+    "userPassword": "$2b$05$flw1hYwd7r6OTZHPVOS7CuL.Np3MqNaTMLoaMCBxTx60QvzQ25fEe",
+    "likedJokes": []
   }
 ]

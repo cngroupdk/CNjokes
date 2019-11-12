@@ -2,7 +2,9 @@
   <div id="app" class="jokes-app">
     <JokesHeader></JokesHeader>
     <div v-if="chosenTab === 'Search'">
+      
       <div class="jokes-title">
+        <img src="./imgs/search_chuck_img.jpeg"/>
         <h1>{{ title }}</h1>
       </div>
       <JokesSearchForm></JokesSearchForm>
@@ -31,7 +33,7 @@ export default {
   },
   data() {
     return {
-      title: "Jokes App"
+      title: "Search"
     };
   },
   computed: mapState(["chosenTab"])
@@ -50,17 +52,19 @@ body {
 }
 
 .jokes-app {
-  margin: 13rem auto 0;
+  margin: auto;
+  margin-top: 6rem;
   width: 90%;
-  max-width: 500px;
+  max-width: 800px;
 }
 
 .jokes-title {
-  background: darkblue;
+  background: black;
   color: white;
   text-align: center;
-  padding: 1.5rem;
+  padding: 0.5rem;
   border-radius: 1rem;
+  margin-bottom: 2rem;
 }
 
 .jokes-section {

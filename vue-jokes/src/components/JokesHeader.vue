@@ -1,33 +1,34 @@
 <template>
-  <header class="JokesHeader">
-    <div class="login">
-      <JokesSignUpWindow
-        v-if="!this.$store.state.isUserLogin"
-      ></JokesSignUpWindow>
-      <JokesLoginWindow
-        v-if="!this.$store.state.isUserLogin"
-      ></JokesLoginWindow>
-      <button
-        class="logout-button"
-        v-if="this.$store.state.isUserLogin"
-        v-on:click="logout"
-        type="button"
-      >
-        {{ this.$store.state.loginUser }} <br />LOGOUT
-      </button>
-    </div>
-    <nav>
-      <ul>
-        <li
+  <header class="fixed-top">
+    <b-navbar type="dark" variant="dark">
+      <b-navbar-nav>
+        <b-navbar-brand>Jokes App</b-navbar-brand>
+        <b-nav-item
           v-for="(tab, index) in tabs"
           :key="index"
           :class="{ ChosenTab: tab === chosenTab }"
           @click="$store.commit('updateChosenTab', tab)"
         >
           {{ tab }}
-        </li>
-      </ul>
-    </nav>
+        </b-nav-item>
+      </b-navbar-nav>
+      <b-navbar-nav class="ml-auto">
+        <JokesSignUpWindow
+          v-if="!this.$store.state.isUserLogin"
+        ></JokesSignUpWindow>
+        <JokesLoginWindow
+          v-if="!this.$store.state.isUserLogin"
+        ></JokesLoginWindow>
+        <b-button
+          class="logout-button"
+          v-if="this.$store.state.isUserLogin"
+          v-on:click="logout"
+          type="button"
+        >
+          {{ this.$store.state.loginUser }} <br />LOGOUT
+        </b-button>
+      </b-navbar-nav>
+    </b-navbar>
   </header>
 </template>
 
@@ -68,7 +69,7 @@ export default {
   left: 0;
   width: 100vw;
   background: darkblue;
-  padding: 5rem 3rem 0;
+  /* padding: 5rem 3rem 0; */
 }
 
 .JokesHeader ul {
@@ -76,7 +77,7 @@ export default {
   display: flex;
 }
 
-.JokesHeader li {
+/* .JokesHeader li {
   background: lightblue;
   font-size: 2rem;
   padding: 1rem 1rem 0;
@@ -124,16 +125,5 @@ export default {
   border-width: 3.3rem 0 0 1.3rem;
   border-color: transparent transparent transparent lightblue;
   border-style: solid;
-}
-
-.logout-button {
-  background-color: #4caf50;
-  color: white;
-  padding: 12px 20px;
-  margin: 0;
-  border: none;
-  cursor: pointer;
-  width: 15%;
-  float: right;
-}
+} */
 </style>

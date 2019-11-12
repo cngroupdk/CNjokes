@@ -1,10 +1,15 @@
-import jokesDB from "../../jokes.json";
+import { getJokesCollection } from "../db_modules/dbClientConnect.js"
 
-export const getJokesByCategory = (selectedCategory, numberOfPage) => {
-  let jokes = jokesDB;
+
+export const getJokesByCategory = async (selectedCategory, numberOfPage) => {
+  const jokesCollection = getJokesCollection();
+  let categoryQuery = {}
+  
+
   if (selectedCategory !== "all") {
-    jokes = jokes.filter(joke => joke.categories.includes(selectedCategory));
+    categoryQuery = { categories: selectedCategory };
   }
+  let jokes = await jokesCollection.find(categoryQuery).toArray();
   if (numberOfPage !== undefined) {
     const numberOfResults = jokes.length;
     jokes = jokes.slice((numberOfPage - 1) * 20, numberOfPage * 20 - 1);

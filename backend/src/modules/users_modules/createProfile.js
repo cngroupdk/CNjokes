@@ -1,26 +1,13 @@
-import { saveProfile } from "./saveProfile.js";
+import { getUsersCollection } from "../db_modules/dbClientConnect.js"
+import bcrypt from 'bcryptjs';
 
-const bcrypt = require("bcrypt");
-let users = require("../../users/usersDB.json");
-users = Array.from(users);
-
-export const createProfile = loginParams => {
-  const userName = loginParams.userName;
-  const userPassword = loginParams.userPassword;
-  if (isUserInDB(userName)) {
-    return { response: false };
-  } else {
-    const hashedPassword = bcrypt.hashSync(userPassword, 5);
-    users.push({
-      userName: userName,
-      userPassword: hashedPassword,
-      likedJokes: []
-    });
-    saveProfile(users);
-    return { response: true };
+export const createProfile = async loginParams => {
+  const collectionUsers = getUsersCollection();
+  if (await collectionUsers.findOne({userName: loginParams.userName}) !== null){
+    return { response: false }
   }
-};
-
-const isUserInDB = userName => {
-  return users.map(user => user.userName).includes(userName);
+  const hashedPassword = bcrypt.hashSync(loginParams.userPassword, 5);
+  const newUser = {userName: loginParams.userName, userPassword: hashedPassword, likedJokes: [] };
+  collectionUsers.insertOne(newUser);
+  return { response: true };
 };

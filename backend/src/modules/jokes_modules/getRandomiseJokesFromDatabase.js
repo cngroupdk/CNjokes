@@ -1,50 +1,19 @@
-import { getJokesByCategory } from "./getJokesByCategory.js";
+import { getJokesCollection } from "../db_modules/dbClientConnect.js"
 
-export const getRandomiseJokesFromDatabase = objOfParams => {
-  let { numberOfJokes, selectedCategory, searchInputText } = objOfParams;
-  numberOfJokes = parseInt(numberOfJokes);
-  let jokesResults = [];
+export const getRandomiseJokesFromDatabase = async objOfParams => {
+  const jokesCollection = getJokesCollection();
 
-  const getRandomNumber = maxNumber => {
-    return Math.floor(Math.random() * maxNumber);
-  };
-
-  const getRandomDontRepeatNumbers = maxNumber => {
-    let randomDontRepeatNumbers = [];
-    let nextNumber = getRandomNumber(maxNumber);
-    while (randomDontRepeatNumbers.length < numberOfJokes) {
-      while (randomDontRepeatNumbers.includes(nextNumber)) {
-        nextNumber = getRandomNumber(maxNumber);
-      }
-      randomDontRepeatNumbers.push(nextNumber);
-    }
-    return randomDontRepeatNumbers;
-  };
-
-  const getJokesBySearch = jokes => {
-    if (searchInputText === "empty_search_input") {
-      return jokes;
-    } else {
-      const searchedText = new RegExp(searchInputText, "gi");
-      return jokes.filter(joke => joke.value.match(searchedText));
-    }
-  };
-
-  const isEnoughResults = jokes => {
-    return jokes.length <= numberOfJokes;
-  };
-
-  let filteredJokes = getJokesByCategory(selectedCategory);
-  filteredJokes = getJokesBySearch(filteredJokes);
-  if (isEnoughResults(filteredJokes)) {
-    jokesResults = filteredJokes;
-  } else {
-    const randomDontRepeatNumbers = getRandomDontRepeatNumbers(
-      filteredJokes.length
-    );
-    randomDontRepeatNumbers.forEach(randomNumber => {
-      jokesResults.push(filteredJokes[randomNumber]);
-    });
+  let categoryQuery = {}
+  if (objOfParams.selectedCategory !== "all") {
+    categoryQuery = { categories: objOfParams.selectedCategory };
   }
-  return jokesResults;
+
+  let searchInputTextQuery = {};
+  if(objOfParams.searchInputText !== "empty_search_input") {
+    searchInputTextQuery = { value: new RegExp(objOfParams.searchInputText, "gi") }
+  }
+
+  const numberOfJokesQuery = { size: parseInt(objOfParams.numberOfJokes)};
+
+  return await jokesCollection.aggregate([{ $match: searchInputTextQuery}, { $match: categoryQuery}, {$sample: numberOfJokesQuery }]).toArray()
 };

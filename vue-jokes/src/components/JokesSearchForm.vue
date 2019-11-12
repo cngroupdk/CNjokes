@@ -1,39 +1,53 @@
 <template>
-  <div class="JokesSearchForm jokes-section">
-    <form>
-      <div class="JokesSearchForm__Part">
-        <select
-          v-model="selectedCategory"
-          name="jokes-categories"
-          id="jokes-categories"
-        >
-          <option value="" disabled selected>Select your category</option>
-          <option
-            v-for="category in categories"
-            v-bind:key="category"
-            :value="category"
-            >{{ category }}</option
+  <b-form class="border">
+    <b-container >
+      <b-row>
+        <b-col>
+          <b-form-group label="category:" label-for="jokes-categories">
+            <b-form-select
+              v-model="selectedCategory"
+              name="jokes-categories"
+              id="jokes-categories"
+            >
+              <option value="" disabled selected>Select your category</option>
+              <option
+                v-for="category in categories"
+                v-bind:key="category"
+                :value="category"
+                >{{ category }}</option
+              >
+            </b-form-select>
+          </b-form-group>
+        </b-col>
+        <b-col md="auto">
+          <b-form-group
+            label="Amount of jokes:"
+            label-for="number-of-jokes-input"
           >
-        </select>
-        <input
-          v-model.number="numberOfJokes"
-          type="number"
-          class="JokesSearchForm__Number"
-          step="1"
-          min="1"
-          value="1"
-        />
-      </div>
-      <div class="JokesSearchForm__Part">
-        <input
-          v-model="searchInputText"
-          placeholder="Search text..."
-          type="text"
-          class="JokesSearchForm__Search"
-        />
-      </div>
-    </form>
-  </div>
+            <b-form-input
+              v-model.number="numberOfJokes"
+              id="number-of-jokes-input"
+              type="number"
+              class="JokesSearchForm__Number"
+              step="1"
+              min="1"
+              value="1"
+            />
+          </b-form-group>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <b-form-input
+            v-model="searchInputText"
+            placeholder="Search text..."
+            type="text"
+            class="JokesSearchForm__Search"
+          />
+        </b-col>
+      </b-row>
+    </b-container>
+  </b-form>
 </template>
 
 <script>
