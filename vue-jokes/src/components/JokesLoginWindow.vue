@@ -71,15 +71,11 @@ export default {
       this.$refs["login-modal"].hide();
     },
     fetchLikedJokesID() {
-      api.fetchLikedJokesID(
-          this.getLikedJokesID,
-          this.$store.state.loginUser,
-        );
+      api.fetchLikedJokesID(this.getLikedJokesID, this.$store.state.loginUser);
     },
     getLikedJokesID(response) {
-      console.log(response)
-      this.$store.commit("updateUsersLikedJokesID", response)
-    },
+      this.$store.commit("updateUsersLikedJokesID", response);
+    }
     // makeLoginToast() {
     //   this.$bvToast.toast(`You are successfully loginned as: ${this.$store.state.loginUser}`, {
     //       title: 'BootstrapVue Toast',

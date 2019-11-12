@@ -1,10 +1,8 @@
-import { getJokesCollection } from "../db_modules/dbClientConnect.js"
-
+import { getJokesCollection } from "../db_modules/dbClientConnect.js";
 
 export const getJokesByCategory = async (selectedCategory, numberOfPage) => {
   const jokesCollection = getJokesCollection();
-  let categoryQuery = {}
-  
+  let categoryQuery = {};
 
   if (selectedCategory !== "all") {
     categoryQuery = { categories: selectedCategory };

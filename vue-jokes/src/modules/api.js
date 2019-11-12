@@ -20,7 +20,6 @@ export const api = {
       .then(data => callback([...data]));
   },
   fetchJokesByCategory: (callback, category, pageNumber) => {
-    console.log(`${API_URL}bycategory/${category}/${pageNumber}`);
     fetch(`${API_URL}bycategory/${category}/${pageNumber}`)
       .then(response => response.json())
       .then(data => callback([...data]));
@@ -36,7 +35,6 @@ export const api = {
       .then(data => callback(data));
   },
   fetchLikedJokes: (callback, userName, pageNumber) => {
-    console.log("url",`${API_URL}getlikedjokes/${userName}/${pageNumber}`)
     fetch(`${API_URL}getlikedjokes/${userName}/${pageNumber}`)
       .then(response => response.json())
       .then(data => callback(data));
@@ -52,9 +50,8 @@ export const api = {
       .then(data => callback(data));
   },
   fetchLikedJokesID: (callback, userName) => {
-    console.log("url",`${API_URL}getlikedjokes/${userName}`)
     fetch(`${API_URL}getlikedjokesID/${userName}`)
       .then(response => response.json())
       .then(data => callback(data));
-  },
+  }
 };

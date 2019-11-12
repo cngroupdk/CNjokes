@@ -18,7 +18,6 @@
         src="../imgs/thumb_up_filled.png"
         alt="thumbDown"
       />
-      
     </b-list-group-item>
   </b-list-group>
 </template>
@@ -31,7 +30,7 @@ export default {
 
   data() {
     return {
-      jokes: [],
+      jokes: []
     };
   },
   created() {
@@ -56,25 +55,23 @@ export default {
       );
     },
     likedJokeResponse(data) {
-      if(data.response){
+      if (data.response) {
         api.fetchLikedJokesID(
-            this.getLikedJokesID,
-            this.$store.state.loginUser,
-          );
+          this.getLikedJokesID,
+          this.$store.state.loginUser
+        );
       }
     },
     getLikedJokesID(response) {
-    console.log(response)
-    this.$store.commit("updateUsersLikedJokesID", response)
+      this.$store.commit("updateUsersLikedJokesID", response);
     },
     dislikeJokeClick(jokeID) {
       api.removeLikedJoke(
         this.likedJokeResponse,
         this.$store.state.loginUser,
         jokeID
-      )
+      );
     }
-    
   },
 
   watch: {
@@ -88,7 +85,6 @@ export default {
       return this.numberOfJokes > this.jokes.length;
     },
 
-  
     ...mapState([
       "selectedCategory",
       "numberOfJokes",
@@ -103,11 +99,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .list-group {
-  margin-top: 2rem
+  margin-top: 2rem;
 }
 .list-group-item {
   border-width: 2px;
 }
-  
-
 </style>

@@ -1,6 +1,6 @@
 <template>
   <b-form class="border">
-    <b-container >
+    <b-container>
       <b-row>
         <b-col>
           <b-form-group label="category:" label-for="jokes-categories">

@@ -2,9 +2,8 @@
   <div id="app" class="jokes-app">
     <JokesHeader></JokesHeader>
     <div v-if="chosenTab === 'Search'">
-      
       <div class="jokes-title">
-        <img src="./imgs/search_chuck_img.jpeg"/>
+        <img src="./imgs/search_chuck_img.jpeg" />
         <h1>{{ title }}</h1>
       </div>
       <JokesSearchForm></JokesSearchForm>

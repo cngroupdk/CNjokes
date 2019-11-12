@@ -3,26 +3,26 @@
     <b-row>
       <b-col sm="3" class="listing-col listing-col1">
         <div class="JokesListing">
-            <b-list-group>
-              <b-list-group-item
-                v-if="isUserLogin"
-                variant="dark"
-                @click="chosenCategory = 'favourites'"
-                :class="{ active: 'favourites' === chosenCategory }"
-              >
-                favourites
-              </b-list-group-item>
-              <b-list-group-item
-                v-for="(category, index) in categories"
-                :key="index"
-                variant="dark"
-                href="#"
-                :class="{ active: category === chosenCategory }"
-                @click="chosenCategory = category"
-              >
-                {{ category }}
-              </b-list-group-item>
-            </b-list-group>
+          <b-list-group>
+            <b-list-group-item
+              v-if="isUserLogin"
+              variant="dark"
+              @click="chosenCategory = 'favourites'"
+              :class="{ active: 'favourites' === chosenCategory }"
+            >
+              favourites
+            </b-list-group-item>
+            <b-list-group-item
+              v-for="(category, index) in categories"
+              :key="index"
+              variant="dark"
+              href="#"
+              :class="{ active: category === chosenCategory }"
+              @click="chosenCategory = category"
+            >
+              {{ category }}
+            </b-list-group-item>
+          </b-list-group>
         </div>
       </b-col>
       <b-col class="listing-col listing-col2">
@@ -31,7 +31,7 @@
             <li v-for="(joke, id) in jokes" :key="id">
               {{ joke.value }}
               <img
-                v-if="isUserLogin && (!usersLikedJokesID.includes(joke.id))"
+                v-if="isUserLogin && !usersLikedJokesID.includes(joke.id)"
                 v-on:click="likeJokeClick(joke.id)"
                 src="../imgs/thumb_up.png"
                 alt="thumbUp"
@@ -108,7 +108,6 @@ export default {
       }
     },
     getJokes(data) {
-      console.log("JokesListing data from Api", data)
       this.numberOfResults = data[data.length - 1];
       this.jokes = data.slice(0, data.length - 1);
     },
@@ -120,19 +119,18 @@ export default {
       );
     },
     likedJokeResponse(data) {
-      if(data.response){
-          api.fetchLikedJokesID(
-              this.getLikedJokesID,
-              this.$store.state.loginUser,
-            );
-          if(this.chosenCategory === "favourites") {
-            this.fetchJokesFromApi();
-          }
+      if (data.response) {
+        api.fetchLikedJokesID(
+          this.getLikedJokesID,
+          this.$store.state.loginUser
+        );
+        if (this.chosenCategory === "favourites") {
+          this.fetchJokesFromApi();
+        }
       }
     },
     getLikedJokesID(response) {
-    console.log(response)
-    this.$store.commit("updateUsersLikedJokesID", response)
+      this.$store.commit("updateUsersLikedJokesID", response);
     },
     dislikeJokeClick(jokeID) {
       api.removeLikedJoke(
@@ -203,6 +201,6 @@ export default {
   margin-left: 5rem;
 }
 ul {
-  list-style-image: url('../imgs/kick.png')
+  list-style-image: url("../imgs/kick.png");
 }
 </style>

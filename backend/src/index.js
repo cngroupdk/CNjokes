@@ -10,14 +10,11 @@ import { getLikedJokes } from "./modules/users_modules/getLikedJokes.js";
 import { getLikedJokesID } from "./modules/users_modules/getLikedJokesID.js";
 import { clientConnect } from "./modules/db_modules/dbClientConnect.js";
 
-
 const app = express();
 let cors = require("cors");
 app.use(cors());
 
-clientConnect();                                                    //database connection
-
-
+clientConnect(); //database connection
 
 app.get("/jokes/categories", async (req, res) => {
   return res.json(getCategories());
@@ -79,7 +76,7 @@ app.get("/jokes/getlikedjokes/:userName/:pageNumber", async (req, res) => {
 });
 
 app.get("/jokes/getlikedjokesID/:userName/", async (req, res) => {
-  const result = await getLikedJokesID(req.params.userName)
+  const result = await getLikedJokesID(req.params.userName);
   return res.json(result);
 });
 
