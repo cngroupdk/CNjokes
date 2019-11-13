@@ -54,14 +54,6 @@
 import { api } from "../modules/api.js";
 export default {
   name: "JokesSearchForm",
-  created() {
-    api.fetchCategories(this.setCategories);
-  },
-  methods: {
-    setCategories(data) {
-      this.$store.commit("updateCategories", data);
-    }
-  },
   computed: {
     searchInputText: {
       get() {

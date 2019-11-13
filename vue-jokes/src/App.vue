@@ -1,41 +1,18 @@
 <template>
   <div id="app" class="jokes-app">
     <JokesHeader></JokesHeader>
-    <div v-if="chosenTab === 'Search'">
-      <div class="jokes-title">
-        <img src="./imgs/search_chuck_img.jpeg" />
-        <h1>{{ title }}</h1>
-      </div>
-      <JokesSearchForm></JokesSearchForm>
-      <JokesSearchList></JokesSearchList>
-    </div>
-    <div v-if="chosenTab === 'Listing'">
-      <JokesListing></JokesListing>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import JokesHeader from "./components/JokesHeader.vue";
-import JokesSearchList from "./components/JokesSearchList.vue";
-import JokesSearchForm from "./components/JokesSearchForm.vue";
-import JokesListing from "./components/JokesListing.vue";
-import { mapState } from "vuex";
 
 export default {
   name: "app",
   components: {
-    JokesSearchList,
-    JokesSearchForm,
     JokesHeader,
-    JokesListing
-  },
-  data() {
-    return {
-      title: "Search"
-    };
-  },
-  computed: mapState(["chosenTab"])
+  }
 };
 </script>
 

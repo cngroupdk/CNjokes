@@ -3,13 +3,11 @@
     <b-navbar type="dark" variant="dark">
       <b-navbar-nav>
         <b-navbar-brand>Jokes App</b-navbar-brand>
-        <b-nav-item
-          v-for="(tab, index) in tabs"
-          :key="index"
-          :class="{ ChosenTab: tab === chosenTab }"
-          @click="$store.commit('updateChosenTab', tab)"
-        >
-          {{ tab }}
+        <b-nav-item>
+          <router-link to='/'>Search</router-link>
+        </b-nav-item>
+        <b-nav-item>
+          <router-link to='/listing'>Listing</router-link>
         </b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
@@ -35,12 +33,17 @@
 <script>
 import JokesLoginWindow from "./JokesLoginWindow.vue";
 import JokesSignUpWindow from "./JokesSignUpWindow.vue";
+import { api } from "../modules/api.js";
+
 
 export default {
   name: "JokesHeader",
   components: {
     JokesSignUpWindow,
     JokesLoginWindow
+  },
+  created() {
+    api.fetchCategories(this.setCategories);
   },
   data() {
     return {
@@ -57,6 +60,9 @@ export default {
   methods: {
     logout() {
       this.$store.commit("updateLoginUser", "");
+    },
+    setCategories(data) {
+      this.$store.commit("updateCategories", data);
     }
   }
 };
