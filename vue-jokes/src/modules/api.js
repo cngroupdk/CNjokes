@@ -25,12 +25,34 @@ export const api = {
       .then(data => callback([...data]));
   },
   createProfile: (callback, userName, userPassword) => {
-    fetch(`${API_URL}createprofile/${userName}/${userPassword}`)
+    const dataToSend = JSON.stringify({
+      userName: userName,
+      userPassword: userPassword
+    });
+    fetch(`${API_URL}createprofile`, {
+      method: "POST",
+      json: true,
+      body: dataToSend,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
       .then(response => response.json())
       .then(data => callback(data));
   },
   loginProfile: (callback, userName, userPassword) => {
-    fetch(`${API_URL}login/${userName}/${userPassword}`)
+    const dataToSend = JSON.stringify({
+      userName: userName,
+      userPassword: userPassword
+    });
+    fetch(`${API_URL}login`, {
+      method: "POST",
+      json: true,
+      body: dataToSend,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
       .then(response => response.json())
       .then(data => callback(data));
   },

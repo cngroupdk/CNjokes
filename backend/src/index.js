@@ -1,4 +1,5 @@
 import express from "express";
+import bodyParser from "body-parser";
 import { getJokesByCategory } from "./modules/jokes_modules/getJokesByCategory.js";
 import { getRandomiseJokesFromDatabase } from "./modules/jokes_modules/getRandomiseJokesFromDatabase.js";
 import { createProfile } from "./modules/users_modules/createProfile";
@@ -13,6 +14,9 @@ import { clientConnect } from "./modules/db_modules/dbClientConnect.js";
 const app = express();
 let cors = require("cors");
 app.use(cors());
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 clientConnect(); //database connection
 
@@ -31,7 +35,10 @@ app.get(
 app.get(
   "/jokes/bycategory/:selectedCategory/:numberOfPage",
   async (req, res) => {
-    const result = await getJokesByCategory(req.params.selectedCategory, req.params.numberOfPage);
+    const result = await getJokesByCategory(
+      req.params.selectedCategory,
+      req.params.numberOfPage
+    );
     return res.json(result);
   }
 );
@@ -41,24 +48,40 @@ app.get("/jokes/createprofile/:userName/:userPassword", async (req, res) => {
   return res.json(result);
 });
 
-app.get("/jokes/login/:userName/:userPassword", async (req, res) => {
-  const result = await loginProfile(req.params);
+app.post("/jokes/createprofile", async (req, res) => {
+  const result = await createProfile(req.body);
+  return res.json(result);
+});
+
+app.post("/jokes/login", async (req, res) => {
+  console.log(req.body);
+  console.log(req.body.userName, req.body.userPassword);
+  const result = await loginProfile(req.body);
   return res.json(result);
 });
 
 app.get("/jokes/addliked/:userName/:jokeID", async (req, res) => {
-  const result = await addLikedJokeToUser(req.params.userName, req.params.jokeID)
-  
+  const result = await addLikedJokeToUser(
+    req.params.userName,
+    req.params.jokeID
+  );
+
   return res.json(result);
 });
 
 app.get("/jokes/removeliked/:userName/:jokeID", async (req, res) => {
-  const result = await removeLikedJokeFromUser(req.params.userName, req.params.jokeID);
+  const result = await removeLikedJokeFromUser(
+    req.params.userName,
+    req.params.jokeID
+  );
   return res.json(result);
 });
 
 app.get("/jokes/getlikedjokes/:userName/:pageNumber", async (req, res) => {
-  const result = await getLikedJokes(req.params.userName, req.params.pageNumber)
+  const result = await getLikedJokes(
+    req.params.userName,
+    req.params.pageNumber
+  );
   return res.json(result);
 });
 
