@@ -1,4 +1,4 @@
-import { getUsersCollection } from "../db_modules/dbClientConnect.js";
+import { getUsersCollection } from "../../libs/dbClientConnect.js";
 import bcrypt from "bcryptjs";
 
 export const createProfile = async loginParams => {

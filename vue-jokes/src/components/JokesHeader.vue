@@ -4,10 +4,10 @@
       <b-navbar-nav>
         <b-navbar-brand>Jokes App</b-navbar-brand>
         <b-nav-item>
-          <router-link to='/'>Search</router-link>
+          <router-link to="/">Search</router-link>
         </b-nav-item>
         <b-nav-item>
-          <router-link to='/listing'>Listing</router-link>
+          <router-link to="/listing">Listing</router-link>
         </b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
@@ -34,7 +34,6 @@
 import JokesLoginWindow from "./JokesLoginWindow.vue";
 import JokesSignUpWindow from "./JokesSignUpWindow.vue";
 import { api } from "../modules/api.js";
-
 
 export default {
   name: "JokesHeader",

@@ -1,4 +1,4 @@
-import { getJokesCollection } from "../db_modules/dbClientConnect.js";
+import { getJokesCollection } from "../../libs/dbClientConnect.js";
 
 export const getRandomiseJokesFromDatabase = async objOfParams => {
   const jokesCollection = getJokesCollection();

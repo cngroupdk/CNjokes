@@ -1,4 +1,4 @@
-import { getJokesCollection } from "../db_modules/dbClientConnect.js";
+import { getJokesCollection } from "../../libs/dbClientConnect.js";
 
 export const getJokesByCategory = async (selectedCategory, numberOfPage) => {
   const jokesCollection = getJokesCollection();

@@ -11,7 +11,7 @@ import JokesHeader from "./components/JokesHeader.vue";
 export default {
   name: "app",
   components: {
-    JokesHeader,
+    JokesHeader
   }
 };
 </script>

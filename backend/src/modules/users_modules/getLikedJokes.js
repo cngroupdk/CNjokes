@@ -1,4 +1,4 @@
-import { getJokesCollection } from "../db_modules/dbClientConnect.js";
+import { getJokesCollection } from "../../libs/dbClientConnect.js";
 import { getLikedJokesID } from "./getLikedJokesID";
 
 export const getLikedJokes = async (userName, numberOfPage) => {
