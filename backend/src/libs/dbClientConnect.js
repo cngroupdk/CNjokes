@@ -2,21 +2,22 @@ const MongoClient = require("mongodb").MongoClient;
 const assert = require("assert");
 let database;
 
-// Connection URL
-const url = "mongodb://localhost:27017";
+// Connection URL localhost
+const URL = "mongodb://localhost:27017";
+
+// Connection URL to Atlas Cluster
+//const URL = "mongodb+srv://Milan:<something>@cluster0-da7kk.mongodb.net/test?retryWrites=true&w=majority"
 
 // Database Name
 const dbName = "jokesServerDB";
 
 // Create a new MongoClient
-const client = new MongoClient(url);
+const client = new MongoClient(URL, { useNewUrlParser: true });
 
 export const clientConnect = () => {
-  client.connect(function(err) {
-    assert.equal(null, err);
-    console.log("Database successfully connected to server");
-
+  client.connect(err => {
     database = client.db(dbName);
+    // perform actions on the collection object
   });
 };
 

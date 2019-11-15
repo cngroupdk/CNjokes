@@ -1,6 +1,6 @@
 import { Router } from "express";
-import jokesRoutes from "./modules/jokes_modules/jokesRoutes.js";
-import usersRoutes from "./modules/users_modules/usersRoutes.js";
+import jokesRoutes from "../modules/jokes_modules/jokesRoutes.js";
+import usersRoutes from "../modules/users_modules/usersRoutes.js";
 
 const router = Router();
 

@@ -1,4 +1,5 @@
 import { Router } from "express";
+import auth from "../../routes/auth";
 import { createProfile } from "./createProfile";
 import { loginProfile } from "./loginProfile";
 import { addLikedJokeToUser } from "./addLikedJokeToUser";
@@ -8,7 +9,7 @@ import { getLikedJokesID } from "./getLikedJokesID";
 
 const router = Router();
 
-router.post("/createprofile", async (req, res) => {
+router.post("/createprofile", auth.optional, async (req, res, next) => {
   const result = await createProfile(req.body);
   return res.json(result);
 });
