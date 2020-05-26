@@ -1,0 +1,8 @@
+26.5.2020 -> Lukas, Piotr, Jakub
+Agenda:
+    - App will display random CN joke
+        - fetch data from API
+            - find out how to fetch data in react without hooks and without external libraries
+        - create some component for the joke
+        - connect data to the component
+        - create some simple view (optional)
